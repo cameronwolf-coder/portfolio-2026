@@ -161,8 +161,8 @@ export default function Home() {
 
       <Navbar />
 
-      {/* ===== HERO (DARK) ===== */}
-      <section className="section-dark relative min-h-screen px-6 md:px-[71px] pt-32 pb-20 flex items-center overflow-hidden">
+      {/* ===== HERO (LIGHT) ===== */}
+      <section className="section-light relative min-h-screen px-6 md:px-[71px] pt-32 pb-20 flex items-center overflow-hidden">
         {/* Parallax background orb */}
         <motion.div
           className="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-maroon/5 blur-3xl"
@@ -189,7 +189,7 @@ export default function Home() {
 
                 {/* Headline */}
                 <motion.h1
-                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] mb-8 text-dark-text"
+                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] mb-8 text-light-text"
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
@@ -208,7 +208,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                  <p className="text-lg text-dark-muted leading-relaxed">
+                  <p className="text-lg text-light-muted leading-relaxed">
                     A technical brain in a non-technical role. I design and build
                     the automation infrastructure that turns marketing into a
                     self-running lead machine — CRM logic, attribution models,
@@ -216,43 +216,17 @@ export default function Home() {
                   </p>
                 </motion.div>
 
-                {/* Metrics */}
-                <motion.div
-                  className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                  {[
-                    { value: "2,000%", label: "Audience Growth", color: "text-maroon-light" },
-                    { value: "400K", label: "Users Year 1", color: "text-teal-light" },
-                    { value: "100%", label: "YoY Revenue", color: "text-gold" },
-                    { value: "0", label: "Manual Bottlenecks", color: "text-teal-light" },
-                  ].map((metric) => (
-                    <div key={metric.label}>
-                      <div
-                        className={`text-3xl sm:text-4xl font-black tabular-nums ${metric.color}`}
-                      >
-                        {metric.value}
-                      </div>
-                      <div className="text-xs sm:text-sm text-dark-muted mt-1">
-                        {metric.label}
-                      </div>
-                    </div>
-                  ))}
-                </motion.div>
-
                 {/* CTAs */}
                 <motion.div
                   className="flex flex-wrap gap-4 mt-10"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.9 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
                 >
                   <PillButton href="#portfolio" variant="primary" showArrow>
                     See My Work
                   </PillButton>
-                  <PillButton href="#contact" variant="outline-light" showArrow>
+                  <PillButton href="#contact" variant="outline" showArrow>
                     Get in Touch
                   </PillButton>
                 </motion.div>

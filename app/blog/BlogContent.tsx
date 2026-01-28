@@ -52,9 +52,8 @@ export default function BlogContent({ posts }: { posts: BlogPost[] }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            THOUGHTS ON<br />
-            <span className="text-maroon-light">GROWTH</span> &{" "}
-            <span className="text-teal-light">SYSTEMS</span>
+            HONEST<br />
+            <span className="text-maroon-light">THOUGHTS</span>
           </motion.h1>
 
           <motion.p
@@ -63,8 +62,8 @@ export default function BlogContent({ posts }: { posts: BlogPost[] }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Deep dives into MarTech infrastructure, growth engineering, and the
-            systems that drive acquisition-ready scale.
+            Personal accounts on mental health, inner thinkings, and the stuff
+            that doesn&apos;t fit in a LinkedIn post.
           </motion.p>
 
           <motion.div
@@ -188,8 +187,8 @@ export default function BlogContent({ posts }: { posts: BlogPost[] }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Get insights on growth systems, MarTech infrastructure, and the
-              engineering behind acquisition-ready scale.
+              New posts on mental health, personal growth, and the things
+              worth saying out loud.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

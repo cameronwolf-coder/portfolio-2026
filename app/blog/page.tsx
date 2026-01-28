@@ -2,9 +2,9 @@ import { fetchBlogPosts } from "./lib/fetchPosts";
 import BlogContent from "./BlogContent";
 
 export const metadata = {
-  title: "Blog | Cameron Wolf - Growth Systems & MarTech Insights",
+  title: "Blog | Cameron Wolf - Honest Thoughts",
   description:
-    "Deep dives into MarTech infrastructure, growth engineering, and the systems that drive acquisition-ready scale.",
+    "Personal accounts on mental health, inner thinkings, and the stuff that doesn't fit in a LinkedIn post.",
 };
 
 export default async function BlogPage() {
