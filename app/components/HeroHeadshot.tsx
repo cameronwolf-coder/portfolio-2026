@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function HeroHeadshot() {
   return (
@@ -18,16 +19,15 @@ export default function HeroHeadshot() {
       <div className="absolute inset-2 rounded-full border border-maroon/10" />
 
       {/* Headshot circle */}
-      <div className="absolute inset-[10%] rounded-full bg-dark-card border-2 border-dark-border overflow-hidden flex items-center justify-center">
-        {/* Placeholder initials - replace with <Image> when headshot available */}
-        <div className="text-center">
-          <span className="text-6xl md:text-7xl font-black text-maroon-light/80">
-            CW
-          </span>
-          <p className="text-dark-muted text-xs font-mono mt-2">
-            Photo coming soon
-          </p>
-        </div>
+      <div className="absolute inset-[10%] rounded-full bg-dark-card border-2 border-dark-border overflow-hidden">
+        <Image
+          src="/headshot.jpg"
+          alt="Cameron Wolf"
+          fill
+          className="object-cover"
+          priority
+          sizes="(max-width: 768px) 224px, 304px"
+        />
       </div>
 
       {/* Floating badge */}
