@@ -99,7 +99,7 @@ const growthStories = [
     title: "Content as Growth Engine",
     company: "Sweet Express",
     description:
-      "Transformed marketing from cost center to revenue driver. Built a zero-touch content system that processed 400,000 users in 12 months, turning editorial strategy into scalable user acquisition.",
+      "Built a regional trucking company's entire digital presence from scratch. Launched a recruitment portal, e-commerce store, and social brand that drove 400,000 users in 12 months and a brand presence unmatched in Michigan.",
     metrics: [
       { value: "2,000%", label: "Audience" },
       { value: "400K", label: "Users" },

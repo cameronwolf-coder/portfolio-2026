@@ -47,25 +47,25 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "sweet-express",
     company: "Sweet Express",
-    role: "Director of Digital Marketing",
-    period: "2019 – 2021",
+    role: "Marketing Manager",
+    period: "February 2019 – April 2021",
     summary:
-      "Grew a food brand from zero digital presence to 400K users in 12 months with $0 in ad spend.",
+      "Built a regional trucking company's entire digital presence from scratch, driving 2,000% audience growth and 400K portal users in the first year.",
     icon: TrendingUp,
     accent: "teal",
     metrics: [
       { value: "2,000%", label: "Audience Growth" },
       { value: "400K", label: "First-Year Users" },
-      { value: "$0", label: "Ad Spend" },
+      { value: "15%+", label: "Engagement Rate" },
     ],
     situation:
-      "Sweet Express was a food and consumer brand with no digital marketing presence, entirely reliant on word-of-mouth and local reputation. There was no website strategy, no content pipeline, no social media system, and no way to measure what was working. The brand had loyal customers but no scalable way to reach new ones.",
+      "Sweet Express was a regional trucking company in Michigan with no digital marketing presence. The brand had a strong local reputation but no social media footprint, no recruitment portal, and no scalable way to attract new drivers or build brand awareness beyond word-of-mouth.",
     insight:
-      "The category had zero quality content. Nobody (not competitors, not media outlets, not influencers) was creating educational or entertainment content in the space. That meant a massive organic opportunity at $0 cost. If we built the content system first and let distribution follow, we could own the category conversation without spending a dollar on ads.",
+      "Trucking companies in the region weren't investing in brand or digital presence. The competitive landscape was wide open online. A strong social and content strategy paired with a recruitment-focused portal could differentiate Sweet Express from every other carrier in Michigan and turn digital presence into a real driver of revenue and recruitment.",
     action:
-      "Built a zero-touch content system from scratch: editorial calendar, production workflow, and distribution across every relevant channel. Launched a user portal that turned one-time visitors into repeat users. Managed social media to 15%+ engagement rates across 25K+ followers, well above industry benchmarks. Every piece of content was designed to educate, entertain, and convert, in that order.",
+      "Built the entire social media presence and brand from scratch. Launched an onboarding portal focused on driver recruitment that streamlined the hiring pipeline. Built an e-commerce store and managed social media to 15%+ engagement rates across 25K+ followers. Created a content system that positioned Sweet Express as a brand, not just a carrier.",
     result:
-      "2,000% audience growth. 400,000 users in the first 12 months. $0 in ad spend. The content engine became the primary growth driver, proving that category-defining content beats paid acquisition when nobody else is creating anything worth reading.",
+      "2,000% audience growth. 400,000 portal users in the first 12 months. Increased revenue year over year and established a brand presence that few competitors in Michigan could rival. Proved that even in a traditional industry, digital-first brand building drives real business outcomes.",
   },
   {
     slug: "truv",
