@@ -3,10 +3,6 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
 import {
-  Rocket,
-  TrendingUp,
-  Building2,
-  RefreshCw,
   Target,
   Mic,
   BarChart3,
@@ -82,7 +78,8 @@ const capabilities = [
 const growthStories = [
   {
     slug: "zappyride",
-    icon: Rocket,
+    logo: "/logos/jdpower.svg",
+    logoBg: false,
     title: "From Startup to Acquisition",
     company: "ZappyRide → J.D. Power",
     description:
@@ -95,7 +92,8 @@ const growthStories = [
   },
   {
     slug: "sweet-express",
-    icon: TrendingUp,
+    logo: "/logos/sweet-express.png",
+    logoBg: true,
     title: "Content as Growth Engine",
     company: "Sweet Express",
     description:
@@ -109,7 +107,8 @@ const growthStories = [
   },
   {
     slug: "truv",
-    icon: Building2,
+    logo: "/logos/truv.svg",
+    logoBg: false,
     title: "Enterprise Brand at Velocity",
     company: "Truv · Series B SaaS",
     description:
@@ -123,7 +122,8 @@ const growthStories = [
   },
   {
     slug: "inspiration-mobility",
-    icon: RefreshCw,
+    logo: "/logos/inspiration-mobility.svg",
+    logoBg: false,
     title: "Marketing Infrastructure Overhaul",
     company: "Inspiration Mobility",
     description:
@@ -257,13 +257,10 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {growthStories.map((story, i) => {
-              const Icon = story.icon;
               const accentText =
                 story.accent === "maroon"
                   ? "text-maroon-light"
                   : "text-teal-light";
-              const accentBg =
-                story.accent === "maroon" ? "bg-maroon/10" : "bg-teal/10";
 
               return (
                 <Link
@@ -272,7 +269,7 @@ export default function Home() {
                   className="block"
                 >
                   <motion.div
-                    className="group card-rounded card-dark p-6 sm:p-8 h-full"
+                    className="group card-rounded p-6 sm:p-8 h-full bg-[#1a1a22] border border-[#2a2a35] hover:bg-[#1f1f29] hover:border-[#3a3a48] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all duration-300"
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }}
@@ -280,11 +277,20 @@ export default function Home() {
                   >
                     <div className="flex items-start justify-between mb-5">
                       <div
-                        className={`w-12 h-12 rounded-2xl ${accentBg} flex items-center justify-center`}
+                        className={`h-10 flex items-center ${
+                          story.logoBg
+                            ? "bg-white rounded-xl px-2 py-1"
+                            : ""
+                        }`}
                       >
-                        <Icon size={24} className={accentText} />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={story.logo}
+                          alt={story.company}
+                          className="h-7 w-auto object-contain"
+                        />
                       </div>
-                      <div className="w-10 h-10 rounded-full border border-dark-border flex items-center justify-center group-hover:border-maroon-light/50 transition-colors">
+                      <div className="w-10 h-10 rounded-full border border-[#2a2a35] flex items-center justify-center group-hover:border-maroon-light/50 transition-colors">
                         <ArrowUpRight
                           size={16}
                           className="text-dark-muted group-hover:text-maroon-light arrow-rotate"
@@ -303,7 +309,7 @@ export default function Home() {
                       {story.description}
                     </p>
 
-                    <div className="pt-5 border-t border-dark-border grid grid-cols-3 gap-4 text-center">
+                    <div className="pt-5 border-t border-[#2a2a35] grid grid-cols-3 gap-4 text-center">
                       {story.metrics.map((m) => (
                         <div key={m.label}>
                           <div
