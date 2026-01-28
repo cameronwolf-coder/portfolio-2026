@@ -1,8 +1,8 @@
 "use client";
 
+import { useEffect, useCallback } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Script from "next/script";
-import { ArrowUpRight } from "lucide-react";
 import Navbar from "../components/Navbar";
 import PillButton from "../components/PillButton";
 import Footer from "../components/Footer";
@@ -20,9 +20,30 @@ function formatDate(dateStr: string): string {
   }
 }
 
+const instagramPosts = [
+  "https://www.instagram.com/p/C2NyKQ4vekA/",
+  "https://www.instagram.com/p/CxMLphwrFGP/",
+  "https://www.instagram.com/p/CY0DSM8LFf1/",
+];
+
 export default function MediaContent({ videos }: { videos: YouTubeVideo[] }) {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
+  const processEmbeds = useCallback(() => {
+    if (
+      typeof window !== "undefined" &&
+      "instgrm" in window &&
+      (window as unknown as { instgrm: { Embeds: { process: () => void } } }).instgrm
+    ) {
+      (window as unknown as { instgrm: { Embeds: { process: () => void } } }).instgrm.Embeds.process();
+    }
+  }, []);
+
+  useEffect(() => {
+    // Process embeds if script already loaded
+    processEmbeds();
+  }, [processEmbeds]);
 
   return (
     <div className="min-h-screen">
@@ -30,6 +51,7 @@ export default function MediaContent({ videos }: { videos: YouTubeVideo[] }) {
       <Script
         src="https://www.instagram.com/embed.js"
         strategy="lazyOnload"
+        onLoad={processEmbeds}
       />
 
       {/* Progress Indicator */}
@@ -188,39 +210,19 @@ export default function MediaContent({ videos }: { videos: YouTubeVideo[] }) {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {/* Instagram Embed Placeholders - replace URLs with actual post URLs */}
-            {[
-              "https://www.instagram.com/wolfbrosmedia/",
-              "https://www.instagram.com/wolfbrosmedia/",
-              "https://www.instagram.com/wolfbrosmedia/",
-            ].map((url, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
+            {instagramPosts.map((url, i) => (
               <motion.div
-                key={i}
-                className="card-rounded card-dark p-6 flex flex-col items-center justify-center min-h-[300px]"
+                key={url}
+                className="min-w-0 overflow-hidden"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-maroon to-teal mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-2xl font-black text-white">W</span>
-                  </div>
-                  <p className="text-dark-muted text-sm mb-4">
-                    @wolfbrosmedia
-                  </p>
-                  <a
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-teal-light hover:text-teal transition-colors"
-                  >
-                    View on Instagram
-                    <ArrowUpRight size={14} />
-                  </a>
-                </div>
-              </motion.div>
+                dangerouslySetInnerHTML={{
+                  __html: `<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="${url}?utm_source=ig_embed" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:0; max-width:540px; min-width:280px; padding:0; width:100%;"><div style="padding:16px;"><a href="${url}?utm_source=ig_embed" style="background:#FFFFFF; line-height:0; padding:0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="padding:19% 0;"></div><div style="display:block; height:50px; margin:0 auto 12px; width:50px;"></div><div style="padding-top:8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div></a></div></blockquote>`,
+                }}
+              />
             ))}
           </div>
         </div>
