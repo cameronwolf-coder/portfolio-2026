@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Cameron Wolf | Technical Brain, Marketing Leader",
-  description: "A technical brain in a non-technical role. Growth leader who builds CRM architecture, automation workflows, and attribution models — and facilitated the acquisition of ZappyRide by J.D. Power.",
+  description: "A technical brain in a non-technical role. Growth leader who builds CRM architecture, automation workflows, and attribution models. Facilitated the acquisition of ZappyRide by J.D. Power.",
   keywords: ["growth marketing", "martech", "acquisition", "technical marketing", "ZappyRide", "J.D. Power", "marketing technology", "CRM architecture", "marketing automation"],
   authors: [{ name: "Cameron Wolf" }],
   openGraph: {

@@ -409,7 +409,7 @@ export default function Home() {
                 <div className="mb-6">
                   <h4 className="font-semibold text-lg mb-2">Outcome</h4>
                   <p className="text-sm sm:text-base text-dark-muted leading-relaxed">
-                    Built the growth engine that delivered hundreds of qualified leads converting into recurring revenue — ultimately leading to acquisition by J.D. Power.
+                    Built the growth engine that delivered hundreds of qualified leads converting into recurring revenue, ultimately leading to acquisition by J.D. Power.
                   </p>
                 </div>
 

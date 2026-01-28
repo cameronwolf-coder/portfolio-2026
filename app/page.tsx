@@ -99,7 +99,7 @@ const growthStories = [
     title: "Content as Growth Engine",
     company: "Sweet Express",
     description:
-      "Transformed marketing from cost center to revenue driver. Built a zero-touch content system that processed 400,000 users in 12 months—turning editorial strategy into scalable user acquisition.",
+      "Transformed marketing from cost center to revenue driver. Built a zero-touch content system that processed 400,000 users in 12 months, turning editorial strategy into scalable user acquisition.",
     metrics: [
       { value: "2,000%", label: "Audience" },
       { value: "400K", label: "Users" },
@@ -214,7 +214,7 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
                   <p className="text-lg text-light-muted leading-relaxed">
-                    Most marketers strategize. I strategize AND build — CRM
+                    Most marketers strategize. I strategize AND build: CRM
                     architecture, automation workflows, attribution models, and
                     growth systems that run themselves. From stealth startup to
                     J.D. Power acquisition.

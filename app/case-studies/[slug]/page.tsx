@@ -17,10 +17,10 @@ export async function generateMetadata({
   const cs = getCaseStudy(slug);
   if (!cs) return { title: "Case Study Not Found" };
   return {
-    title: `${cs.company} — Cameron Wolf`,
+    title: `${cs.company} | Cameron Wolf`,
     description: cs.summary,
     openGraph: {
-      title: `${cs.company} Case Study — Cameron Wolf`,
+      title: `${cs.company} Case Study | Cameron Wolf`,
       description: cs.summary,
       type: "article",
     },

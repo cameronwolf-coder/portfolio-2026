@@ -17,7 +17,7 @@ const experiences: TimelineEntry[] = [
     role: "Senior Marketing Manager",
     period: "September 2025 - Present",
     description:
-      "Leading AI as a bleeding-edge counterpart to scaling marketing campaigns. Building automation systems that unlock capabilities previously impossible to automate — turning manual marketing processes into intelligent, self-running infrastructure.",
+      "Leading AI as a bleeding-edge counterpart to scaling marketing campaigns. Building automation systems that unlock capabilities previously impossible to automate, turning manual marketing processes into intelligent, self-running infrastructure.",
     achievements: [
       "AI-driven automation",
       "Campaign scaling",

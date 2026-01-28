@@ -6,7 +6,7 @@ import { Quote } from "lucide-react";
 const testimonials = [
   {
     quote:
-      "Cameron doesn't just execute marketing — he builds the systems that make marketing execute itself. His technical depth is rare in a growth leader.",
+      "Cameron doesn't just execute marketing. He builds the systems that make marketing execute itself. His technical depth is rare in a growth leader.",
     name: "Former Executive",
     title: "VP, J.D. Power / ZappyRide",
   },
@@ -18,7 +18,7 @@ const testimonials = [
   },
   {
     quote:
-      "He turned our marketing from a cost center into a growth engine. The infrastructure he built is still running — and still compounding.",
+      "He turned our marketing from a cost center into a growth engine. The infrastructure he built is still running, and still compounding.",
     name: "Former Stakeholder",
     title: "Founder & CEO",
   },
