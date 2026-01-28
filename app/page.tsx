@@ -194,11 +194,11 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
                 >
-                  I BUILD BRANDS
+                  I BUILD THE
                   <br />
-                  THAT <span className="text-maroon-light">SCALE</span> AND
+                  <span className="text-maroon-light">ENGINES</span> THAT
                   <br />
-                  STORIES THAT SELL.
+                  GENERATE DEMAND.
                 </motion.h1>
 
                 {/* Description */}
@@ -209,9 +209,10 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
                   <p className="text-lg text-dark-muted leading-relaxed">
-                    From zero to acquisition. From quiet to dominant. I architect
-                    growth strategies that turn overlooked companies into category
-                    leaders.
+                    A technical brain in a non-technical role. I design and build
+                    the automation infrastructure that turns marketing into a
+                    self-running lead machine — CRM logic, attribution models,
+                    and growth systems that compound without manual intervention.
                   </p>
                 </motion.div>
 
@@ -226,7 +227,7 @@ export default function Home() {
                     { value: "2,000%", label: "Audience Growth", color: "text-maroon-light" },
                     { value: "400K", label: "Users Year 1", color: "text-teal-light" },
                     { value: "100%", label: "YoY Revenue", color: "text-gold" },
-                    { value: "1", label: "Acquisition Exit", color: "text-maroon-light" },
+                    { value: "0", label: "Manual Bottlenecks", color: "text-teal-light" },
                   ].map((metric) => (
                     <div key={metric.label}>
                       <div
@@ -249,7 +250,7 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.9 }}
                 >
                   <PillButton href="#portfolio" variant="primary" showArrow>
-                    View The Exit Story
+                    See My Work
                   </PillButton>
                   <PillButton href="#contact" variant="outline-light" showArrow>
                     Get in Touch
@@ -266,117 +267,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== EXIT STORY (LIGHT) ===== */}
-      <section id="portfolio" className="section-light py-20 sm:py-28 px-6 md:px-[71px]">
-        <div className="max-w-[1400px] mx-auto">
-          <SectionHeader
-            badge="THE EXIT STORY"
-            headline="Built a Category-Defining Podcast"
-            subtitle="ZappyRide needed credibility in a crowded, skeptical EV market. Traditional marketing wasn't enough."
-          />
-
-          <div className="grid md:grid-cols-2 gap-8 mt-12">
-            {/* Thought Leadership Card */}
-            <motion.div
-              className="card-rounded card-light p-8 sm:p-10"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="w-14 h-14 rounded-2xl bg-maroon/10 flex items-center justify-center mb-6">
-                <Mic size={28} className="text-maroon-light" />
-              </div>
-              <h3 className="text-2xl font-bold text-light-text mb-3">
-                Thought Leadership
-              </h3>
-              <p className="text-light-muted leading-relaxed mb-6">
-                Created ZappyCast — a weekly podcast featuring industry leaders,
-                Tesla engineers, policy makers, and EV pioneers. Not as a
-                &ldquo;marketing channel,&rdquo; but as genuine thought
-                leadership.
-              </p>
-              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-light-border">
-                <div>
-                  <div className="text-3xl font-black text-maroon tabular-nums">
-                    50+
-                  </div>
-                  <div className="text-sm text-light-muted">Episodes</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-black text-teal tabular-nums">
-                    100K+
-                  </div>
-                  <div className="text-sm text-light-muted">Listeners</div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Growth Infrastructure Card */}
-            <motion.div
-              className="card-rounded card-light p-8 sm:p-10"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-            >
-              <div className="w-14 h-14 rounded-2xl bg-teal/10 flex items-center justify-center mb-6">
-                <TrendingUp size={28} className="text-teal-light" />
-              </div>
-              <h3 className="text-2xl font-bold text-light-text mb-3">
-                Growth Infrastructure
-              </h3>
-              <p className="text-light-muted leading-relaxed mb-6">
-                Became the most-cited EV podcast in the industry. Drove inbound
-                partnerships, press coverage, and positioned ZappyRide as the
-                authority — ultimately contributing to the J.D. Power acquisition.
-              </p>
-              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-light-border">
-                <div>
-                  <div className="text-3xl font-black text-maroon tabular-nums">
-                    400K
-                  </div>
-                  <div className="text-sm text-light-muted">Year 1 Users</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-black text-teal tabular-nums">
-                    100%
-                  </div>
-                  <div className="text-sm text-light-muted">YoY Revenue</div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Acquisition Timeline Strip */}
-          <motion.div
-            className="mt-12 flex items-center justify-center gap-4 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-4 h-4 rounded-full bg-maroon" />
-              <div>
-                <p className="text-sm font-bold text-light-text">April 2021</p>
-                <p className="text-xs text-light-muted">ZappyCast Launch</p>
-              </div>
-            </div>
-            <div className="flex-1 max-w-[200px] border-t-2 border-dashed border-light-border" />
-            <div className="flex items-center gap-3">
-              <div className="w-4 h-4 rounded-full bg-teal" />
-              <div>
-                <p className="text-sm font-bold text-light-text">May 2023</p>
-                <p className="text-xs text-light-muted">J.D. Power Acquisition</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ===== GROWTH PORTFOLIO (DARK) ===== */}
-      <section className="section-dark py-20 sm:py-28 px-6 md:px-[71px]">
+      <section id="portfolio" className="section-dark py-20 sm:py-28 px-6 md:px-[71px]">
         <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             badge="GROWTH PORTFOLIO"
