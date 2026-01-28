@@ -13,60 +13,85 @@ interface TimelineEntry {
 
 const experiences: TimelineEntry[] = [
   {
-    company: "Inspiration Mobility",
-    role: "Senior Marketing Manager",
-    period: "2023 - Present",
-    description:
-      "Leading full MarTech migration and deploying custom LLM solutions for enterprise marketing automation.",
-    achievements: [
-      "HubSpot to Salesforce migration",
-      "Custom LLM deployment",
-      "25% ROI lift",
-      "Agentic workflows",
-    ],
-    accent: "maroon",
-  },
-  {
     company: "Truv",
-    role: "Growth Marketing Lead",
-    period: "2022 - 2023",
+    role: "Senior Marketing Manager",
+    period: "September 2025 - Present",
     description:
-      "Built the CRM and automation spine for enterprise growth, implementing deterministic routing and attribution.",
+      "Leading AI as a bleeding-edge counterpart to scaling marketing campaigns. Building automation systems that unlock capabilities previously impossible to automate — turning manual marketing processes into intelligent, self-running infrastructure.",
     achievements: [
-      "Enterprise ABM",
-      "ClickHouse attribution",
-      "Clay enrichment",
-      "SQL-driven routing",
+      "AI-driven automation",
+      "Campaign scaling",
+      "Series B SaaS",
     ],
     accent: "teal",
   },
   {
-    company: "ZappyRide (Acquired by J.D. Power)",
-    role: "Brand & Growth Lead",
-    period: "2019 - 2022",
+    company: "Inspiration Mobility",
+    role: "Marketing Manager",
+    period: "May 2023 - June 2024",
     description:
-      "Facilitated acquisition through strategic growth architecture. Built content, community, and brand infrastructure that drove acquisition value.",
+      "Spearheaded Salesforce Marketing Cloud integration and deployed advanced analytics to achieve a 25% increase in marketing ROI. Led rebranding initiative and cross-department campaign alignment.",
     achievements: [
-      "+2,000% audience growth",
-      "400K year-1 users",
-      "ZappyCast podcast",
-      "J.D. Power acquisition",
+      "Salesforce migration",
+      "25% ROI lift",
+      "Rebranding",
+      "30% engagement increase",
     ],
     accent: "maroon",
+  },
+  {
+    company: "J.D. Power",
+    role: "Marketing Manager",
+    period: "April 2021 - May 2023",
+    description:
+      "Spearheaded full-stack marketing from inception to acquisition. Built brand, website, and ZappyCast podcast from the ground up, driving 100% YoY revenue increase and positioning the company for acquisition.",
+    achievements: [
+      "100% YoY revenue",
+      "ZappyCast podcast",
+      "Brand overhaul",
+      "Acquisition",
+    ],
+    accent: "teal",
   },
   {
     company: "Sweet Express",
-    role: "Marketing Lead",
-    period: "2017 - 2019",
+    role: "Marketing Manager",
+    period: "February 2019 - April 2021",
     description:
-      "Built a zero-touch content engine that scaled to 400K users in 12 months with no ad spend.",
+      "Drove 2,000% audience growth and launched a portal that attracted 400,000 users in year one. Built e-commerce store and managed social media to 15%+ engagement across 25K+ followers.",
     achievements: [
+      "2,000% audience growth",
       "400K users",
-      "$0 ad spend",
-      "Content engine",
-      "100% YoY revenue",
+      "E-commerce launch",
+      "15%+ engagement",
+    ],
+    accent: "maroon",
+  },
+  {
+    company: "Keller Williams Realty",
+    role: "Marketing Director",
+    period: "June 2018 - February 2019",
+    description:
+      "Implemented website optimization strategies that increased click-through and conversion rates by 200%. Created video web series that drove significant traffic growth.",
+    achievements: [
+      "200% conversion lift",
+      "Video web series",
+      "Full-stack marketing",
     ],
     accent: "teal",
+  },
+  {
+    company: "3Sixty Interactive",
+    role: "Digital Marketing Intern",
+    period: "November 2017 - April 2018",
+    description:
+      "Supported client campaigns through Google Analytics and AdWords optimization. Assisted in client acquisition through networking and identified growth strategies.",
+    achievements: [
+      "Google Analytics",
+      "AdWords",
+      "Client acquisition",
+    ],
+    accent: "gold",
   },
 ];
 
