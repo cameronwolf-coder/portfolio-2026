@@ -1,518 +1,587 @@
 "use client";
 
-import { motion, useScroll, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef } from "react";
+import {
+  Rocket,
+  TrendingUp,
+  Building2,
+  RefreshCw,
+  Target,
+  Mic,
+  BarChart3,
+  Lightbulb,
+  Settings,
+  Palette,
+  Mail,
+  Linkedin,
+  ArrowUpRight,
+} from "lucide-react";
+import Navbar from "./components/Navbar";
+import PillButton from "./components/PillButton";
+import SectionHeader from "./components/SectionHeader";
+import HeroHeadshot from "./components/HeroHeadshot";
+import ServiceCard from "./components/ServiceCard";
+import SkillsMarquee from "./components/SkillsMarquee";
+import ExperienceTimeline from "./components/ExperienceTimeline";
+import Footer from "./components/Footer";
 
-// Animated Counter with Tabular Numbers
-function AnimatedCounter({ end, duration = 2, suffix = "", prefix = "" }: { end: number; duration?: number; suffix?: string; prefix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true });
+const capabilities = [
+  {
+    title: "Brand Strategy",
+    description:
+      "Positioning, messaging, and narrative architecture that turns companies into category leaders.",
+    items: ["Positioning", "Category Creation", "Narrative Architecture", "Voice & Tone"],
+    icon: Target,
+    accent: "maroon" as const,
+  },
+  {
+    title: "Content & Media",
+    description:
+      "Podcast production, thought leadership, and editorial strategy that builds authority.",
+    items: ["Podcasting", "Thought Leadership", "Editorial Strategy", "SEO Engines"],
+    icon: Mic,
+    accent: "teal" as const,
+  },
+  {
+    title: "Growth Marketing",
+    description:
+      "Demand generation, ABM, and performance campaigns that convert at scale.",
+    items: ["Demand Gen", "ABM", "Performance", "Conversion Optimization"],
+    icon: BarChart3,
+    accent: "maroon" as const,
+  },
+  {
+    title: "Strategic Frameworks",
+    description:
+      "Jobs-to-be-Done, RICE prioritization, and growth modeling for data-driven decisions.",
+    items: ["JTBD", "RICE", "Growth Modeling", "OKR Development"],
+    icon: Lightbulb,
+    accent: "teal" as const,
+  },
+  {
+    title: "Marketing Operations",
+    description:
+      "CRM strategy, marketing automation, and attribution modeling that scales with the business.",
+    items: ["CRM Strategy", "Automation", "Attribution", "Analytics"],
+    icon: Settings,
+    accent: "maroon" as const,
+  },
+  {
+    title: "Creative Direction",
+    description:
+      "Campaign concepts, visual identity, and website experiences that stand out.",
+    items: ["Campaign Concepts", "Visual Identity", "Web Experience", "Brand Guidelines"],
+    icon: Palette,
+    accent: "teal" as const,
+  },
+];
 
-  useEffect(() => {
-    if (!isInView) return;
-
-    let startTime: number;
-    let animationFrame: number;
-
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / (duration * 1000), 1);
-      setCount(Math.floor(progress * end));
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [end, duration, isInView]);
-
-  return <span ref={ref} className="tabular-nums">{prefix}{count.toLocaleString()}{suffix}</span>;
-}
+const growthStories = [
+  {
+    icon: Rocket,
+    title: "From Startup to Acquisition",
+    company: "ZappyRide → J.D. Power",
+    description:
+      "Led brand, content, and growth for an EV marketplace from stealth to exit. Built the narrative that positioned us as the trusted EV authority, culminating in acquisition by industry giant J.D. Power.",
+    metrics: [
+      { value: "100%", label: "YoY Growth" },
+      { value: "400K", label: "Year 1 Users" },
+      { value: "EXIT", label: "Acquired" },
+    ],
+    accent: "maroon",
+  },
+  {
+    icon: TrendingUp,
+    title: "Content as Growth Engine",
+    company: "Sweet Express",
+    description:
+      "Transformed marketing from cost center to revenue driver. Built a zero-touch content system that processed 400,000 users in 12 months—turning editorial strategy into scalable user acquisition.",
+    metrics: [
+      { value: "2,000%", label: "Audience" },
+      { value: "400K", label: "Users" },
+      { value: "$0", label: "Ad Spend" },
+    ],
+    accent: "teal",
+  },
+  {
+    icon: Building2,
+    title: "Enterprise Brand at Velocity",
+    company: "Truv · Series B SaaS",
+    description:
+      "Positioned a compliance SaaS for rapid enterprise adoption. Built messaging framework, demand gen strategy, and ABM campaigns that turned complex technical products into must-have solutions.",
+    metrics: [
+      { value: "B2B", label: "Enterprise" },
+      { value: "ABM", label: "Strategy" },
+      { value: "Series B", label: "Scale" },
+    ],
+    accent: "maroon",
+  },
+  {
+    icon: RefreshCw,
+    title: "Marketing Infrastructure Overhaul",
+    company: "Inspiration Mobility",
+    description:
+      "Led complete martech migration and introduced AI-powered content workflows. Transformed slow, manual campaigns into intelligent, autonomous systems.",
+    metrics: [
+      { value: "25%", label: "ROI Lift" },
+      { value: "AI", label: "Powered" },
+      { value: "0", label: "Manual Work" },
+    ],
+    accent: "teal",
+  },
+];
 
 export default function Home() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
+  const { scrollYProgress: heroScrollProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const heroY = useSpring(
+    useTransform(heroScrollProgress, [0, 1], [0, -150]),
+    { stiffness: 100, damping: 30, restDelta: 0.001 }
+  );
+
+  const heroOpacity = useTransform(
+    heroScrollProgress,
+    [0, 0.5, 1],
+    [1, 0.8, 0.4]
+  );
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Warm Progress Indicator */}
+    <div className="min-h-screen" ref={containerRef}>
+      {/* Progress Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-0.5 bg-accent-warm z-50"
+        className="fixed top-0 left-0 right-0 h-[3px] bg-maroon z-[60]"
         style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
       />
 
-      {/* Navigation */}
-      <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-md border-b border-card-border z-40"
-      >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
-          <div className="serif-heading text-xl tracking-tight">Cameron Wolf</div>
-          <a href="#audit" className="tactile-btn-secondary text-sm">
-            Request Systems Audit
-          </a>
-        </div>
-      </motion.nav>
+      <Navbar />
 
-      {/* Hero: The Identity Statement */}
-      <section className="min-h-screen px-6 md:px-12 pt-32 pb-20 flex items-center">
+      {/* ===== HERO (DARK) ===== */}
+      <section className="section-dark relative min-h-screen px-6 md:px-[71px] pt-32 pb-20 flex items-center overflow-hidden">
+        {/* Parallax background orb */}
+        <motion.div
+          className="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-maroon/5 blur-3xl"
+          style={{ y: heroY }}
+        />
+
         <div className="max-w-[1400px] mx-auto w-full">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-16"
+            style={{ y: heroY, opacity: heroOpacity }}
+            className="relative z-10"
           >
-            {/* Status Badge */}
-            <div className="inline-block px-4 py-2 rounded-full bg-accent-sage/10 border border-accent-sage/20 text-accent-sage text-sm font-mono mb-8">
-              STATUS: BUILDING DURABLE GROWTH NUCLEI
-            </div>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Left: Copy */}
+              <div>
+                {/* Badge */}
+                <motion.div
+                  className="inline-block px-4 py-2 rounded-full bg-maroon/10 text-maroon-light text-sm font-mono mb-6"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  TECHNICAL FORCE MULTIPLIER
+                </motion.div>
 
-            {/* Oversized Identity Statement */}
-            <h1 className="serif-display text-7xl md:text-9xl mb-12 leading-[0.95]" style={{ transform: 'translateX(-2px)' }}>
-              HEY, I'M CAMERON.<br />
-              I ENGINEER THE<br />
-              SYSTEMS THAT MAKE<br />
-              <span className="text-accent-warm">ULTRA-GROWTH</span><br />
-              INEVITABLE.
-            </h1>
+                {/* Headline */}
+                <motion.h1
+                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] mb-8 text-dark-text"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  I BUILD BRANDS
+                  <br />
+                  THAT <span className="text-maroon-light">SCALE</span> AND
+                  <br />
+                  STORIES THAT SELL.
+                </motion.h1>
 
-            {/* The Narrative */}
-            <div className="max-w-3xl">
-              <p className="editorial-text text-xl md:text-2xl leading-relaxed mb-6">
-                Marketing is no longer a department; it is a <strong>technical infrastructure problem</strong>. I architect high-velocity growth frameworks that bridge the gap between "writing code" and "expressing intent."
-              </p>
-              <p className="editorial-text text-xl md:text-2xl leading-relaxed text-gray-600">
-                My focus is on <strong>systemic optimization</strong>—building autonomous engines that turn data into a mathematical path toward 100%+ annual scaling.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Quick Metrics - Tabular Numbers */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-          >
-            <div className="metric-block">
-              <div className="text-4xl serif-display text-accent-warm mb-2 tabular-nums">
-                +<AnimatedCounter end={2000} />%
-              </div>
-              <div className="text-sm text-gray-600 font-medium">Audience Expansion</div>
-            </div>
-            <div className="metric-block">
-              <div className="text-4xl serif-display text-accent-earth mb-2 tabular-nums">
-                <AnimatedCounter end={400} />K
-              </div>
-              <div className="text-sm text-gray-600 font-medium">Users Processed</div>
-            </div>
-            <div className="metric-block">
-              <div className="text-4xl serif-display text-accent-sage mb-2 tabular-nums">
-                100%
-              </div>
-              <div className="text-sm text-gray-600 font-medium">YOY Revenue Growth</div>
-            </div>
-            <div className="metric-block">
-              <div className="text-4xl serif-display text-accent-warm mb-2 tabular-nums">
-                25%
-              </div>
-              <div className="text-sm text-gray-600 font-medium">ROI Lift via LLMs</div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* The Manifesto: Systems Over Campaigns */}
-      <section className="py-32 px-6 md:px-12 bg-card">
-        <div className="max-w-[1200px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="grid md:grid-cols-2 gap-16"
-          >
-            {/* Left: Heading */}
-            <div>
-              <h2 className="serif-display text-5xl md:text-6xl leading-tight">
-                THE PHILOSOPHY<br />OF THE ENGINE.
-              </h2>
-            </div>
-
-            {/* Right: Manifesto */}
-            <div className="space-y-8">
-              <p className="editorial-text text-xl leading-relaxed">
-                Most marketing fails because it is <strong>brittle</strong>. I build <strong>Autonomous Growth Engines</strong> designed to withstand the complexity of modern markets.
-              </p>
-
-              <div className="space-y-6">
-                <div>
-                  <h3 className="serif-heading text-2xl mb-3 text-accent-warm">Determinism</h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    Eliminating "best guesses" through SQL-driven attribution and deterministic task paths.
+                {/* Description */}
+                <motion.div
+                  className="max-w-xl space-y-4"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  <p className="text-lg text-dark-muted leading-relaxed">
+                    From zero to acquisition. From quiet to dominant. I architect
+                    growth strategies that turn overlooked companies into category
+                    leaders.
                   </p>
-                </div>
+                </motion.div>
 
-                <div>
-                  <h3 className="serif-heading text-2xl mb-3 text-accent-earth">Velocity</h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    Engineering the "Always-On" experimentation engine to maximize the rate of learning.
-                  </p>
-                </div>
+                {/* Metrics */}
+                <motion.div
+                  className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                >
+                  {[
+                    { value: "2,000%", label: "Audience Growth", color: "text-maroon-light" },
+                    { value: "400K", label: "Users Year 1", color: "text-teal-light" },
+                    { value: "100%", label: "YoY Revenue", color: "text-gold" },
+                    { value: "1", label: "Acquisition Exit", color: "text-maroon-light" },
+                  ].map((metric) => (
+                    <div key={metric.label}>
+                      <div
+                        className={`text-3xl sm:text-4xl font-black tabular-nums ${metric.color}`}
+                      >
+                        {metric.value}
+                      </div>
+                      <div className="text-xs sm:text-sm text-dark-muted mt-1">
+                        {metric.label}
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
 
-                <div>
-                  <h3 className="serif-heading text-2xl mb-3 text-accent-sage">Integrity</h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    Ensuring every machine-facing surface (APIs, Feeds, Schemas) is optimized for the AI-agent economy.
-                  </p>
-                </div>
+                {/* CTAs */}
+                <motion.div
+                  className="flex flex-wrap gap-4 mt-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.9 }}
+                >
+                  <PillButton href="#portfolio" variant="primary" showArrow>
+                    View The Exit Story
+                  </PillButton>
+                  <PillButton href="#contact" variant="outline-light" showArrow>
+                    Get in Touch
+                  </PillButton>
+                </motion.div>
+              </div>
+
+              {/* Right: Headshot */}
+              <div className="hidden md:flex justify-center">
+                <HeroHeadshot />
               </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* The Architecture: Portfolio as System Audits */}
-      <section id="systems" className="py-32 px-6 md:px-12">
+      {/* ===== EXIT STORY (LIGHT) ===== */}
+      <section id="portfolio" className="section-light py-20 sm:py-28 px-6 md:px-[71px]">
         <div className="max-w-[1400px] mx-auto">
+          <SectionHeader
+            badge="THE EXIT STORY"
+            headline="Built a Category-Defining Podcast"
+            subtitle="ZappyRide needed credibility in a crowded, skeptical EV market. Traditional marketing wasn't enough."
+          />
+
+          <div className="grid md:grid-cols-2 gap-8 mt-12">
+            {/* Thought Leadership Card */}
+            <motion.div
+              className="card-rounded card-light p-8 sm:p-10"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="w-14 h-14 rounded-2xl bg-maroon/10 flex items-center justify-center mb-6">
+                <Mic size={28} className="text-maroon-light" />
+              </div>
+              <h3 className="text-2xl font-bold text-light-text mb-3">
+                Thought Leadership
+              </h3>
+              <p className="text-light-muted leading-relaxed mb-6">
+                Created ZappyCast — a weekly podcast featuring industry leaders,
+                Tesla engineers, policy makers, and EV pioneers. Not as a
+                &ldquo;marketing channel,&rdquo; but as genuine thought
+                leadership.
+              </p>
+              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-light-border">
+                <div>
+                  <div className="text-3xl font-black text-maroon tabular-nums">
+                    50+
+                  </div>
+                  <div className="text-sm text-light-muted">Episodes</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-black text-teal tabular-nums">
+                    100K+
+                  </div>
+                  <div className="text-sm text-light-muted">Listeners</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Growth Infrastructure Card */}
+            <motion.div
+              className="card-rounded card-light p-8 sm:p-10"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+            >
+              <div className="w-14 h-14 rounded-2xl bg-teal/10 flex items-center justify-center mb-6">
+                <TrendingUp size={28} className="text-teal-light" />
+              </div>
+              <h3 className="text-2xl font-bold text-light-text mb-3">
+                Growth Infrastructure
+              </h3>
+              <p className="text-light-muted leading-relaxed mb-6">
+                Became the most-cited EV podcast in the industry. Drove inbound
+                partnerships, press coverage, and positioned ZappyRide as the
+                authority — ultimately contributing to the J.D. Power acquisition.
+              </p>
+              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-light-border">
+                <div>
+                  <div className="text-3xl font-black text-maroon tabular-nums">
+                    400K
+                  </div>
+                  <div className="text-sm text-light-muted">Year 1 Users</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-black text-teal tabular-nums">
+                    100%
+                  </div>
+                  <div className="text-sm text-light-muted">YoY Revenue</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Acquisition Timeline Strip */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            className="mt-12 flex items-center justify-center gap-4 text-center"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="mb-16">
-              <div className="inline-block px-4 py-2 rounded-full bg-accent-warm/10 text-accent-warm text-sm font-mono mb-6">
-                SYSTEM AUDITS
+            <div className="flex items-center gap-3">
+              <div className="w-4 h-4 rounded-full bg-maroon" />
+              <div>
+                <p className="text-sm font-bold text-light-text">April 2021</p>
+                <p className="text-xs text-light-muted">ZappyCast Launch</p>
               </div>
-              <h2 className="serif-display text-6xl md:text-7xl mb-6">
-                The Architecture
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl">
-                Each engagement is a complete systems overhaul—not campaigns, but infrastructure.
-              </p>
             </div>
+            <div className="flex-1 max-w-[200px] border-t-2 border-dashed border-light-border" />
+            <div className="flex items-center gap-3">
+              <div className="w-4 h-4 rounded-full bg-teal" />
+              <div>
+                <p className="text-sm font-bold text-light-text">May 2023</p>
+                <p className="text-xs text-light-muted">J.D. Power Acquisition</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-            {/* Asymmetric Bento Grid */}
-            <div className="bento-grid">
-              {/* Card A: SaaS Scale Framework */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.02 }}
-                className="col-span-12 md:col-span-7 bento-card p-10"
-              >
-                <div className="mb-6">
-                  <span className="text-sm font-mono text-accent-warm">CASE STUDY A</span>
-                  <h3 className="serif-heading text-4xl mt-2 mb-4">
-                    ARCHITECTING THE SaaS EXIT NUCLEUS
-                  </h3>
-                  <p className="text-sm font-mono text-gray-500 mb-6">J.D. Power / ZappyRide · 2021-2023</p>
-                </div>
+      {/* ===== GROWTH PORTFOLIO (DARK) ===== */}
+      <section className="section-dark py-20 sm:py-28 px-6 md:px-[71px]">
+        <div className="max-w-[1400px] mx-auto">
+          <SectionHeader
+            badge="GROWTH PORTFOLIO"
+            headline="Work That Compounds"
+            theme="dark"
+          />
 
-                <p className="editorial-text text-lg text-gray-700 mb-6 leading-relaxed">
-                  Designed a bootstrapped GTM framework that scaled revenue <strong className="tabular-nums">100% YOY</strong>. I didn't just build a brand; I built an infrastructure so robust it passed the <strong>J.D. Power stress test</strong>, resulting in a full acquisition.
-                </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {growthStories.map((story, i) => {
+              const Icon = story.icon;
+              const accentText =
+                story.accent === "maroon"
+                  ? "text-maroon-light"
+                  : "text-teal-light";
+              const accentBg =
+                story.accent === "maroon" ? "bg-maroon/10" : "bg-teal/10";
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="metric-block">
-                    <div className="text-3xl serif-display text-accent-warm mb-1 tabular-nums">+2,000%</div>
-                    <div className="text-sm text-gray-600">Audience Growth</div>
-                  </div>
-                  <div className="metric-block">
-                    <div className="text-3xl serif-display text-accent-earth mb-1 tabular-nums">400K</div>
-                    <div className="text-sm text-gray-600">First-Year Users</div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2 text-sm text-gray-600">
-                    <span className="text-accent-warm mt-1">→</span>
-                    <span>Architected ZappyCast podcast infrastructure for thought leadership</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-sm text-gray-600">
-                    <span className="text-accent-warm mt-1">→</span>
-                    <span>Built deterministic lead generation engine with SQL-driven attribution</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-sm text-gray-600">
-                    <span className="text-accent-warm mt-1">→</span>
-                    <span>Facilitated acquisition through demonstrable infrastructure value</span>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Card B: Mass-User Engine */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                whileHover={{ scale: 1.02 }}
-                className="col-span-12 md:col-span-5 bento-card p-10"
-              >
-                <div className="mb-6">
-                  <span className="text-sm font-mono text-accent-earth">CASE STUDY B</span>
-                  <h3 className="serif-heading text-3xl mt-2 mb-4">
-                    HIGH-VELOCITY INBOUND ORCHESTRATION
-                  </h3>
-                  <p className="text-sm font-mono text-gray-500 mb-6">Sweet Express · 2019-2021</p>
-                </div>
-
-                <p className="editorial-text text-gray-700 mb-6 leading-relaxed">
-                  Engineered a content and recruitment portal that processed <strong className="tabular-nums">400,000 users</strong> in 12 months. By automating the "Human-First" media loop, achieved <strong className="tabular-nums">2,000%</strong> audience expansion with zero manual intervention.
-                </p>
-
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2 text-sm text-gray-600">
-                    <span className="text-accent-earth mt-1">→</span>
-                    <span>Autonomous content distribution engine</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-sm text-gray-600">
-                    <span className="text-accent-earth mt-1">→</span>
-                    <span>Transformed marketing into revenue stream</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-sm text-gray-600">
-                    <span className="text-accent-earth mt-1">→</span>
-                    <span>Zero-touch scaling architecture</span>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Card C: Enterprise Logic Layer */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                whileHover={{ scale: 1.02 }}
-                className="col-span-12 md:col-span-12 bento-card p-10"
-              >
-                <div className="grid md:grid-cols-2 gap-10">
-                  <div>
-                    <span className="text-sm font-mono text-accent-sage">CASE STUDY C</span>
-                    <h3 className="serif-heading text-3xl mt-2 mb-4">
-                      CRM MIGRATION & LLM INTEGRATION
-                    </h3>
-                    <p className="text-sm font-mono text-gray-500 mb-6">Inspiration Mobility · 2023-Present</p>
-
-                    <p className="editorial-text text-gray-700 mb-6 leading-relaxed">
-                      Spearheaded the transition from HubSpot to <strong>Salesforce Marketing Cloud</strong> to enable enterprise-grade automation. Integrated custom LLMs into the MarCom stack, turning "marketing tasks" into "autonomous intelligence loops" that yielded a <strong className="tabular-nums">25% ROI lift</strong>.
-                    </p>
-
-                    <div className="space-y-2">
-                      <div className="flex items-start gap-2 text-sm text-gray-600">
-                        <span className="text-accent-sage mt-1">→</span>
-                        <span>Enterprise CRM migration architecture</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-sm text-gray-600">
-                        <span className="text-accent-sage mt-1">→</span>
-                        <span>Custom LLM deployment for agentic workflows</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-sm text-gray-600">
-                        <span className="text-accent-sage mt-1">→</span>
-                        <span>SEM budget optimization via deterministic modeling</span>
-                      </div>
+              return (
+                <motion.div
+                  key={story.company}
+                  className="group card-rounded card-dark p-6 sm:p-8"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                >
+                  <div className="flex items-start justify-between mb-5">
+                    <div
+                      className={`w-12 h-12 rounded-2xl ${accentBg} flex items-center justify-center`}
+                    >
+                      <Icon size={24} className={accentText} />
+                    </div>
+                    <div className="w-10 h-10 rounded-full border border-dark-border flex items-center justify-center group-hover:border-maroon-light/50 transition-colors">
+                      <ArrowUpRight
+                        size={16}
+                        className="text-dark-muted group-hover:text-maroon-light arrow-rotate"
+                        aria-hidden="true"
+                      />
                     </div>
                   </div>
 
-                  <div className="bg-foreground/5 rounded-2xl p-6">
-                    <div className="text-xs font-mono text-accent-sage mb-4">MIGRATION LOGIC SAMPLE</div>
-                    <pre className="text-sm font-mono text-gray-700 overflow-x-auto whitespace-pre-wrap leading-relaxed">
-{`// Deterministic lead scoring
-async function migrateLeadData(lead) {
-  const enriched = {
-    ...lead,
-    score: calculateEngagement(lead),
-    segment: determineMarket(lead),
-    intent: predictConversion(lead)
-  };
+                  <h3 className={`text-xl sm:text-2xl font-bold mb-1 ${accentText}`}>
+                    {story.title}
+                  </h3>
+                  <p className="text-sm font-mono text-dark-muted mb-4">
+                    {story.company}
+                  </p>
+                  <p className="text-dark-muted leading-relaxed mb-6 text-sm">
+                    {story.description}
+                  </p>
 
-  await sfmc.create({
-    object: 'Lead',
-    data: transform(enriched),
-    route: assignByIntent(enriched)
-  });
-
-  // Result: 25% ROI lift
-}`}
-                    </pre>
+                  <div className="pt-5 border-t border-dark-border grid grid-cols-3 gap-4 text-center">
+                    {story.metrics.map((m) => (
+                      <div key={m.label}>
+                        <div
+                          className={`text-xl sm:text-2xl font-black tabular-nums ${accentText}`}
+                        >
+                          {m.value}
+                        </div>
+                        <div className="text-xs text-dark-muted">{m.label}</div>
+                      </div>
+                    ))}
                   </div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* The Engine Room: Technical Stack */}
-      <section className="py-32 px-6 md:px-12 bg-card">
-        <div className="max-w-[1200px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="serif-display text-5xl md:text-6xl mb-16">The Engine Room</h2>
+      {/* ===== SKILLS MARQUEE ===== */}
+      <SkillsMarquee />
 
-            <div className="grid md:grid-cols-3 gap-12">
-              <div>
-                <h3 className="text-sm font-mono text-accent-warm mb-4 uppercase tracking-wide">Frameworks & Logic</h3>
-                <div className="space-y-2 font-mono text-sm text-gray-700">
-                  <div>SQL</div>
-                  <div>HTML / CSS</div>
-                  <div>PYTHON</div>
-                  <div>RICE PRIORITIZATION</div>
-                  <div>JOBS-TO-BE-DONE</div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-mono text-accent-earth mb-4 uppercase tracking-wide">The Stack</h3>
-                <div className="space-y-2 font-mono text-sm text-gray-700">
-                  <div>SALESFORCE MARKETING CLOUD</div>
-                  <div>HUBSPOT</div>
-                  <div>LOOKER STUDIO</div>
-                  <div>SEMRUSH</div>
-                  <div>GOOGLE ANALYTICS 4</div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-mono text-accent-sage mb-4 uppercase tracking-wide">Emerging Intelligence</h3>
-                <div className="space-y-2 font-mono text-sm text-gray-700">
-                  <div>CUSTOM LLM DEPLOYMENT</div>
-                  <div>AGENTIC WORKFLOWS</div>
-                  <div>GENERATIVE SEARCH (GSO)</div>
-                  <div>DETERMINISTIC ATTRIBUTION</div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+      {/* ===== EXPERIENCE (LIGHT) ===== */}
+      <section className="section-light py-20 sm:py-28 px-6 md:px-[71px]">
+        <div className="max-w-[1400px] mx-auto">
+          <SectionHeader
+            badge="EXPERIENCE"
+            headline="Career Timeline"
+            align="center"
+          />
+          <ExperienceTimeline />
         </div>
       </section>
 
-      {/* Additional Experience */}
-      <section className="py-32 px-6 md:px-12">
-        <div className="max-w-[1200px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="serif-display text-5xl md:text-6xl mb-16">Prior Systems Work</h2>
-
-            <div className="space-y-12">
-              <div className="border-l-2 border-accent-warm pl-8">
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                  <div>
-                    <h3 className="serif-heading text-2xl mb-1">Marketing Coordinator</h3>
-                    <p className="text-lg text-accent-earth font-medium">Keller Williams Realty</p>
-                  </div>
-                  <span className="text-gray-500 text-sm font-mono">2018-2019</span>
-                </div>
-                <div className="space-y-2 text-gray-600">
-                  <div className="flex items-start gap-2">
-                    <span className="text-accent-warm mt-1">→</span>
-                    <span>Achieved <strong className="tabular-nums">200%</strong> increase in website traffic through technical SEO</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-accent-warm mt-1">→</span>
-                    <span>Optimized marketing channels for systematic lead generation</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-accent-warm mt-1">→</span>
-                    <span>Architected video content distribution pipeline</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+      {/* ===== CAPABILITIES (DARK) ===== */}
+      <section className="section-dark py-20 sm:py-28 px-6 md:px-[71px]">
+        <div className="max-w-[1400px] mx-auto">
+          <SectionHeader
+            badge="CAPABILITIES"
+            headline="What I Build"
+            theme="dark"
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {capabilities.map((cap, i) => (
+              <ServiceCard
+                key={cap.title}
+                title={cap.title}
+                description={cap.description}
+                items={cap.items}
+                icon={cap.icon}
+                index={i}
+                accent={cap.accent}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* The Consultative CTA */}
-      <section id="audit" className="py-32 px-6 md:px-12 bg-card">
+      {/* ===== CONTACT (LIGHT) ===== */}
+      <section
+        id="contact"
+        className="section-light py-20 sm:py-28 px-6 md:px-[71px]"
+      >
         <div className="max-w-[900px] mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            <h2 className="serif-display text-6xl md:text-7xl mb-8">
-              READY TO AUDIT<br />YOUR GROWTH ENGINE?
-            </h2>
-            <p className="text-xl md:text-2xl text-gray-600 mb-16 max-w-2xl mx-auto leading-relaxed">
-              I specialize in organizations that have outgrown "simple marketing" and require a <strong>Systems Architect</strong> to prepare for ultra-growth.
-            </p>
+            <motion.h2
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-light-text mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              LET&apos;S BUILD
+              <br />
+              SOMETHING UNFORGETTABLE
+            </motion.h2>
+            <motion.p
+              className="text-lg sm:text-xl text-light-muted mb-12 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Whether you&apos;re a startup looking for your breakthrough moment
+              or an enterprise ready to dominate your category — I build growth
+              engines that compound.
+            </motion.p>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-2xl mx-auto">
-              <motion.a
+            {/* Contact Cards */}
+            <motion.div
+              className="grid sm:grid-cols-2 gap-6 max-w-lg mx-auto mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <a
                 href="mailto:cameron@cameronwolf.info"
-                whileHover={{ scale: 1.03 }}
-                className="bento-card p-8 text-left"
+                className="card-rounded card-light p-6 group text-center hover:border-maroon/30"
               >
-                <div className="text-3xl mb-3">📧</div>
-                <h3 className="serif-heading text-lg mb-2">Email</h3>
-                <p className="text-accent-earth font-medium text-sm">cameron@cameronwolf.info</p>
-              </motion.a>
-
-              <motion.a
+                <Mail
+                  size={28}
+                  className="mx-auto mb-3 text-maroon group-hover:scale-110 transition-transform"
+                />
+                <p className="text-sm font-bold text-light-text">Email</p>
+                <p className="text-xs text-light-muted mt-1">
+                  cameron@cameronwolf.info
+                </p>
+              </a>
+              <a
                 href="https://www.linkedin.com/in/camwolf/"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.03 }}
-                className="bento-card p-8 text-left"
+                className="card-rounded card-light p-6 group text-center hover:border-teal/30"
               >
-                <div className="text-3xl mb-3">💼</div>
-                <h3 className="serif-heading text-lg mb-2">LinkedIn</h3>
-                <p className="text-accent-earth font-medium text-sm">Connect on LinkedIn</p>
-              </motion.a>
-            </div>
+                <Linkedin
+                  size={28}
+                  className="mx-auto mb-3 text-teal group-hover:scale-110 transition-transform"
+                />
+                <p className="text-sm font-bold text-light-text">LinkedIn</p>
+                <p className="text-xs text-light-muted mt-1">
+                  linkedin.com/in/camwolf
+                </p>
+              </a>
+            </motion.div>
 
-            {/* Shimmer Button */}
-            <motion.a
-              href="mailto:cameron@cameronwolf.info?subject=Systems%20Audit%20Request"
-              className="inline-block tactile-btn text-lg relative overflow-hidden group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <PillButton
+              href="mailto:cameron@cameronwolf.info?subject=Let's%20Build%20Together"
+              variant="outline"
+              showArrow
             >
-              <span className="relative z-10">REQUEST A SYSTEMS AUDIT</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                animate={{
-                  x: ['-100%', '100%'],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatDelay: 3,
-                  ease: 'linear',
-                }}
-              />
-            </motion.a>
+              START THE CONVERSATION
+            </PillButton>
 
-            <p className="text-sm text-gray-500 mt-6 font-mono">
-              TYPICAL ENGAGEMENT: 90-DAY INFRASTRUCTURE BUILD
-            </p>
+            <motion.p
+              className="text-xs text-light-muted mt-8 font-mono tracking-wider"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              CURRENTLY OPEN TO SELECT PROJECTS
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-6 md:px-12 border-t border-card-border">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-600 text-sm">
-            © 2024 Cameron Wolf · <span className="font-mono">Systems Architect</span>
-          </p>
-          <p className="text-xs text-gray-500 font-mono">
-            BUILT WITH NEXT.JS 15 · DETERMINISTIC DESIGN SYSTEM
-          </p>
-        </div>
-      </footer>
+      {/* ===== FOOTER ===== */}
+      <Footer />
     </div>
   );
 }
