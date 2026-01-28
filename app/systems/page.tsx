@@ -409,7 +409,7 @@ export default function Home() {
                 <div className="mb-6">
                   <h4 className="font-semibold text-lg mb-2">Outcome</h4>
                   <p className="text-sm sm:text-base text-dark-muted leading-relaxed">
-                    Designed the GTM infrastructure that enabled J.D. Power's acquisition of ZappyRide.
+                    Built the growth engine that delivered hundreds of qualified leads converting into recurring revenue — ultimately leading to acquisition by J.D. Power.
                   </p>
                 </div>
 
@@ -463,7 +463,7 @@ export default function Home() {
                 <div className="card-rounded card-dark p-6 border-l-4 border-teal">
                   <h4 className="font-semibold text-lg mb-2">Outcome</h4>
                   <p className="text-dark-muted tabular-nums">
-                    +2,000% audience growth. 400K first-year users. 100% YOY revenue scaling. Full acquisition by J.D. Power in 2023.
+                    Hundreds of qualified leads converted into recurring revenue. Acquired by J.D. Power in 2023.
                   </p>
                 </div>
               </motion.div>

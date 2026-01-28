@@ -85,8 +85,7 @@ const growthStories = [
     description:
       "Led brand, content, and growth for an EV marketplace from stealth to exit. Built the narrative that positioned us as the trusted EV authority, culminating in acquisition by industry giant J.D. Power.",
     metrics: [
-      { value: "100%", label: "YoY Growth" },
-      { value: "400K", label: "Year 1 Users" },
+      { value: "100%", label: "YoY Revenue" },
       { value: "EXIT", label: "Acquired" },
     ],
     accent: "maroon",
