@@ -17,6 +17,7 @@ import {
   Linkedin,
   ArrowUpRight,
 } from "lucide-react";
+import Link from "next/link";
 import Navbar from "./components/Navbar";
 import PillButton from "./components/PillButton";
 import SectionHeader from "./components/SectionHeader";
@@ -24,6 +25,7 @@ import HeroHeadshot from "./components/HeroHeadshot";
 import ServiceCard from "./components/ServiceCard";
 import SkillsMarquee from "./components/SkillsMarquee";
 import ExperienceTimeline from "./components/ExperienceTimeline";
+import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 
 const capabilities = [
@@ -79,6 +81,7 @@ const capabilities = [
 
 const growthStories = [
   {
+    slug: "zappyride",
     icon: Rocket,
     title: "From Startup to Acquisition",
     company: "ZappyRide → J.D. Power",
@@ -91,6 +94,7 @@ const growthStories = [
     accent: "maroon",
   },
   {
+    slug: "sweet-express",
     icon: TrendingUp,
     title: "Content as Growth Engine",
     company: "Sweet Express",
@@ -104,6 +108,7 @@ const growthStories = [
     accent: "teal",
   },
   {
+    slug: "truv",
     icon: Building2,
     title: "Enterprise Brand at Velocity",
     company: "Truv · Series B SaaS",
@@ -117,6 +122,7 @@ const growthStories = [
     accent: "maroon",
   },
   {
+    slug: "inspiration-mobility",
     icon: RefreshCw,
     title: "Marketing Infrastructure Overhaul",
     company: "Inspiration Mobility",
@@ -193,11 +199,11 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
                 >
-                  I BUILD THE
+                  A <span className="text-maroon-light">TECHNICAL</span> BRAIN
                   <br />
-                  <span className="text-maroon-light">ENGINES</span> THAT
+                  IN A NON-TECHNICAL
                   <br />
-                  GENERATE DEMAND.
+                  ROLE.
                 </motion.h1>
 
                 {/* Description */}
@@ -208,10 +214,10 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
                   <p className="text-lg text-light-muted leading-relaxed">
-                    A technical brain in a non-technical role. I design and build
-                    the automation infrastructure that turns marketing into a
-                    self-running lead machine — CRM logic, attribution models,
-                    and growth systems that compound without manual intervention.
+                    Most marketers strategize. I strategize AND build — CRM
+                    architecture, automation workflows, attribution models, and
+                    growth systems that run themselves. From stealth startup to
+                    J.D. Power acquisition.
                   </p>
                 </motion.div>
 
@@ -260,55 +266,68 @@ export default function Home() {
                 story.accent === "maroon" ? "bg-maroon/10" : "bg-teal/10";
 
               return (
-                <motion.div
+                <Link
                   key={story.company}
-                  className="group card-rounded card-dark p-6 sm:p-8"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  href={`/case-studies/${story.slug}`}
+                  className="block"
                 >
-                  <div className="flex items-start justify-between mb-5">
-                    <div
-                      className={`w-12 h-12 rounded-2xl ${accentBg} flex items-center justify-center`}
-                    >
-                      <Icon size={24} className={accentText} />
-                    </div>
-                    <div className="w-10 h-10 rounded-full border border-dark-border flex items-center justify-center group-hover:border-maroon-light/50 transition-colors">
-                      <ArrowUpRight
-                        size={16}
-                        className="text-dark-muted group-hover:text-maroon-light arrow-rotate"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </div>
-
-                  <h3 className={`text-xl sm:text-2xl font-bold mb-1 ${accentText}`}>
-                    {story.title}
-                  </h3>
-                  <p className="text-sm font-mono text-dark-muted mb-4">
-                    {story.company}
-                  </p>
-                  <p className="text-dark-muted leading-relaxed mb-6 text-sm">
-                    {story.description}
-                  </p>
-
-                  <div className="pt-5 border-t border-dark-border grid grid-cols-3 gap-4 text-center">
-                    {story.metrics.map((m) => (
-                      <div key={m.label}>
-                        <div
-                          className={`text-xl sm:text-2xl font-black tabular-nums ${accentText}`}
-                        >
-                          {m.value}
-                        </div>
-                        <div className="text-xs text-dark-muted">{m.label}</div>
+                  <motion.div
+                    className="group card-rounded card-dark p-6 sm:p-8 h-full"
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                  >
+                    <div className="flex items-start justify-between mb-5">
+                      <div
+                        className={`w-12 h-12 rounded-2xl ${accentBg} flex items-center justify-center`}
+                      >
+                        <Icon size={24} className={accentText} />
                       </div>
-                    ))}
-                  </div>
-                </motion.div>
+                      <div className="w-10 h-10 rounded-full border border-dark-border flex items-center justify-center group-hover:border-maroon-light/50 transition-colors">
+                        <ArrowUpRight
+                          size={16}
+                          className="text-dark-muted group-hover:text-maroon-light arrow-rotate"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    </div>
+
+                    <h3 className={`text-xl sm:text-2xl font-bold mb-1 ${accentText}`}>
+                      {story.title}
+                    </h3>
+                    <p className="text-sm font-mono text-dark-muted mb-4">
+                      {story.company}
+                    </p>
+                    <p className="text-dark-muted leading-relaxed mb-6 text-sm">
+                      {story.description}
+                    </p>
+
+                    <div className="pt-5 border-t border-dark-border grid grid-cols-3 gap-4 text-center">
+                      {story.metrics.map((m) => (
+                        <div key={m.label}>
+                          <div
+                            className={`text-xl sm:text-2xl font-black tabular-nums ${accentText}`}
+                          >
+                            {m.value}
+                          </div>
+                          <div className="text-xs text-dark-muted">{m.label}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 flex items-center gap-2 text-sm font-medium text-dark-muted group-hover:text-dark-text transition-colors">
+                      Read Case Study
+                      <ArrowUpRight size={14} className="arrow-rotate" />
+                    </div>
+                  </motion.div>
+                </Link>
               );
             })}
           </div>
+
+          {/* Testimonials */}
+          <Testimonials />
         </div>
       </section>
 
@@ -370,9 +389,11 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              LET&apos;S BUILD
+              YOUR NEXT HIRE
               <br />
-              SOMETHING UNFORGETTABLE
+              SHOULD BUILD, NOT
+              <br />
+              JUST PLAN.
             </motion.h2>
             <motion.p
               className="text-lg sm:text-xl text-light-muted mb-12 max-w-2xl mx-auto leading-relaxed"
@@ -381,9 +402,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Whether you&apos;re a startup looking for your breakthrough moment
-              or an enterprise ready to dominate your category — I build growth
-              engines that compound.
+              You get a growth leader who can architect the CRM, build the
+              automation, deploy the attribution model, AND own the strategy.
+              One hire. Full stack. No translators needed.
             </motion.p>
 
             {/* Contact Cards */}
@@ -439,7 +460,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              CURRENTLY OPEN TO SELECT PROJECTS
+              STRATEGY + EXECUTION UNDER ONE ROOF
             </motion.p>
           </motion.div>
         </div>

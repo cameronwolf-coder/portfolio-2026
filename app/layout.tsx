@@ -13,13 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cameron Wolf | Technical Force Multiplier & Growth Architect",
-  description: "Senior Growth Leader who facilitated the acquisition of ZappyRide by J.D. Power. +2000% audience growth, 400k users, MarTech expertise.",
-  keywords: ["growth marketing", "martech", "acquisition", "technical marketing", "ZappyRide", "J.D. Power", "marketing technology"],
+  title: "Cameron Wolf | Technical Brain, Marketing Leader",
+  description: "A technical brain in a non-technical role. Growth leader who builds CRM architecture, automation workflows, and attribution models — and facilitated the acquisition of ZappyRide by J.D. Power.",
+  keywords: ["growth marketing", "martech", "acquisition", "technical marketing", "ZappyRide", "J.D. Power", "marketing technology", "CRM architecture", "marketing automation"],
   authors: [{ name: "Cameron Wolf" }],
   openGraph: {
-    title: "Cameron Wolf | Technical Force Multiplier",
-    description: "Facilitated the acquisition of ZappyRide by J.D. Power through strategic growth architecture",
+    title: "Cameron Wolf | Technical Brain, Marketing Leader",
+    description: "A growth leader who builds the systems, not just the strategy. From stealth startup to J.D. Power acquisition.",
     url: "https://cameronwolf.info",
     siteName: "Cameron Wolf Portfolio",
     locale: "en_US",
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cameron Wolf | Technical Force Multiplier",
-    description: "Senior Growth Leader & Architect",
+    title: "Cameron Wolf | Technical Brain, Marketing Leader",
+    description: "A technical brain in a non-technical role. Growth leader & architect.",
   },
   robots: {
     index: true,
@@ -40,8 +40,8 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Cameron Wolf",
-  "jobTitle": "Senior Growth Leader & Architect",
-  "description": "Technical Force Multiplier specializing in marketing technology, growth strategy, and acquisition facilitation",
+  "jobTitle": "Senior Growth Marketing Manager",
+  "description": "A technical brain in a non-technical role. Growth leader specializing in marketing technology, CRM architecture, and growth systems.",
   "url": "https://cameronwolf.info",
   "email": "cameron@cameronwolf.info",
   "sameAs": [
@@ -65,7 +65,7 @@ const jsonLd = {
   },
   "worksFor": {
     "@type": "Organization",
-    "name": "Inspiration Mobility"
+    "name": "Truv"
   },
   "award": [
     "+2000% Audience Growth at ZappyRide",
