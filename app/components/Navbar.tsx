@@ -9,7 +9,9 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/systems", label: "Systems" },
-  { href: "#contact", label: "Contact" },
+  { href: "/blog", label: "Blog" },
+  { href: "/media", label: "Media" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -32,7 +34,7 @@ export default function Navbar() {
                 const isActive =
                   link.href === "/"
                     ? pathname === "/"
-                    : pathname.startsWith(link.href) && link.href !== "#contact";
+                    : !link.href.includes("#") && pathname.startsWith(link.href);
                 return (
                   <Link
                     key={link.href}

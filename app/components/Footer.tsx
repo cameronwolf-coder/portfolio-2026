@@ -36,7 +36,19 @@ export default function Footer() {
                 Systems View
               </Link>
               <Link
-                href="#contact"
+                href="/blog"
+                className="text-dark-muted hover:text-dark-text transition-colors text-sm"
+              >
+                Blog
+              </Link>
+              <Link
+                href="/media"
+                className="text-dark-muted hover:text-dark-text transition-colors text-sm"
+              >
+                Media
+              </Link>
+              <Link
+                href="/#contact"
                 className="text-dark-muted hover:text-dark-text transition-colors text-sm"
               >
                 Contact
