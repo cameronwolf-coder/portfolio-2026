@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Pipeline Analytics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: letter;
+      margin: 0;
+    }
+
+    :root {
+      --background: #FBFBFB;
+      --foreground: #111111;
+      --card-bg: #FFFFFF;
+      --card-border: #E8E8E8;
+      --accent-warm: #D4A574;
+      --accent-earth: #8B7355;
+      --accent-sage: #A8B5A0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: var(--foreground);
+      background: var(--background);
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      padding: 48px;
+      min-height: 100%;
+    }
+
+    .serif-display {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .serif-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 50px;
+      background: rgba(212, 165, 116, 0.12);
+      border: 1px solid rgba(212, 165, 116, 0.25);
+      color: var(--accent-warm);
+      font-size: 10px;
+      font-family: ui-monospace, monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      font-size: 2.6rem;
+      color: var(--foreground);
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 28px;
+      page-break-inside: avoid;
+    }
+
+    .section h2 {
+      font-size: 1.4rem;
+      color: var(--foreground);
+      margin-bottom: 12px;
+    }
+
+    .section p {
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Callout */
+    .callout {
+      background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(168, 181, 160, 0.08) 100%);
+      border-left: 3px solid var(--accent-warm);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      page-break-inside: avoid;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #222;
+    }
+
+    /* Discovery list */
+    .discovery-list {
+      list-style: none;
+      margin: 16px 0;
+    }
+
+    .discovery-list li {
+      padding: 12px 0;
+      padding-left: 20px;
+      position: relative;
+      border-bottom: 1px solid var(--card-border);
+      color: #333;
+      page-break-inside: avoid;
+    }
+
+    .discovery-list li:last-child {
+      border-bottom: none;
+    }
+
+    .discovery-list li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent-warm);
+      font-weight: 600;
+    }
+
+    /* Tech Tags */
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tech-tag {
+      background: var(--foreground);
+      color: var(--background);
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Quote */
+    .quote {
+      background: var(--foreground);
+      color: var(--background);
+      padding: 24px 28px;
+      border-radius: 16px;
+      margin: 28px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.5;
+      page-break-inside: avoid;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .footer .author {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--foreground);
+    }
+
+    .footer .title {
+      font-family: ui-monospace, monospace;
+      font-size: 0.7rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="badge">Case Study</div>
+      <h1 class="serif-display">Sales Pipeline Analytics</h1>
+      <p class="subtitle">Uncovering the Real Bottleneck in a High-Performing Funnel</p>
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">The Situation</h2>
+      <p>The sales team appeared to be executing well. Leads were coming in, assignments were happening quickly, and the top of the funnel looked healthy. But deals weren't closing at the expected rate, and no one could pinpoint why.</p>
+      <p>Leadership needed visibility into what was actually happening between "lead assigned" and "deal won"—the black box where opportunities were quietly dying.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">What I Built</h2>
+      <p>I designed and built a full-funnel analytics dashboard in Hex, connecting HubSpot CRM data through BigQuery. The system tracked every lead from initial form submission through deal creation, with visibility into each stage transition.</p>
+      <p>The architecture required joining multiple data sources—form submissions, contact records, owner assignments, engagement activities, and lead status tracking—while implementing deduplication logic to ensure we were measuring intent, not noise.</p>
+    </div>
+
+    <div class="callout">
+      <p><strong>The key design decision:</strong> Track the first submission per contact, not the most recent. This let us understand original intent and measure true conversion paths rather than inflated touchpoint counts.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">What I Discovered</h2>
+      <p>The dashboard revealed something counterintuitive. The problem wasn't lead generation or assignment—those metrics looked strong. The real breakdown was happening at first contact.</p>
+
+      <ul class="discovery-list">
+        <li><strong>Assignment was working:</strong> Nearly all leads were being routed to reps within hours</li>
+        <li><strong>Follow-through was failing:</strong> Less than half of assigned leads ever received outreach</li>
+        <li><strong>Stale leads were accumulating:</strong> Hundreds of leads sat untouched, many completely unassigned</li>
+        <li><strong>Rep performance varied wildly:</strong> Some reps converted to meetings in under a day; others took over a week</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">The Impact</h2>
+      <p>The dashboard shifted the conversation from "we need more leads" to "we need better follow-through." Sales leadership could now see exactly where deals were dying and which reps needed support or coaching.</p>
+      <p>More importantly, it surfaced a prioritized list of high-intent leads that required immediate action—turning a reporting tool into an operational system that drove daily behavior.</p>
+    </div>
+
+    <div class="quote">
+      "A healthy top of funnel can mask critical gaps downstream. The data showed us the real problem wasn't lead gen—it was sales follow-through."
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">Technical Approach</h2>
+      <div class="tech-tags">
+        <span class="tech-tag">SQL</span>
+        <span class="tech-tag">BigQuery</span>
+        <span class="tech-tag">Hex</span>
+        <span class="tech-tag">HubSpot CRM</span>
+        <span class="tech-tag">Data Modeling</span>
+        <span class="tech-tag">Funnel Analysis</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="author">Cameron Wolf</div>
+      <div class="title">Growth Architect</div>
+    </div>
+  </div>
+</body>
+</html>

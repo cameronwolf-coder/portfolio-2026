@@ -6,7 +6,7 @@
 **Design Philosophy:** 2026 Maximalist-Minimalist Dark Aesthetics
 
 ---
-
+1
 ## Core Positioning
 
 **Brand Identity:**
@@ -169,29 +169,50 @@
 
 ## Brand Voice & Messaging
 
-### Tone
+**Full references:** `docs/voice_dna.md` (complete style guide), `docs/audience-profile.md` (audience psychographics), `docs/writing-checklist.md` (pre-commit checklist)
 
-- **Confident, not arrogant:** Data-driven claims
-- **Technical, not jargon-heavy:** Accessible to both engineers and executives
-- **Achievement-focused:** Lead with results, not responsibilities
-- **Future-oriented:** "Let's build something" vs. "hire me"
+### Cameron's Voice (Non-Negotiable)
+
+- Write like a sharp human, not a language model
+- Short paragraphs. 1-3 sentences max. Get to the point
+- Use contractions naturally (don't, can't, won't)
+- Specific claims with numbers, names, concrete details
+- Physical verbs for abstract processes: "sanded down" not "improved," "bolted on" not "added"
+- Parenthetical asides for editorial commentary (like verbal winks)
+- Thinking out loud, not polished conclusions
+- Vulnerable but never self-pitying. Own it
+- Humor as pressure release, even in serious content
+
+### Formatting Rules
+
+- NO em dashes. Ever. Use commas, periods, colons, semicolons, or parentheses
+- Numbers as digits (not spelled out)
+- Bold sparingly, 1-2 key moments per section
+- Contractions always
+
+### Banned Phrases (instant fail)
+
+- "In today's [anything]...", "It's important to note...", "Delve", "Dive into", "Harness", "Leverage", "Utilize", "Game-changer", "Cutting-edge"
+- "Furthermore", "Additionally", "Moreover", "Moving forward", "At the end of the day"
+- "Let that sink in", "Read that again", "Full stop", "This changes everything"
+- "Supercharge", "Unlock", "Future-proof", "10x your productivity"
+- "Here's the part nobody's talking about", "What nobody tells you"
+- **FATAL:** "This isn't X. This is Y." and ALL variations. Delete the negation, just state the positive claim
 
 ### Key Phrases
 
 - "Technical Force Multiplier"
 - "Facilitated the acquisition of ZappyRide by J.D. Power"
 - "Growth Architect"
-- "MarTech expertise that bridges strategy and execution"
+- "I build marketing engines for startups. Sometimes they get acquired."
 - "Overqualified for standard marketing roles"
 
 ### What NOT to Say
 
-- ❌ "Looking for opportunities"
-- ❌ "Team player"
-- ❌ "Passionate about marketing"
-- ✅ "Architect growth at scale"
-- ✅ "Facilitated acquisition"
-- ✅ "Built infrastructure that drove acquisition value"
+- "Looking for opportunities", "Team player", "Passionate about marketing"
+- Anything that sounds like a mental health influencer or motivational speaker
+- Generic insider claims ("here's what nobody tells you")
+- Engagement bait or growth hacking language
 
 ---
 

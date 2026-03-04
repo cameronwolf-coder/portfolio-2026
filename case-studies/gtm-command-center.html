@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTM Command Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: letter;
+      margin: 0;
+    }
+
+    :root {
+      --background: #FBFBFB;
+      --foreground: #111111;
+      --card-bg: #FFFFFF;
+      --card-border: #E8E8E8;
+      --accent-warm: #D4A574;
+      --accent-earth: #8B7355;
+      --accent-sage: #A8B5A0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: var(--foreground);
+      background: var(--background);
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      padding: 48px;
+      min-height: 100%;
+    }
+
+    .serif-display {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .serif-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 50px;
+      background: rgba(168, 181, 160, 0.15);
+      border: 1px solid rgba(168, 181, 160, 0.3);
+      color: var(--accent-earth);
+      font-size: 10px;
+      font-family: ui-monospace, monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      font-size: 2.6rem;
+      color: var(--foreground);
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 28px;
+      page-break-inside: avoid;
+    }
+
+    .section h2 {
+      font-size: 1.4rem;
+      color: var(--foreground);
+      margin-bottom: 12px;
+    }
+
+    .section p {
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Callout */
+    .callout {
+      background: linear-gradient(135deg, rgba(168, 181, 160, 0.12) 0%, rgba(212, 165, 116, 0.08) 100%);
+      border-left: 3px solid var(--accent-sage);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      page-break-inside: avoid;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #222;
+    }
+
+    /* Discovery list */
+    .discovery-list {
+      list-style: none;
+      margin: 16px 0;
+    }
+
+    .discovery-list li {
+      padding: 12px 0;
+      padding-left: 20px;
+      position: relative;
+      border-bottom: 1px solid var(--card-border);
+      color: #333;
+      page-break-inside: avoid;
+    }
+
+    .discovery-list li:last-child {
+      border-bottom: none;
+    }
+
+    .discovery-list li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent-sage);
+      font-weight: 600;
+    }
+
+    /* Tech Tags */
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tech-tag {
+      background: var(--foreground);
+      color: var(--background);
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Quote */
+    .quote {
+      background: var(--foreground);
+      color: var(--background);
+      padding: 24px 28px;
+      border-radius: 16px;
+      margin: 28px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.5;
+      page-break-inside: avoid;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .footer .author {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--foreground);
+    }
+
+    .footer .title {
+      font-family: ui-monospace, monospace;
+      font-size: 0.7rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="badge">Case Study</div>
+      <h1 class="serif-display">GTM Command Center</h1>
+      <p class="subtitle">Building a Single Source of Truth for Revenue Operations</p>
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">The Situation</h2>
+      <p>Marketing and Sales were operating with different definitions of success. Marketing celebrated lead volume; Sales complained about lead quality. Each team had their own dashboards, their own metrics, and their own version of reality.</p>
+      <p>Leadership was stuck mediating between departments instead of making strategic decisions. They needed one place to answer: "How is our pipeline actually performing, and where should we focus?"</p>
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">What I Built</h2>
+      <p>I designed a unified GTM Command Center that bridged the gap between Marketing activity and Sales results. The system pulled from HubSpot CRM via BigQuery, consolidating contact data, campaign engagement, lifecycle stages, and pipeline movement into a single operational view.</p>
+      <p>The dashboard was structured around the questions leadership actually asked in weekly meetings—not vanity metrics, but actionable intelligence about channel performance, conversion velocity, and pipeline health.</p>
+    </div>
+
+    <div class="callout">
+      <p><strong>The core principle:</strong> Track both volume and velocity. Knowing "how many" means nothing without knowing "how fast." A lead that takes three months to convert isn't the same as one that converts in three days.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">Key Design Decisions</h2>
+
+      <ul class="discovery-list">
+        <li><strong>Week-over-week comparisons everywhere:</strong> Every metric showed trend direction, not just current state</li>
+        <li><strong>Inbound vs. outbound segmentation:</strong> Different channels require different benchmarks—comparing them directly creates false conclusions</li>
+        <li><strong>Stage velocity tracking:</strong> Measured days between each lifecycle transition to identify where deals stall</li>
+        <li><strong>Collapsible deep-dives:</strong> Executive summary for leadership, detailed breakdowns for operators—same dashboard, different views</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">What Changed</h2>
+      <p>The Command Center became the single artifact for weekly pipeline reviews. Instead of Marketing and Sales presenting conflicting narratives, everyone looked at the same numbers and debated strategy instead of data accuracy.</p>
+      <p>More importantly, it revealed which channels actually drove qualified pipeline—not just which channels drove volume. Some high-volume sources were revealed as low-quality; some underinvested channels showed outsized conversion rates.</p>
+    </div>
+
+    <div class="quote">
+      "A GTM Command Center isn't about more dashboards—it's about one source of truth that bridges Marketing's 'leads generated' with Sales' 'deals closed' to reveal what's actually working."
+    </div>
+
+    <div class="section">
+      <h2 class="serif-heading">Technical Approach</h2>
+      <div class="tech-tags">
+        <span class="tech-tag">SQL</span>
+        <span class="tech-tag">BigQuery</span>
+        <span class="tech-tag">Hex</span>
+        <span class="tech-tag">HubSpot CRM</span>
+        <span class="tech-tag">Revenue Operations</span>
+        <span class="tech-tag">Pipeline Analysis</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="author">Cameron Wolf</div>
+      <div class="title">Growth Architect</div>
+    </div>
+  </div>
+</body>
+</html>

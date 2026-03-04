@@ -36,6 +36,38 @@ yarn-error.log*
 # vercel
 .vercel
 
+# AI tool configs
+.agent/
+.agents/
+.cline/
+.codebuddy/
+.codex/
+.commandcode/
+.continue/
+.crush/
+.cursor/
+.factory/
+.gemini/
+.goose/
+.junie/
+.kilocode/
+.kiro/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+.opencode/
+.openhands/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.trae/
+.windsurf/
+.zencoder/
+.github/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
