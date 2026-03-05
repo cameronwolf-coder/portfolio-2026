@@ -17,10 +17,11 @@ const experiences: TimelineEntry[] = [
     role: "Senior Marketing Manager",
     period: "September 2025 - Present",
     description:
-      "Leading AI as a bleeding-edge counterpart to scaling marketing campaigns. Building automation systems that unlock capabilities previously impossible to automate, turning manual marketing processes into intelligent, self-running infrastructure.",
+      "Engineering the GTM data layer from scratch. Architected CRM custom objects, built automation pipelines in HubSpot Ops Hub, wired up enrichment workflows through Clay and Pipedream, and deployed AI-powered outreach systems that generate pipeline without manual ops.",
     achievements: [
-      "AI-driven automation",
-      "Campaign scaling",
+      "CRM Architecture",
+      "Automation Pipelines",
+      "AI-Native GTM",
       "Series B SaaS",
     ],
     accent: "teal",

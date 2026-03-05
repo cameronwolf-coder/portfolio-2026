@@ -70,10 +70,10 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "truv",
     company: "Truv · Series B SaaS",
-    role: "Senior Growth Marketing Manager",
-    period: "2024 – Present",
+    role: "Senior Marketing Manager",
+    period: "2025 – Present",
     summary:
-      "Building the demand gen and ABM engine for a Series B compliance SaaS targeting enterprise buyers.",
+      "Engineering the GTM data layer and automation infrastructure for a Series B compliance SaaS targeting enterprise buyers.",
     icon: Building2,
     accent: "maroon",
     metrics: [
@@ -82,13 +82,13 @@ export const caseStudies: CaseStudy[] = [
       { value: "AI", label: "Powered Automation" },
     ],
     situation:
-      "Truv is a Series B verification and compliance SaaS company that needs to accelerate enterprise pipeline. The product is technically complex (income and employment verification for financial services) and the buyer persona (risk, compliance, and operations leaders) requires high-trust, low-friction engagement before they'll take a meeting.",
+      "Truv is a Series B verification and compliance SaaS company that needed GTM infrastructure built from scratch. The product is technically complex (income and employment verification for financial services) and the existing marketing stack had no CRM architecture, no automation pipelines, and no data layer connecting activity to pipeline.",
     insight:
-      "Enterprise buyers of compliance tools need trust signals and simplified messaging before outbound works. You can't cold-call a compliance officer with a feature list. The positioning needed to translate complex technical capabilities into clear business outcomes, and the demand gen system needed to build trust at scale before asking for the meeting.",
+      "The bottleneck wasn't strategy or messaging. It was infrastructure. Without a proper CRM schema, lead routing logic, and attribution model, every campaign was a manual lift and every report was a guess. Build the systems first, and pipeline generation becomes a repeatable, measurable process.",
     action:
-      "Built the messaging framework from scratch, translating technical verification capabilities into clear value propositions for risk, compliance, and ops buyers. Designed and launched ABM campaigns targeting named enterprise accounts. Introduced AI-powered automation to scale marketing workflows without adding headcount: from content personalization to lead scoring to campaign optimization.",
+      "Architected the CRM data model with HubSpot custom objects and calculated properties. Built automation pipelines for lead routing, lifecycle management, and enrichment via Clay and Pipedream. Deployed AI-powered outreach tools using OpenAI and Claude APIs. Wired up BigQuery and ClickHouse for attribution and pipeline analytics. Connected SmartLead, Knock, and SendGrid for multi-channel orchestration.",
     result:
-      "Currently building. The messaging framework, ABM infrastructure, and AI-powered workflows are in market and generating pipeline. The approach is designed to compound: every campaign improves targeting accuracy, every content piece builds domain authority, and every automation reduces the cost of the next conversion.",
+      "Significant pipeline growth with dramatically reduced manual work. Eliminated manual lead routing entirely. Built an auditable attribution layer for revenue forecasting. The GTM infrastructure now compounds: every workflow improves targeting accuracy, every integration reduces operational overhead, and every automation frees hours per week for strategic work.",
   },
   {
     slug: "inspiration-mobility",

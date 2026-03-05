@@ -13,13 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cameron Wolf | Technical Brain, Marketing Leader",
-  description: "A technical brain in a non-technical role. Growth leader who builds CRM architecture, automation workflows, and attribution models. Facilitated the acquisition of ZappyRide by J.D. Power.",
-  keywords: ["growth marketing", "martech", "acquisition", "technical marketing", "ZappyRide", "J.D. Power", "marketing technology", "CRM architecture", "marketing automation"],
+  title: "Cameron Wolf | GTM Engineer & Growth Architect",
+  description: "GTM Engineer who builds CRM architecture, automation pipelines, and data infrastructure. Facilitated the acquisition of ZappyRide by J.D. Power. Currently engineering GTM systems at Truv.",
+  keywords: ["GTM engineer", "go-to-market engineering", "CRM architecture", "marketing automation", "data pipelines", "API integrations", "ZappyRide", "J.D. Power", "HubSpot", "growth infrastructure"],
   authors: [{ name: "Cameron Wolf" }],
   openGraph: {
-    title: "Cameron Wolf | Technical Brain, Marketing Leader",
-    description: "A growth leader who builds the systems, not just the strategy. From stealth startup to J.D. Power acquisition.",
+    title: "Cameron Wolf | GTM Engineer & Growth Architect",
+    description: "GTM Engineer who builds growth infrastructure, not just strategy. From stealth startup to J.D. Power acquisition.",
     url: "https://cameronwolf.info",
     siteName: "Cameron Wolf Portfolio",
     locale: "en_US",
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cameron Wolf | Technical Brain, Marketing Leader",
-    description: "A technical brain in a non-technical role. Growth leader & architect.",
+    title: "Cameron Wolf | GTM Engineer & Growth Architect",
+    description: "GTM Engineer who builds CRM architecture, automation pipelines, and growth infrastructure.",
   },
   robots: {
     index: true,
@@ -40,24 +40,24 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Cameron Wolf",
-  "jobTitle": "Senior Growth Marketing Manager",
-  "description": "A technical brain in a non-technical role. Growth leader specializing in marketing technology, CRM architecture, and growth systems.",
+  "jobTitle": "GTM Engineer",
+  "description": "GTM Engineer specializing in CRM architecture, automation pipelines, data infrastructure, and AI-native growth systems.",
   "url": "https://cameronwolf.info",
   "email": "cameron@cameronwolf.info",
   "sameAs": [
     "https://www.linkedin.com/in/camwolf/"
   ],
   "knowsAbout": [
-    "Marketing Technology",
-    "Growth Strategy",
-    "Data-Driven Marketing",
-    "SEM Management",
-    "MarTech Stack Implementation",
-    "Brand Development",
-    "Lead Generation",
-    "Digital Optimization",
-    "Content Marketing",
-    "Analytics"
+    "GTM Engineering",
+    "CRM Architecture",
+    "Marketing Automation",
+    "Data Pipelines",
+    "API Integrations",
+    "HubSpot Ops Hub",
+    "Growth Infrastructure",
+    "Pipeline Analytics",
+    "AI-Native GTM Tools",
+    "Attribution Modeling"
   ],
   "alumniOf": {
     "@type": "EducationalOrganization",

@@ -12,8 +12,8 @@ export default function Footer() {
               CAMERON<span className="text-maroon-light">WOLF</span>
             </h3>
             <p className="text-dark-muted text-sm max-w-sm leading-relaxed">
-              Technical Force Multiplier. Senior Growth Leader & Architect who
-              facilitated the acquisition of ZappyRide by J.D. Power.
+              GTM Engineer. Builds CRM architecture, automation pipelines, and
+              data infrastructure. Facilitated the acquisition of ZappyRide by J.D. Power.
             </p>
           </div>
 

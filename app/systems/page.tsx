@@ -104,7 +104,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              STATUS: BUILDING DURABLE GROWTH NUCLEI
+              STATUS: ENGINEERING GTM INFRASTRUCTURE
             </motion.div>
 
             {/* Identity Statement */}
@@ -116,8 +116,8 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               I ENGINEER THE<br />
-              SYSTEMS THAT MAKE<br />
-              <span className="text-maroon-light">ULTRA-GROWTH</span><br />
+              <span className="text-maroon-light">GTM SYSTEMS</span><br />
+              THAT MAKE GROWTH<br />
               INEVITABLE.
             </motion.h1>
 
@@ -132,7 +132,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                Marketing is no longer a department. It is a <strong>technical infrastructure problem</strong>.
+                Go-to-market is no longer a department. It is a <strong>technical infrastructure problem</strong>.
               </motion.p>
               <motion.p
                 className="text-lg sm:text-xl md:text-2xl leading-relaxed text-dark-muted"
@@ -140,7 +140,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
-                I architect high-velocity growth frameworks that bridge the gap between writing code and expressing intent. My focus is systemic optimization: building autonomous engines that turn data into deterministic paths toward 100%+ annual scaling.
+                I build the CRM schemas, automation pipelines, API integrations, and data infrastructure that turn GTM from a cost center into an engineering discipline. My focus: systems that generate pipeline without manual intervention.
               </motion.p>
               <motion.p
                 className="text-lg sm:text-xl md:text-2xl leading-relaxed text-dark-muted"
@@ -148,7 +148,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
-                Most growth efforts fail because they are brittle. They optimize for campaigns, not systems. I build infrastructure that withstands complexity, encodes strategic logic into automation, and eliminates manual intervention as a constraint on velocity.
+                Most GTM stacks are duct tape. They optimize for campaigns, not systems. I build infrastructure that withstands complexity, encodes routing logic into automation, and eliminates manual ops as a constraint on velocity.
               </motion.p>
               <motion.p
                 className="text-lg sm:text-xl md:text-2xl leading-relaxed text-dark-muted"
@@ -156,7 +156,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                The work is not to run more experiments. The work is to build the machine that runs experiments autonomously, learns from signal, and compounds value without human supervision.
+                The job isn't running more campaigns. The job is building the machine that routes leads, scores intent, orchestrates outreach, and reports on attribution without anyone touching a spreadsheet.
               </motion.p>
             </motion.div>
           </motion.div>
@@ -682,13 +682,13 @@ export default function Home() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                <h3 className="text-xs sm:text-sm font-mono text-maroon-light mb-4 uppercase tracking-wide">Logic & Languages</h3>
+                <h3 className="text-xs sm:text-sm font-mono text-maroon-light mb-4 uppercase tracking-wide">Languages & Frameworks</h3>
                 <div className="space-y-2 font-mono text-xs sm:text-sm text-light-muted">
                   <div>SQL</div>
                   <div>Python</div>
+                  <div>TypeScript / React</div>
                   <div>HTML/CSS</div>
-                  <div>RICE prioritization</div>
-                  <div>Jobs-to-be-Done</div>
+                  <div>REST APIs / Webhooks</div>
                 </div>
               </motion.div>
 
@@ -700,9 +700,10 @@ export default function Home() {
               >
                 <h3 className="text-xs sm:text-sm font-mono text-teal mb-4 uppercase tracking-wide">CRM & Ops</h3>
                 <div className="space-y-2 font-mono text-sm text-light-muted">
-                  <div>HubSpot (Ops Hub, custom objects, workflows)</div>
+                  <div>HubSpot (Ops Hub, custom objects, workflows, calculated properties)</div>
                   <div>Salesforce Marketing Cloud</div>
-                  <div>Custom object schema design</div>
+                  <div>Pipedream</div>
+                  <div>Notion</div>
                 </div>
               </motion.div>
 
@@ -717,7 +718,7 @@ export default function Home() {
                   <div>SmartLead</div>
                   <div>Knock</div>
                   <div>SendGrid</div>
-                  <div>API routing</div>
+                  <div>Clay</div>
                   <div>Multi-channel journey logic</div>
                 </div>
               </motion.div>
@@ -748,6 +749,7 @@ export default function Home() {
                 <h3 className="text-xs sm:text-sm font-mono text-teal mb-4 uppercase tracking-wide">Enrichment & Signal</h3>
                 <div className="space-y-2 font-mono text-sm text-light-muted">
                   <div>Clay</div>
+                  <div>Firecrawl</div>
                   <div>Clearbit</div>
                   <div>Custom enrichment pipelines</div>
                 </div>
@@ -759,11 +761,12 @@ export default function Home() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
-                <h3 className="text-xs sm:text-sm font-mono text-teal-light mb-4 uppercase tracking-wide">Emerging Intelligence</h3>
+                <h3 className="text-xs sm:text-sm font-mono text-teal-light mb-4 uppercase tracking-wide">AI & Intelligence</h3>
                 <div className="space-y-2 font-mono text-sm text-light-muted">
-                  <div>Custom LLM deployment</div>
+                  <div>OpenAI API</div>
+                  <div>Anthropic Claude API</div>
                   <div>Agentic workflows</div>
-                  <div>Generative search optimization (GSO)</div>
+                  <div>Firecrawl</div>
                   <div>Deterministic attribution</div>
                 </div>
               </motion.div>
@@ -797,7 +800,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              READY TO AUDIT<br />YOUR GROWTH ENGINE?
+              READY TO ENGINEER<br />YOUR GTM STACK?
             </motion.h2>
             <motion.p
               className="text-lg sm:text-xl md:text-2xl text-dark-muted mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4"
@@ -806,7 +809,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              I work with organizations that have outgrown "simple marketing" and require a Systems Architect to prepare infrastructure for ultra-growth.
+              I work with organizations that have outgrown spreadsheets and manual ops, and need a GTM engineer to build the infrastructure that scales.
             </motion.p>
             <motion.p
               className="text-lg sm:text-xl text-dark-muted mb-12 sm:mb-16 font-medium px-4"
@@ -815,7 +818,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              If you are optimizing for campaigns instead of systems, we are not a fit.
+              If you need someone to run campaigns, I'm not your guy. If you need someone to build the system that runs them, let's talk.
             </motion.p>
 
             {/* CTA Button */}

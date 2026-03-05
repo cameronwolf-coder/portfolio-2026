@@ -26,50 +26,50 @@ import Footer from "./components/Footer";
 
 const capabilities = [
   {
-    title: "Brand Strategy",
+    title: "CRM Architecture",
     description:
-      "Positioning, messaging, and narrative architecture that turns companies into category leaders.",
-    items: ["Positioning", "Category Creation", "Narrative Architecture", "Voice & Tone"],
-    icon: Target,
-    accent: "maroon" as const,
-  },
-  {
-    title: "Content & Media",
-    description:
-      "Podcast production, thought leadership, and editorial strategy that builds authority.",
-    items: ["Podcasting", "Thought Leadership", "Editorial Strategy", "SEO Engines"],
-    icon: Mic,
-    accent: "teal" as const,
-  },
-  {
-    title: "Growth Marketing",
-    description:
-      "Demand generation, ABM, and performance campaigns that convert at scale.",
-    items: ["Demand Gen", "ABM", "Performance", "Conversion Optimization"],
-    icon: BarChart3,
-    accent: "maroon" as const,
-  },
-  {
-    title: "Strategic Frameworks",
-    description:
-      "Jobs-to-be-Done, RICE prioritization, and growth modeling for data-driven decisions.",
-    items: ["JTBD", "RICE", "Growth Modeling", "OKR Development"],
-    icon: Lightbulb,
-    accent: "teal" as const,
-  },
-  {
-    title: "Marketing Operations",
-    description:
-      "CRM strategy, marketing automation, and attribution modeling that scales with the business.",
-    items: ["CRM Strategy", "Automation", "Attribution", "Analytics"],
+      "Custom object schemas, lifecycle logic, and data models that scale with the business.",
+    items: ["HubSpot Ops Hub", "Custom Objects", "Salesforce", "Data Modeling"],
     icon: Settings,
     accent: "maroon" as const,
   },
   {
-    title: "Creative Direction",
+    title: "Marketing Automation",
     description:
-      "Campaign concepts, visual identity, and website experiences that stand out.",
-    items: ["Campaign Concepts", "Visual Identity", "Web Experience", "Brand Guidelines"],
+      "Workflow engines, lead routing, and nurture sequences that run without manual intervention.",
+    items: ["Workflows", "Lead Scoring", "Nurture Sequences", "Lifecycle Logic"],
+    icon: Target,
+    accent: "teal" as const,
+  },
+  {
+    title: "Pipeline Analytics",
+    description:
+      "Attribution models, revenue forecasting, and SQL-driven reporting that connects spend to outcomes.",
+    items: ["Attribution", "BigQuery", "ClickHouse", "Hex Dashboards"],
+    icon: BarChart3,
+    accent: "maroon" as const,
+  },
+  {
+    title: "API Integrations",
+    description:
+      "Connecting systems through webhooks, Pipedream workflows, and custom API routing.",
+    items: ["Webhooks", "Pipedream", "REST APIs", "System Integrations"],
+    icon: Lightbulb,
+    accent: "teal" as const,
+  },
+  {
+    title: "Enrichment Pipelines",
+    description:
+      "Automated data enrichment, prospecting workflows, and multi-channel outreach orchestration.",
+    items: ["Clay", "SmartLead", "Knock", "SendGrid"],
+    icon: Mic,
+    accent: "maroon" as const,
+  },
+  {
+    title: "AI-Native GTM",
+    description:
+      "LLM-powered content workflows, agentic automation, and AI tools built for GTM teams.",
+    items: ["OpenAI API", "Claude API", "Firecrawl", "Agentic Workflows"],
     icon: Palette,
     accent: "teal" as const,
   },
@@ -109,13 +109,13 @@ const growthStories = [
     slug: "truv",
     logo: "/logos/truv.svg",
     logoBg: false,
-    title: "Enterprise Brand at Velocity",
+    title: "GTM Infrastructure from Scratch",
     company: "Truv · Series B SaaS",
     description:
-      "Positioned a compliance SaaS for rapid enterprise adoption. Built messaging framework, demand gen strategy, and ABM campaigns that turned complex technical products into must-have solutions.",
+      "Architected the entire GTM data layer for an enterprise compliance SaaS. Built CRM architecture, automation pipelines, enrichment workflows, and AI-powered outreach systems that generate pipeline without manual ops.",
     metrics: [
-      { value: "B2B", label: "Enterprise" },
-      { value: "ABM", label: "Strategy" },
+      { value: "CRM", label: "Architecture" },
+      { value: "AI", label: "Automation" },
       { value: "Series B", label: "Scale" },
     ],
     accent: "maroon",
@@ -189,7 +189,7 @@ export default function Home() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  TECHNICAL FORCE MULTIPLIER
+                  GTM ENGINEER
                 </motion.div>
 
                 {/* Headline */}
@@ -199,11 +199,11 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
                 >
-                  A <span className="text-maroon-light">TECHNICAL</span> BRAIN
+                  I BUILD THE
                   <br />
-                  IN A NON-TECHNICAL
+                  <span className="text-maroon-light">SYSTEMS</span> THAT
                   <br />
-                  ROLE.
+                  MAKE GROWTH WORK.
                 </motion.h1>
 
                 {/* Description */}
@@ -214,10 +214,9 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
                   <p className="text-lg text-light-muted leading-relaxed">
-                    Most marketers strategize. I strategize AND build: CRM
-                    architecture, automation workflows, attribution models, and
-                    growth systems that run themselves. From stealth startup to
-                    J.D. Power acquisition.
+                    GTM Engineer who architects CRM systems, builds automation
+                    pipelines, wires up APIs, and ships data infrastructure.
+                    From stealth startup to J.D. Power acquisition.
                   </p>
                 </motion.div>
 
@@ -395,11 +394,11 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              YOUR NEXT HIRE
+              YOUR NEXT GTM
               <br />
-              SHOULD BUILD, NOT
+              HIRE SHOULD
               <br />
-              JUST PLAN.
+              SHIP CODE.
             </motion.h2>
             <motion.p
               className="text-lg sm:text-xl text-light-muted mb-12 max-w-2xl mx-auto leading-relaxed"
@@ -408,9 +407,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              You get a growth leader who can architect the CRM, build the
-              automation, deploy the attribution model, AND own the strategy.
-              One hire. Full stack. No translators needed.
+              You get a GTM engineer who architects the CRM, builds the
+              automation pipelines, wires up the APIs, and ships the data
+              infrastructure. One hire. Full stack. No translators needed.
             </motion.p>
 
             {/* Contact Cards */}
@@ -466,7 +465,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              STRATEGY + EXECUTION UNDER ONE ROOF
+              STRATEGY + INFRASTRUCTURE UNDER ONE ROOF
             </motion.p>
           </motion.div>
         </div>
