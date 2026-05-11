@@ -248,6 +248,78 @@ body {
     rgba(0, 163, 163, 0) 100%);
 }
 
+/* Reduction meter */
+.meter-track {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.meter-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(0, 128, 128, 0.6) 0%, rgba(0, 163, 163, 1) 100%);
+  box-shadow: 0 0 12px rgba(0, 163, 163, 0.5);
+}
+
+/* Agent mode dot */
+.mode-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.mode-dot-auto {
+  background: rgba(0, 163, 163, 0.18);
+  color: var(--teal-light);
+  border: 1px solid rgba(0, 163, 163, 0.35);
+}
+
+.mode-dot-human {
+  background: rgba(154, 27, 61, 0.18);
+  color: var(--maroon-light);
+  border: 1px solid rgba(154, 27, 61, 0.35);
+}
+
+/* Focus ring (accessible, teal, never on mouse) */
+.focus-glow:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(14, 14, 14, 1), 0 0 0 4px rgba(0, 163, 163, 0.7);
+  border-radius: 6px;
+}
+
+/* Stepper node */
+.stepper-node {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  color: var(--teal-light);
+  background: rgba(0, 163, 163, 0.14);
+  border: 1px solid rgba(0, 163, 163, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 8px 24px -10px rgba(0, 163, 163, 0.4);
+}
+
+.stepper-connector {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, rgba(0, 163, 163, 0.6) 0%, rgba(0, 163, 163, 0.15) 100%);
+}
+
 /* Pill button base */
 .pill-btn {
   border-radius: 60px;
