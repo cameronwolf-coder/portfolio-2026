@@ -190,11 +190,28 @@ const rollout: PhaseItem[] = [
   },
 ];
 
+function SectionHeader({ index, title }: { index: string; title: string }) {
+  return (
+    <>
+      <div className="flex items-center gap-4 mb-6">
+        <span className="text-xs font-mono text-teal-light tracking-widest">
+          {index}
+        </span>
+        <div className="refraction-rule flex-1" />
+      </div>
+      <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-dark-text mb-4"
+          style={{ textWrap: "balance" }}>
+        {title}
+      </h2>
+    </>
+  );
+}
+
 export default function PearlstonePage() {
   return (
-    <div className="min-h-screen">
+    <div className="liquid-bg min-h-screen">
       {/* Back nav */}
-      <div className="section-dark px-6 md:px-[71px] pt-28 pb-0">
+      <div className="px-6 md:px-[71px] pt-28 pb-0">
         <div className="max-w-[900px] mx-auto">
           <Link
             href="/#portfolio"
@@ -207,18 +224,20 @@ export default function PearlstonePage() {
       </div>
 
       {/* Hero */}
-      <section className="section-dark px-6 md:px-[71px] pt-10 pb-16">
+      <section className="px-6 md:px-[71px] pt-10 pb-16">
         <div className="max-w-[900px] mx-auto">
-          <span className="inline-block px-4 py-2 rounded-full bg-teal/10 text-teal-light text-sm font-mono mb-6">
+          <span className="glass-pill inline-block px-4 py-2 rounded-full text-teal-light text-xs font-mono tracking-widest mb-6">
             CAPABILITY OVERVIEW
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-dark-text mb-3">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-dark-text mb-3"
+              style={{ letterSpacing: "-0.03em", textWrap: "balance" }}>
             Pearlstone Marketing Automation
           </h1>
-          <p className="text-dark-muted font-mono text-sm mb-2">
-            Prepared for the Pearlstone team · May 2026
+          <p className="text-dark-muted font-mono text-xs tracking-widest mb-2">
+            PREPARED FOR THE PEARLSTONE TEAM · MAY 2026
           </p>
-          <p className="text-lg text-dark-muted leading-relaxed max-w-2xl mt-4">
+          <p className="text-lg text-dark-muted leading-relaxed max-w-2xl mt-4"
+             style={{ textWrap: "pretty" }}>
             How an AI agent stack brings all-in marketing cost per listing down
             materially, while keeping sales velocity and brand quality intact.
           </p>
@@ -226,50 +245,38 @@ export default function PearlstonePage() {
       </section>
 
       {/* The Goal */}
-      <section className="section-dark px-6 md:px-[71px] pb-16">
+      <section className="px-6 md:px-[71px] pb-16">
         <div className="max-w-[900px] mx-auto">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="text-xs font-mono text-teal-light tracking-widest">
-              01
-            </span>
-            <div className="h-px flex-1 border-t border-teal-light" />
+          <SectionHeader index="01" title="The Goal" />
+          <div className="liquid-glass p-6 sm:p-8">
+            <p className="text-dark-muted leading-relaxed text-base sm:text-lg">
+              Bring all-in marketing cost per listing down materially from where
+              it sits today. Keep sales velocity and brand quality intact. The
+              system finds waste, rebuilds measurement, and restructures how
+              spend flows across listings and channels. It runs on top of your
+              existing tools.
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-dark-text mb-4">
-            The Goal
-          </h2>
-          <p className="text-dark-muted leading-relaxed text-base sm:text-lg">
-            Bring all-in marketing cost per listing down materially from where
-            it sits today. Keep sales velocity and brand quality intact. The
-            system finds waste, rebuilds measurement, and restructures how spend
-            flows across listings and channels. It runs on top of your existing
-            tools.
-          </p>
         </div>
       </section>
 
       {/* Savings levers */}
-      <section className="section-dark px-6 md:px-[71px] pb-20">
+      <section className="px-6 md:px-[71px] pb-20">
         <div className="max-w-[900px] mx-auto">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="text-xs font-mono text-teal-light tracking-widest">
-              02
-            </span>
-            <div className="h-px flex-1 border-t border-teal-light" />
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-dark-text mb-8">
-            Where the Savings Come From
-          </h2>
-          <div className="space-y-8">
+          <SectionHeader index="02" title="Where the Savings Come From" />
+          <div className="space-y-6 mt-8">
             {savingsLevers.map((lever, i) => (
               <div
                 key={lever.title}
-                className="card-rounded card-dark p-6 sm:p-8"
+                className="liquid-glass liquid-glass-hover p-6 sm:p-8"
               >
                 <div className="flex items-baseline gap-4 mb-3">
-                  <span className="text-3xl font-black tabular-nums text-teal-light">
-                    {i + 1}
+                  <span className="text-3xl font-black tabular-nums text-teal-light"
+                        style={{ letterSpacing: "-0.04em" }}>
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-black text-dark-text">
+                  <h3 className="text-xl sm:text-2xl font-black text-dark-text"
+                      style={{ textWrap: "balance" }}>
                     {lever.title}
                   </h3>
                 </div>
@@ -281,38 +288,30 @@ export default function PearlstonePage() {
       </section>
 
       {/* Cost reduction table */}
-      <section className="section-dark px-6 md:px-[71px] pb-20">
+      <section className="px-6 md:px-[71px] pb-20">
         <div className="max-w-[900px] mx-auto">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="text-xs font-mono text-teal-light tracking-widest">
-              03
-            </span>
-            <div className="h-px flex-1 border-t border-teal-light" />
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-dark-text mb-4">
-            Estimated Cost Reduction
-          </h2>
+          <SectionHeader index="03" title="Estimated Cost Reduction" />
           <p className="text-dark-muted leading-relaxed mb-8">
             Baseline: ~$25,000 per active listing per month. The trajectory
             below is grounded in industry benchmarks for each lever.
-            Pearlstone's actual numbers sharpen once Phase 1 visibility is live
-            and current spend is mapped to outcomes.
+            Pearlstone&apos;s actual numbers sharpen once Phase 1 visibility is
+            live and current spend is mapped to outcomes.
           </p>
-          <div className="card-rounded card-dark overflow-x-auto">
+          <div className="liquid-glass overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className="border-b border-dark-border">
-                  <th className="px-4 sm:px-6 py-4 text-xs font-mono text-dark-muted tracking-widest">
-                    Horizon
+                <tr className="border-b border-white/10">
+                  <th className="px-4 sm:px-6 py-4 text-[10px] font-mono text-dark-muted tracking-widest">
+                    HORIZON
                   </th>
-                  <th className="px-4 sm:px-6 py-4 text-xs font-mono text-dark-muted tracking-widest">
-                    Per-listing /mo
+                  <th className="px-4 sm:px-6 py-4 text-[10px] font-mono text-dark-muted tracking-widest">
+                    PER-LISTING /MO
                   </th>
-                  <th className="px-4 sm:px-6 py-4 text-xs font-mono text-dark-muted tracking-widest">
-                    vs. Baseline
+                  <th className="px-4 sm:px-6 py-4 text-[10px] font-mono text-dark-muted tracking-widest">
+                    VS. BASELINE
                   </th>
-                  <th className="px-4 sm:px-6 py-4 text-xs font-mono text-dark-muted tracking-widest">
-                    Primary drivers
+                  <th className="px-4 sm:px-6 py-4 text-[10px] font-mono text-dark-muted tracking-widest">
+                    PRIMARY DRIVERS
                   </th>
                 </tr>
               </thead>
@@ -320,7 +319,7 @@ export default function PearlstonePage() {
                 {costTable.map((row) => (
                   <tr
                     key={row.horizon}
-                    className="border-b border-dark-border last:border-0"
+                    className="border-b border-white/5 last:border-0"
                   >
                     <td className="px-4 sm:px-6 py-4 text-dark-text font-semibold align-top">
                       {row.horizon}
@@ -348,33 +347,29 @@ export default function PearlstonePage() {
       </section>
 
       {/* Agents */}
-      <section className="section-dark px-6 md:px-[71px] pb-20">
+      <section className="px-6 md:px-[71px] pb-20">
         <div className="max-w-[900px] mx-auto">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="text-xs font-mono text-teal-light tracking-widest">
-              04
-            </span>
-            <div className="h-px flex-1 border-t border-teal-light" />
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-dark-text mb-4">
-            The Agents
-          </h2>
+          <SectionHeader index="04" title="The Agents" />
           <p className="text-dark-muted leading-relaxed mb-8">
-            Twelve specialized agents, each scoped to one piece of the marketing
-            function, coordinated by an orchestration layer above them.
+            Twelve specialized agents, each scoped to one piece of the
+            marketing function, coordinated by an orchestration layer above
+            them.
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             {agentRows.map((row) => (
-              <div key={row.agent} className="card-rounded card-dark p-5">
+              <div
+                key={row.agent}
+                className="liquid-glass liquid-glass-hover p-5 flex flex-col"
+              >
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <h3 className="text-base font-black text-dark-text">
                     {row.agent}
                   </h3>
                   <span
-                    className={`shrink-0 text-[10px] font-mono tracking-widest px-2 py-1 rounded-full ${
+                    className={`shrink-0 text-[10px] font-mono tracking-widest px-2 py-1 rounded-full border ${
                       row.mode === "Automated"
-                        ? "bg-teal/10 text-teal-light"
-                        : "bg-maroon/10 text-maroon-light"
+                        ? "bg-teal/10 text-teal-light border-teal/30"
+                        : "bg-maroon/10 text-maroon-light border-maroon/30"
                     }`}
                   >
                     {row.mode === "Automated" ? "AUTO" : "HUMAN"}
@@ -395,50 +390,45 @@ export default function PearlstonePage() {
       </section>
 
       {/* What stays human */}
-      <section className="section-dark px-6 md:px-[71px] pb-20">
+      <section className="px-6 md:px-[71px] pb-20">
         <div className="max-w-[900px] mx-auto">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="text-xs font-mono text-teal-light tracking-widest">
-              05
-            </span>
-            <div className="h-px flex-1 border-t border-teal-light" />
+          <SectionHeader index="05" title="What Stays Human" />
+          <div className="liquid-glass p-6 sm:p-8 mt-2">
+            <ol className="space-y-5">
+              {staysHuman.map((item, i) => (
+                <li key={i} className="flex gap-4">
+                  <span className="shrink-0 text-2xl font-black tabular-nums text-teal-light"
+                        style={{ letterSpacing: "-0.04em" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-dark-muted leading-relaxed text-base sm:text-lg pt-1">
+                    {item}
+                  </p>
+                </li>
+              ))}
+            </ol>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-dark-text mb-8">
-            What Stays Human
-          </h2>
-          <ol className="space-y-4">
-            {staysHuman.map((item, i) => (
-              <li key={i} className="flex gap-4">
-                <span className="shrink-0 text-2xl font-black tabular-nums text-teal-light">
-                  {i + 1}.
-                </span>
-                <p className="text-dark-muted leading-relaxed text-base sm:text-lg pt-1">
-                  {item}
-                </p>
-              </li>
-            ))}
-          </ol>
         </div>
       </section>
 
       {/* Rollout */}
-      <section className="section-dark px-6 md:px-[71px] pb-20">
+      <section className="px-6 md:px-[71px] pb-20">
         <div className="max-w-[900px] mx-auto">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="text-xs font-mono text-teal-light tracking-widest">
-              06
-            </span>
-            <div className="h-px flex-1 border-t border-teal-light" />
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-dark-text mb-8">
-            Rollout
-          </h2>
-          <div className="space-y-6">
+          <SectionHeader index="06" title="Rollout" />
+          <div className="space-y-5 mt-2">
             {rollout.map((phase) => (
               <div
                 key={phase.label}
-                className="card-rounded card-dark p-6 sm:p-8 border-l-4 border-teal-light"
+                className="liquid-glass liquid-glass-hover p-6 sm:p-8 relative overflow-hidden"
               >
+                <div
+                  aria-hidden
+                  className="absolute left-0 top-0 bottom-0 w-1"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(0,163,163,0) 0%, rgba(0,163,163,0.9) 30%, rgba(0,163,163,0.5) 70%, rgba(0,163,163,0) 100%)",
+                  }}
+                />
                 <p className="text-xs font-mono text-teal-light tracking-widest mb-3">
                   {phase.label}
                 </p>
@@ -449,16 +439,16 @@ export default function PearlstonePage() {
             ))}
           </div>
           <p className="text-dark-muted leading-relaxed mt-8">
-            By month six the full stack is operating and the cost trajectory per
-            listing is established in the data.
+            By month six the full stack is operating and the cost trajectory
+            per listing is established in the data.
           </p>
         </div>
       </section>
 
       {/* Footer CTA */}
-      <section className="section-dark px-6 md:px-[71px] pb-20">
+      <section className="px-6 md:px-[71px] pb-24">
         <div className="max-w-[900px] mx-auto">
-          <div className="border-t border-dark-border pt-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="liquid-glass p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6">
             <p className="text-sm text-dark-muted font-mono">
               Questions or follow-up: contact Cameron directly.
             </p>
