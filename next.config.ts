@@ -24,6 +24,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      { source: "/work/knostra", destination: "/work/knostra.html" },
+    ];
+  },
 };
 
 export default nextConfig;
