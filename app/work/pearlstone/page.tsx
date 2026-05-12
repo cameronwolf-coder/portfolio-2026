@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Bot, UserCheck } from "lucide-react";
+import Portal from "./portal/Portal";
 
 export const metadata: Metadata = {
   title: "Pearlstone Marketing Automation | Cameron Wolf",
@@ -541,6 +542,9 @@ export default function PearlstonePage() {
             </p>
           </div>
         </section>
+
+        {/* Interactive portal: discovery + agent picker + summary */}
+        <Portal />
 
         {/* Footer CTA */}
         <section className={`${SECTION_PAD} pb-28`}>
