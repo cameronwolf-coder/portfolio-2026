@@ -9,19 +9,28 @@ import {
   Check,
   ClipboardCopy,
   Download,
+  Send,
+  Sparkles,
   UserCheck,
+  Wrench,
+  Zap,
+  Repeat,
 } from "lucide-react";
 import {
   AGENTS,
   BUNDLES,
   DISCOVERY,
-  FULL_STACK_BUNDLE_PRICE,
+  MAINTENANCE_LABEL,
+  MAINTENANCE_DESC,
+  recommendAgents,
   type Agent,
+  type AnswerValue,
+  type Answers,
   type DiscoveryQuestion,
+  type MaintenanceType,
 } from "./data";
 
-type AnswerValue = string | string[];
-type Answers = Record<string, AnswerValue>;
+const WEB3FORMS_ACCESS_KEY = "39f0cbc5-d930-406e-b056-8f127918c336";
 
 const SECTION_PAD = "px-6 md:px-16 lg:px-20";
 const CONTAINER_MAX = "max-w-[1080px]";
@@ -46,20 +55,25 @@ function PortalSectionHeader({ index, title }: { index: string; title: string })
   );
 }
 
-function formatPrice(value: number): string {
-  return `$${value.toLocaleString("en-US")}`;
+function maintenanceIcon(m: MaintenanceType) {
+  if (m === "one-off") return Wrench;
+  if (m === "set-and-forget") return Zap;
+  return Repeat;
 }
 
 function DiscoveryWizard({
   answers,
   setAnswers,
+  onComplete,
 }: {
   answers: Answers;
   setAnswers: (next: Answers) => void;
+  onComplete: () => void;
 }) {
   const [step, setStep] = useState(0);
   const section = DISCOVERY[step];
   const totalSteps = DISCOVERY.length;
+  const isLastStep = step === totalSteps - 1;
 
   const setAnswer = (questionId: string, value: AnswerValue) => {
     setAnswers({ ...answers, [questionId]: value });
@@ -134,18 +148,27 @@ function DiscoveryWizard({
           <ArrowLeft size={16} aria-hidden /> Back
         </button>
         <p className="text-xs font-mono text-dark-muted tracking-wide hidden sm:block">
-          {section.id === DISCOVERY[totalSteps - 1].id
-            ? "Last section — answers feed into the agent picker below."
+          {isLastStep
+            ? "Last section — finish to see your recommendation."
             : "Answers save automatically."}
         </p>
-        <button
-          type="button"
-          onClick={() => setStep(Math.min(totalSteps - 1, step + 1))}
-          disabled={step === totalSteps - 1}
-          className="focus-glow pill-btn pill-btn-primary text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          Next <ArrowRight size={16} aria-hidden />
-        </button>
+        {isLastStep ? (
+          <button
+            type="button"
+            onClick={onComplete}
+            className="focus-glow pill-btn pill-btn-primary text-sm"
+          >
+            <Sparkles size={16} aria-hidden /> See recommendation
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setStep(Math.min(totalSteps - 1, step + 1))}
+            className="focus-glow pill-btn pill-btn-primary text-sm"
+          >
+            Next <ArrowRight size={16} aria-hidden />
+          </button>
+        )}
       </div>
     </div>
   );
@@ -215,12 +238,104 @@ function QuestionField({
   );
 }
 
+function RecommendationBanner({
+  answers,
+  onApply,
+}: {
+  answers: Answers;
+  onApply: (ids: string[]) => void;
+}) {
+  const ranked = useMemo(() => recommendAgents(answers), [answers]);
+  const recommended = ranked.filter((r) => r.score > 0);
+  const totalHours = recommended.reduce(
+    (sum, r) => sum + r.agent.hoursToBuild,
+    0,
+  );
+
+  if (recommended.length === 0) {
+    return (
+      <div className="liquid-glass p-6 sm:p-8 mb-6">
+        <p className="text-[10px] font-mono text-teal-light tracking-[0.25em] mb-2">
+          RECOMMENDATION
+        </p>
+        <p className="text-dark-text">
+          Answer at least a few discovery questions and a tailored stack will surface here.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="liquid-glass p-6 sm:p-8 mb-6">
+      <div className="grid sm:grid-cols-[1fr_auto] gap-4 items-start mb-6">
+        <div>
+          <p className="text-[10px] font-mono text-teal-light tracking-[0.25em] mb-2">
+            RECOMMENDED STACK
+          </p>
+          <h3
+            className="text-2xl sm:text-3xl font-black text-dark-text mb-2"
+            style={{ letterSpacing: "-0.025em" }}
+          >
+            {recommended.length} agent{recommended.length === 1 ? "" : "s"} · {totalHours}h to build
+          </h3>
+          <p className={`${PROSE_MAX} text-dark-muted leading-relaxed text-sm`}>
+            Based on your answers. Apply the recommendation below or customize from the full grid.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => onApply(recommended.map((r) => r.agent.id))}
+          className="focus-glow pill-btn pill-btn-primary text-sm"
+        >
+          <Sparkles size={16} aria-hidden /> Apply recommendation
+        </button>
+      </div>
+
+      <div className="space-y-3">
+        {recommended.map((r) => (
+          <div
+            key={r.agent.id}
+            className="liquid-glass p-4 grid sm:grid-cols-[1fr_auto] gap-3 items-start"
+          >
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-base font-black text-dark-text">
+                  {r.agent.name}
+                </span>
+                <span className="text-[10px] font-mono text-dark-muted tracking-[0.2em]">
+                  {r.agent.tier.toUpperCase()}
+                </span>
+              </div>
+              <ul className="space-y-1">
+                {r.reasons.map((reason, i) => (
+                  <li
+                    key={i}
+                    className="text-xs text-dark-muted leading-relaxed flex gap-2"
+                  >
+                    <span className="text-teal-light flex-shrink-0">•</span>
+                    {reason}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <span className="text-sm font-mono text-teal-light tabular-nums whitespace-nowrap">
+              {r.agent.hoursToBuild}h
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function AgentSelector({
   selectedIds,
   setSelectedIds,
+  answers,
 }: {
   selectedIds: Set<string>;
   setSelectedIds: (next: Set<string>) => void;
+  answers: Answers;
 }) {
   const toggleAgent = (id: string) => {
     const next = new Set(selectedIds);
@@ -235,29 +350,37 @@ function AgentSelector({
 
   const clearAll = () => setSelectedIds(new Set());
 
-  const isFullStack = selectedIds.size === AGENTS.length;
-  const rawTotal = AGENTS
+  const totalHours = AGENTS
     .filter((a) => selectedIds.has(a.id))
-    .reduce((sum, a) => sum + a.monthlyPrice, 0);
-  const total = isFullStack ? FULL_STACK_BUNDLE_PRICE : rawTotal;
+    .reduce((sum, a) => sum + a.hoursToBuild, 0);
 
   return (
     <div>
+      <RecommendationBanner
+        answers={answers}
+        onApply={(ids) => setSelectedIds(new Set(ids))}
+      />
+
       <div className="liquid-glass p-5 sm:p-6 mb-6 flex flex-wrap items-center gap-3">
         <p className="text-[10px] font-mono text-dark-muted tracking-[0.25em] mr-auto">
           STARTING POINTS
         </p>
-        {BUNDLES.map((bundle) => (
-          <button
-            key={bundle.id}
-            type="button"
-            onClick={() => applyBundle(bundle.agentIds)}
-            className="focus-glow inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono border border-teal-light/30 text-teal-light hover:bg-teal/15 transition-colors"
-          >
-            {bundle.name}
-            <span className="text-dark-muted">{formatPrice(bundle.price)}/mo</span>
-          </button>
-        ))}
+        {BUNDLES.map((bundle) => {
+          const bundleHours = AGENTS
+            .filter((a) => bundle.agentIds.includes(a.id))
+            .reduce((s, a) => s + a.hoursToBuild, 0);
+          return (
+            <button
+              key={bundle.id}
+              type="button"
+              onClick={() => applyBundle(bundle.agentIds)}
+              className="focus-glow inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono border border-teal-light/30 text-teal-light hover:bg-teal/15 transition-colors"
+            >
+              {bundle.name}
+              <span className="text-dark-muted">{bundleHours}h</span>
+            </button>
+          );
+        })}
         <button
           type="button"
           onClick={clearAll}
@@ -288,28 +411,18 @@ function AgentSelector({
               {selectedIds.size}
             </span>
             agent{selectedIds.size === 1 ? "" : "s"} selected
-            {isFullStack && (
-              <span className="ml-3 text-xs font-mono text-teal-light">
-                FULL-STACK BUNDLE PRICING
-              </span>
-            )}
           </p>
         </div>
         <div className="text-right">
           <p className="text-[10px] font-mono text-dark-muted tracking-[0.25em] mb-1">
-            EST. MONTHLY
+            BUILD HOURS
           </p>
           <p
             className="text-4xl font-black text-teal-light tabular-nums"
             style={{ letterSpacing: "-0.04em" }}
           >
-            {formatPrice(total)}
+            {totalHours}h
           </p>
-          {isFullStack && rawTotal !== total && (
-            <p className="text-xs text-dark-muted line-through tabular-nums">
-              {formatPrice(rawTotal)}
-            </p>
-          )}
         </div>
       </div>
     </div>
@@ -327,6 +440,7 @@ function AgentCard({
 }) {
   const isAuto = agent.mode === "Automated";
   const Icon = isAuto ? Bot : UserCheck;
+  const MaintIcon = maintenanceIcon(agent.maintenance);
 
   return (
     <motion.button
@@ -369,13 +483,22 @@ function AgentCard({
       <p className="text-sm text-dark-muted leading-relaxed mb-4">
         {agent.description}
       </p>
-      <div className="mt-auto pt-3 border-t border-dark-border flex items-baseline justify-between">
-        <span className="text-[10px] font-mono text-dark-muted tracking-[0.2em]">
-          MONTHLY
-        </span>
-        <span className="text-lg font-black text-teal-light tabular-nums">
-          {formatPrice(agent.monthlyPrice)}
-        </span>
+      <div className="mt-auto pt-3 border-t border-dark-border space-y-2">
+        <div className="flex items-baseline justify-between">
+          <span className="text-[10px] font-mono text-dark-muted tracking-[0.2em]">
+            BUILD
+          </span>
+          <span className="text-lg font-black text-teal-light tabular-nums">
+            {agent.hoursToBuild}h
+          </span>
+        </div>
+        <div
+          className="flex items-center gap-2 text-xs text-dark-muted"
+          title={MAINTENANCE_DESC[agent.maintenance]}
+        >
+          <MaintIcon size={12} className="text-teal-light flex-shrink-0" aria-hidden />
+          <span className="font-mono">{MAINTENANCE_LABEL[agent.maintenance]}</span>
+        </div>
       </div>
     </motion.button>
   );
@@ -389,15 +512,29 @@ function SummaryCard({
   selectedIds: Set<string>;
 }) {
   const [copied, setCopied] = useState(false);
+  const [senderName, setSenderName] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
+  const [sendState, setSendState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const selectedAgents = useMemo(
     () => AGENTS.filter((a) => selectedIds.has(a.id)),
     [selectedIds],
   );
 
-  const isFullStack = selectedIds.size === AGENTS.length;
-  const rawTotal = selectedAgents.reduce((sum, a) => sum + a.monthlyPrice, 0);
-  const total = isFullStack ? FULL_STACK_BUNDLE_PRICE : rawTotal;
+  const totalHours = selectedAgents.reduce((sum, a) => sum + a.hoursToBuild, 0);
+
+  const maintBreakdown = useMemo(() => {
+    const counts: Record<MaintenanceType, number> = {
+      "one-off": 0,
+      "set-and-forget": 0,
+      maintained: 0,
+    };
+    selectedAgents.forEach((a) => {
+      counts[a.maintenance] += 1;
+    });
+    return counts;
+  }, [selectedAgents]);
 
   const answeredCount = Object.values(answers).filter((v) =>
     Array.isArray(v) ? v.length > 0 : Boolean(v),
@@ -418,14 +555,12 @@ function SummaryCard({
       lines.push("_No agents selected yet._");
     } else {
       selectedAgents.forEach((a) => {
-        lines.push(`- **${a.name}** (${a.tier}) — ${formatPrice(a.monthlyPrice)}/mo`);
+        lines.push(`- **${a.name}** (${a.tier}) — ${a.hoursToBuild}h build · ${MAINTENANCE_LABEL[a.maintenance]}`);
       });
     }
     lines.push("");
-    lines.push(`**Estimated monthly:** ${formatPrice(total)}`);
-    if (isFullStack && rawTotal !== total) {
-      lines.push(`_(Full-stack bundle pricing — saves ${formatPrice(rawTotal - total)}/mo vs à la carte)_`);
-    }
+    lines.push(`**Total build hours:** ${totalHours}h`);
+    lines.push(`**Maintenance mix:** ${maintBreakdown["one-off"]} one-off · ${maintBreakdown["set-and-forget"]} set & forget · ${maintBreakdown["maintained"]} maintained`);
     lines.push("");
     lines.push("## Discovery answers");
     DISCOVERY.forEach((section) => {
@@ -447,7 +582,7 @@ function SummaryCard({
       });
     });
     return lines.join("\n");
-  }, [answers, selectedAgents, total, rawTotal, isFullStack]);
+  }, [answers, selectedAgents, totalHours, maintBreakdown]);
 
   const onCopy = async () => {
     try {
@@ -456,6 +591,41 @@ function SummaryCard({
       setTimeout(() => setCopied(false), 1800);
     } catch {
       // clipboard unavailable
+    }
+  };
+
+  const onSend = async () => {
+    if (sendState === "sending") return;
+    setSendState("sending");
+    setSendError(null);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Pearlstone portal — ${senderName.trim() || "anonymous submission"}`,
+          from_name: senderName.trim() || "Pearlstone Portal",
+          email: senderEmail.trim() || "noreply@cameronwolf.info",
+          name: senderName.trim() || "Pearlstone Portal",
+          message: summaryText,
+          botcheck: "",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSendState("sent");
+        setTimeout(() => setSendState("idle"), 4000);
+      } else {
+        setSendState("error");
+        setSendError(data.message || "Send failed");
+      }
+    } catch (err) {
+      setSendState("error");
+      setSendError(err instanceof Error ? err.message : "Network error");
     }
   };
 
@@ -485,11 +655,11 @@ function SummaryCard({
             >
               {selectedAgents.length === 0
                 ? "Nothing selected yet"
-                : `${selectedAgents.length} agent${selectedAgents.length === 1 ? "" : "s"} · ${formatPrice(total)}/mo`}
+                : `${selectedAgents.length} agent${selectedAgents.length === 1 ? "" : "s"} · ${totalHours}h to build`}
             </h3>
             <p className={`${PROSE_MAX} text-dark-muted leading-relaxed`}>
-              {answeredCount}/{totalQuestions} discovery questions captured. Copy or download the summary
-              and send it to Cameron — it includes everything below.
+              {answeredCount}/{totalQuestions} discovery questions captured. Copy, download, or
+              send the summary straight to Cameron — includes everything below.
             </p>
           </div>
           <div className="flex gap-2 flex-shrink-0">
@@ -504,7 +674,7 @@ function SummaryCard({
             <button
               type="button"
               onClick={onDownload}
-              className="focus-glow pill-btn pill-btn-primary text-sm"
+              className="focus-glow pill-btn pill-btn-outline-light text-sm"
             >
               <Download size={16} aria-hidden /> Download
             </button>
@@ -526,7 +696,7 @@ function SummaryCard({
                   <li key={a.id} className="flex items-baseline justify-between gap-3 text-sm">
                     <span className="text-dark-text">{a.name}</span>
                     <span className="font-mono text-teal-light tabular-nums">
-                      {formatPrice(a.monthlyPrice)}
+                      {a.hoursToBuild}h
                     </span>
                   </li>
                 ))}
@@ -536,30 +706,94 @@ function SummaryCard({
 
           <div className="liquid-glass p-5">
             <p className="text-[10px] font-mono text-dark-muted tracking-[0.25em] mb-3">
-              DISCOVERY COVERAGE
+              MAINTENANCE MIX
             </p>
-            <ul className="space-y-2 text-sm">
-              {DISCOVERY.map((section) => {
-                const filled = section.questions.filter((q) => {
-                  const v = answers[q.id];
-                  return Array.isArray(v) ? v.length > 0 : Boolean(v);
-                }).length;
-                const complete = filled === section.questions.length;
+            <ul className="space-y-3 text-sm">
+              {(Object.keys(maintBreakdown) as MaintenanceType[]).map((m) => {
+                const Icon = maintenanceIcon(m);
                 return (
-                  <li key={section.id} className="flex items-baseline justify-between gap-3">
-                    <span className="text-dark-muted">
-                      {section.index} · {section.title}
-                    </span>
-                    <span
-                      className={`font-mono tabular-nums ${complete ? "text-teal-light" : "text-dark-muted"}`}
-                    >
-                      {filled}/{section.questions.length}
-                    </span>
+                  <li key={m} className="flex items-start gap-3">
+                    <Icon size={14} className="text-teal-light mt-1 flex-shrink-0" aria-hidden />
+                    <div className="flex-1">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span className="text-dark-text font-semibold">
+                          {MAINTENANCE_LABEL[m]}
+                        </span>
+                        <span className="font-mono text-teal-light tabular-nums">
+                          {maintBreakdown[m]}
+                        </span>
+                      </div>
+                      <p className="text-xs text-dark-muted leading-snug">
+                        {MAINTENANCE_DESC[m]}
+                      </p>
+                    </div>
                   </li>
                 );
               })}
             </ul>
           </div>
+        </div>
+
+        {/* Send to Cameron */}
+        <div className="liquid-glass p-5 mt-6">
+          <p className="text-[10px] font-mono text-teal-light tracking-[0.25em] mb-3">
+            SEND TO CAMERON
+          </p>
+          <div className="grid sm:grid-cols-[1fr_1fr_auto] gap-3 items-stretch">
+            <label className="flex flex-col">
+              <span className="text-[10px] font-mono text-dark-muted tracking-[0.2em] mb-1">
+                YOUR NAME
+              </span>
+              <input
+                type="text"
+                value={senderName}
+                onChange={(e) => setSenderName(e.target.value)}
+                placeholder="Bill Pearlstone"
+                disabled={sendState === "sending" || sendState === "sent"}
+                className="focus-glow bg-transparent border border-dark-border rounded-xl px-4 py-2.5 text-sm text-dark-text placeholder:text-dark-muted/60 focus:border-teal-light/50 focus:outline-none transition-colors"
+              />
+            </label>
+            <label className="flex flex-col">
+              <span className="text-[10px] font-mono text-dark-muted tracking-[0.2em] mb-1">
+                YOUR EMAIL
+              </span>
+              <input
+                type="email"
+                value={senderEmail}
+                onChange={(e) => setSenderEmail(e.target.value)}
+                placeholder="bill@pearlstonepartners.com"
+                disabled={sendState === "sending" || sendState === "sent"}
+                className="focus-glow bg-transparent border border-dark-border rounded-xl px-4 py-2.5 text-sm text-dark-text placeholder:text-dark-muted/60 focus:border-teal-light/50 focus:outline-none transition-colors"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={onSend}
+              disabled={sendState === "sending" || sendState === "sent"}
+              className="focus-glow pill-btn pill-btn-primary text-sm self-end disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {sendState === "sending" ? (
+                <>Sending…</>
+              ) : sendState === "sent" ? (
+                <>
+                  <Check size={16} aria-hidden /> Sent
+                </>
+              ) : (
+                <>
+                  <Send size={16} aria-hidden /> Send
+                </>
+              )}
+            </button>
+          </div>
+          <p className="text-xs text-dark-muted mt-3 leading-relaxed">
+            Sends the full summary above (picks + discovery answers) straight to Cameron&apos;s inbox.
+            Name and email are optional but make replies easier.
+          </p>
+          {sendState === "error" && sendError && (
+            <p className="text-xs text-maroon-light font-mono mt-2">
+              Send failed: {sendError}
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -569,42 +803,63 @@ function SummaryCard({
 export default function Portal() {
   const [answers, setAnswers] = useState<Answers>({});
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [showRecommendation, setShowRecommendation] = useState(false);
+
+  const onComplete = () => {
+    setShowRecommendation(true);
+    const recommended = recommendAgents(answers)
+      .filter((r) => r.score > 0)
+      .map((r) => r.agent.id);
+    if (recommended.length > 0 && selectedIds.size === 0) {
+      setSelectedIds(new Set(recommended));
+    }
+    // scroll to picker
+    setTimeout(() => {
+      const el = document.getElementById("agents-section");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  };
 
   return (
     <>
       <section className={`${SECTION_PAD} pb-24`}>
         <div className={`${CONTAINER_MAX} mx-auto`}>
-          <PortalSectionHeader index="07" title="Discovery" />
+          <PortalSectionHeader index="01" title="Discovery" />
           <p
             className={`${PROSE_MAX} text-dark-muted leading-relaxed mt-2 mb-8`}
           >
             Ten short sections that map your current marketing stack. Answers stay
-            in this browser tab — nothing is sent anywhere. Use the Copy or Download
-            button at the end to share the result with Cameron.
+            in this browser tab — nothing is sent anywhere until you hit Send.
           </p>
-          <DiscoveryWizard answers={answers} setAnswers={setAnswers} />
+          <DiscoveryWizard
+            answers={answers}
+            setAnswers={setAnswers}
+            onComplete={onComplete}
+          />
         </div>
       </section>
 
-      <section className={`${SECTION_PAD} pb-24`}>
+      <section id="agents-section" className={`${SECTION_PAD} pb-24`}>
         <div className={`${CONTAINER_MAX} mx-auto`}>
-          <PortalSectionHeader index="08" title="Pick the agents you want" />
+          <PortalSectionHeader index="02" title="Your recommended stack" />
           <p
             className={`${PROSE_MAX} text-dark-muted leading-relaxed mt-2 mb-8`}
           >
-            À la carte pricing. The Full Stack starting point applies the
-            twelve-agent bundle discount automatically.
+            {showRecommendation
+              ? "Below: a stack tailored to your answers, plus the full grid so you can swap anything in or out. Build hours capped at 10 per agent — these are MVPs, not full enterprise rollouts."
+              : "Finish the discovery above to get a tailored recommendation. You can also pick freely from the full grid below right now."}
           </p>
           <AgentSelector
             selectedIds={selectedIds}
             setSelectedIds={setSelectedIds}
+            answers={answers}
           />
         </div>
       </section>
 
       <section className={`${SECTION_PAD} pb-28`}>
         <div className={`${CONTAINER_MAX} mx-auto`}>
-          <PortalSectionHeader index="09" title="Your summary" />
+          <PortalSectionHeader index="03" title="Your summary" />
           <p
             className={`${PROSE_MAX} text-dark-muted leading-relaxed mt-2 mb-8`}
           >

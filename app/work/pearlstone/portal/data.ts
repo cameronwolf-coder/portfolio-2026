@@ -1,5 +1,6 @@
 export type AgentMode = "Automated" | "Human-approved";
 export type AgentTier = "Visibility" | "Demand Engine" | "Owned & Earned";
+export type MaintenanceType = "one-off" | "set-and-forget" | "maintained";
 
 export interface Agent {
   id: string;
@@ -8,11 +9,31 @@ export interface Agent {
   mode: AgentMode;
   description: string;
   scope: string[];
-  monthlyPrice: number;
-  buildHours: number;
+  hoursToBuild: number; // 1–10 capped
+  maintenance: MaintenanceType;
   stack: string;
   passthrough: string;
+  /** When any of the listed answer values are selected for a given question, this agent gets a relevance point + the matching reason surfaces in the recommendation. */
+  triggers: TriggerRule[];
 }
+
+export interface TriggerRule {
+  questionId: string;
+  values: string[];
+  reason: string;
+}
+
+export const MAINTENANCE_LABEL: Record<MaintenanceType, string> = {
+  "one-off": "One-off",
+  "set-and-forget": "Set & forget",
+  maintained: "Maintained",
+};
+
+export const MAINTENANCE_DESC: Record<MaintenanceType, string> = {
+  "one-off": "Build it, hand it over, walk away. No ongoing care.",
+  "set-and-forget": "Runs on a schedule with no touch. Watch dashboards, ignore otherwise.",
+  maintained: "Needs weekly hands — review, tune, course-correct.",
+};
 
 export const AGENTS: Agent[] = [
   {
@@ -28,10 +49,27 @@ export const AGENTS: Agent[] = [
       "CRM event reconciliation",
       "Source-of-truth dashboards",
     ],
-    monthlyPrice: 2500,
-    buildHours: 80,
+    hoursToBuild: 10,
+    maintenance: "one-off",
     stack: "FastAPI, Postgres+pgvector, Segment-style ingest",
     passthrough: "CallRail, HubSpot",
+    triggers: [
+      {
+        questionId: "reporting-access",
+        values: ["agency", "view", "unsure"],
+        reason: "You don't fully own ad-account access today — attribution rebuilds it on your side.",
+      },
+      {
+        questionId: "reporting-cadence",
+        values: ["quarterly", "ad-hoc"],
+        reason: "Performance reads are sparse today — attribution is the foundation that fixes that.",
+      },
+      {
+        questionId: "crm-platform",
+        values: ["spreadsheet"],
+        reason: "No central CRM — attribution gives you a single source of truth.",
+      },
+    ],
   },
   {
     id: "performance-reporting",
@@ -46,10 +84,22 @@ export const AGENTS: Agent[] = [
       "Anomaly call-outs",
       "PDF + email + Notion delivery",
     ],
-    monthlyPrice: 1500,
-    buildHours: 50,
+    hoursToBuild: 4,
+    maintenance: "set-and-forget",
     stack: "Celery cron, headless HTML→PDF",
     passthrough: "—",
+    triggers: [
+      {
+        questionId: "reporting-cadence",
+        values: ["quarterly", "ad-hoc"],
+        reason: "Performance reports are quarterly or ad-hoc — this gives you weekly automatically.",
+      },
+      {
+        questionId: "reporting-access",
+        values: ["agency", "view"],
+        reason: "Agency-controlled reporting today — this one runs without them.",
+      },
+    ],
   },
   {
     id: "comp-intel",
@@ -64,10 +114,17 @@ export const AGENTS: Agent[] = [
       "Pricing & incentive change alerts",
       "Weekly digest",
     ],
-    monthlyPrice: 1500,
-    buildHours: 60,
+    hoursToBuild: 6,
+    maintenance: "set-and-forget",
     stack: "Browser-harness, Exa, Postgres diff store",
     passthrough: "Exa, DataForSEO",
+    triggers: [
+      {
+        questionId: "ad-spend",
+        values: ["25-75k", "75-150k", "150k+"],
+        reason: "Spend is high enough that competitor moves materially change ROI.",
+      },
+    ],
   },
   {
     id: "spend-architecture",
@@ -82,10 +139,22 @@ export const AGENTS: Agent[] = [
       "Daily pacing checks",
       "Reallocation recommendations",
     ],
-    monthlyPrice: 2000,
-    buildHours: 70,
+    hoursToBuild: 8,
+    maintenance: "maintained",
     stack: "FastAPI, Google/Meta APIs",
     passthrough: "—",
+    triggers: [
+      {
+        questionId: "ad-ownership",
+        values: ["agency", "agency-multiple"],
+        reason: "Agency-managed buys often re-pay for the same buyer — this removes the duplication.",
+      },
+      {
+        questionId: "ad-spend",
+        values: ["25-75k", "75-150k", "150k+"],
+        reason: "At this spend level the brand-vs-listing split pays for itself fast.",
+      },
+    ],
   },
   {
     id: "media-buying",
@@ -100,10 +169,22 @@ export const AGENTS: Agent[] = [
       "Audience first-party sync",
       "Cross-platform reallocation",
     ],
-    monthlyPrice: 3000,
-    buildHours: 110,
+    hoursToBuild: 10,
+    maintenance: "maintained",
     stack: "FastAPI, Google Ads API, Meta API",
     passthrough: "—",
+    triggers: [
+      {
+        questionId: "ad-ownership",
+        values: ["agency", "agency-multiple"],
+        reason: "Replaces agency day-to-day buying at a fraction of the loaded cost.",
+      },
+      {
+        questionId: "ad-channels",
+        values: ["google-search", "google-pmax", "meta", "programmatic", "youtube"],
+        reason: "Live across the channels this agent runs end-to-end.",
+      },
+    ],
   },
   {
     id: "lead-qualification",
@@ -118,10 +199,22 @@ export const AGENTS: Agent[] = [
       "CRM enrichment & tagging",
       "After-hours routing",
     ],
-    monthlyPrice: 1500,
-    buildHours: 60,
+    hoursToBuild: 5,
+    maintenance: "set-and-forget",
     stack: "Claude Haiku 4.5, Calendly API",
     passthrough: "Calendly",
+    triggers: [
+      {
+        questionId: "call-routing",
+        values: ["voicemail"],
+        reason: "Calls go to voicemail today — this catches after-hours inquiries.",
+      },
+      {
+        questionId: "call-recording",
+        values: ["no", "some", "unsure"],
+        reason: "Inbound capture is inconsistent — this guarantees structured records.",
+      },
+    ],
   },
   {
     id: "email-nurture",
@@ -136,10 +229,22 @@ export const AGENTS: Agent[] = [
       "Engagement scoring",
       "Suppression + deliverability hygiene",
     ],
-    monthlyPrice: 1500,
-    buildHours: 60,
+    hoursToBuild: 6,
+    maintenance: "set-and-forget",
     stack: "FastAPI, SendGrid, HubSpot",
     passthrough: "SendGrid, HubSpot",
+    triggers: [
+      {
+        questionId: "email-platform",
+        values: ["gmail", "none", "constant-contact"],
+        reason: "Marketing email is informal or absent today — this puts segmented programs in place.",
+      },
+      {
+        questionId: "email-deliverability",
+        values: ["some-bounces", "blacklist", "unknown"],
+        reason: "Deliverability is at risk — this includes hygiene + reputation management.",
+      },
+    ],
   },
   {
     id: "content-seo",
@@ -154,10 +259,17 @@ export const AGENTS: Agent[] = [
       "Internal linking",
       "Refresh cadence",
     ],
-    monthlyPrice: 2500,
-    buildHours: 90,
+    hoursToBuild: 8,
+    maintenance: "maintained",
     stack: "Claude Sonnet 4.6, DataForSEO",
     passthrough: "DataForSEO",
+    triggers: [
+      {
+        questionId: "cms-cadence",
+        values: ["quarterly", "ad-hoc"],
+        reason: "Site content is rarely refreshed — this drives a consistent publishing cadence.",
+      },
+    ],
   },
   {
     id: "creative-production",
@@ -172,10 +284,22 @@ export const AGENTS: Agent[] = [
       "Image generation (Flux)",
       "Brand-voice templates",
     ],
-    monthlyPrice: 2000,
-    buildHours: 70,
+    hoursToBuild: 5,
+    maintenance: "maintained",
     stack: "Claude Sonnet 4.6, Replicate (Flux), Roomagen",
     passthrough: "Replicate, Roomagen",
+    triggers: [
+      {
+        questionId: "creative-source",
+        values: ["agency", "freelance"],
+        reason: "Creative comes from outside vendors today — this produces variants in-house.",
+      },
+      {
+        questionId: "creative-tours",
+        values: ["photos-only"],
+        reason: "No 3D tours yet — this is the production pipeline that adds them.",
+      },
+    ],
   },
   {
     id: "brand-qa",
@@ -190,10 +314,17 @@ export const AGENTS: Agent[] = [
       "Image rights audit",
       "Approval workflow",
     ],
-    monthlyPrice: 1000,
-    buildHours: 40,
+    hoursToBuild: 3,
+    maintenance: "maintained",
     stack: "Paperclip routine, Claude judge",
     passthrough: "—",
+    triggers: [
+      {
+        questionId: "creative-source",
+        values: ["ai", "agency", "freelance"],
+        reason: "Creative comes from multiple sources — QA enforces one voice across all of it.",
+      },
+    ],
   },
   {
     id: "pr-earned",
@@ -208,10 +339,17 @@ export const AGENTS: Agent[] = [
       "Follow-up cadence",
       "Coverage tracking",
     ],
-    monthlyPrice: 1500,
-    buildHours: 50,
+    hoursToBuild: 4,
+    maintenance: "maintained",
     stack: "Paperclip routine, Hunter, Apollo",
     passthrough: "Hunter, Apollo",
+    triggers: [
+      {
+        questionId: "pr-firm",
+        values: ["none", "in-house"],
+        reason: "No PR retainer in place — this gives you a steady pitch cadence.",
+      },
+    ],
   },
   {
     id: "broker-outreach",
@@ -226,21 +364,30 @@ export const AGENTS: Agent[] = [
       "Bonus-offer campaigns",
       "Tour & preview RSVPs",
     ],
-    monthlyPrice: 1500,
-    buildHours: 60,
+    hoursToBuild: 6,
+    maintenance: "maintained",
     stack: "Paperclip routine, Apollo, Smartlead",
     passthrough: "Apollo, Smartlead",
+    triggers: [
+      {
+        questionId: "broker-base",
+        values: ["100-500", "500+"],
+        reason: "You're active with 100+ brokers — manual outreach at that scale leaks.",
+      },
+      {
+        questionId: "broker-incentives",
+        values: ["never", "rarely"],
+        reason: "Bonus programs are rare today — this is the engine to run them.",
+      },
+    ],
   },
 ];
-
-export const FULL_STACK_BUNDLE_PRICE = 12000;
 
 export interface BundleOption {
   id: string;
   name: string;
   description: string;
   agentIds: string[];
-  price: number;
 }
 
 export const BUNDLES: BundleOption[] = [
@@ -249,7 +396,6 @@ export const BUNDLES: BundleOption[] = [
     name: "Visibility starter",
     description: "See where today's spend goes and what produces contracts. Foundation for everything else.",
     agentIds: ["attribution", "performance-reporting", "comp-intel"],
-    price: 4500,
   },
   {
     id: "demand-engine",
@@ -263,14 +409,12 @@ export const BUNDLES: BundleOption[] = [
       "lead-qualification",
       "email-nurture",
     ],
-    price: 9000,
   },
   {
     id: "full-stack",
     name: "Full stack",
     description: "All twelve agents under one orchestration layer. Replaces a typical agency + martech retainer footprint.",
     agentIds: AGENTS.map((a) => a.id),
-    price: FULL_STACK_BUNDLE_PRICE,
   },
 ];
 
@@ -670,3 +814,29 @@ export const DISCOVERY: DiscoverySection[] = [
     ],
   },
 ];
+
+export type AnswerValue = string | string[];
+export type Answers = Record<string, AnswerValue>;
+
+export interface AgentRecommendation {
+  agent: Agent;
+  score: number;
+  reasons: string[];
+}
+
+/** Score every agent by how many of its triggers match the user's answers.
+ *  Returns agents sorted by score desc. Untriggered agents still appear but with score 0. */
+export function recommendAgents(answers: Answers): AgentRecommendation[] {
+  return AGENTS.map((agent) => {
+    const reasons: string[] = [];
+    for (const rule of agent.triggers) {
+      const v = answers[rule.questionId];
+      if (!v) continue;
+      const matched = Array.isArray(v)
+        ? v.some((val) => rule.values.includes(val))
+        : rule.values.includes(v);
+      if (matched) reasons.push(rule.reason);
+    }
+    return { agent, score: reasons.length, reasons };
+  }).sort((a, b) => b.score - a.score);
+}
