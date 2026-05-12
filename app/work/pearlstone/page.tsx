@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Bot, UserCheck } from "lucide-react";
-import Portal from "./portal/Portal";
+import { ArrowLeft, ArrowRight, Bot, UserCheck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Pearlstone Marketing Automation | Cameron Wolf",
@@ -543,8 +542,31 @@ export default function PearlstonePage() {
           </div>
         </section>
 
-        {/* Interactive portal: discovery + agent picker + summary */}
-        <Portal />
+        {/* CTA: jump to interactive agent selector */}
+        <section className={`${SECTION_PAD} pb-12`}>
+          <div className={`${CONTAINER_MAX} mx-auto`}>
+            <Link
+              href="/work/pearlstone/agents"
+              className="liquid-glass p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 group cursor-pointer"
+            >
+              <div>
+                <p
+                  className="text-xl sm:text-2xl font-black text-dark-text mb-2"
+                  style={{ letterSpacing: "-0.02em" }}
+                >
+                  Build your agent stack
+                </p>
+                <p className="text-sm text-dark-muted font-mono max-w-[60ch]">
+                  Walk through a short discovery, get a recommended stack, and see hours-to-build per agent. Send the brief straight to Cameron.
+                </p>
+              </div>
+              <span className="focus-glow pill-btn pill-btn-primary text-sm flex items-center gap-2 whitespace-nowrap">
+                Open agent selector
+                <ArrowRight size={16} />
+              </span>
+            </Link>
+          </div>
+        </section>
 
         {/* Footer CTA */}
         <section className={`${SECTION_PAD} pb-28`}>
