@@ -9,8 +9,11 @@ import {
   Check,
   ClipboardCopy,
   Download,
+  Send,
   UserCheck,
 } from "lucide-react";
+
+const WEB3FORMS_ACCESS_KEY = "39f0cbc5-d930-406e-b056-8f127918c336";
 import {
   AGENTS,
   BUNDLES,
@@ -389,6 +392,10 @@ function SummaryCard({
   selectedIds: Set<string>;
 }) {
   const [copied, setCopied] = useState(false);
+  const [senderName, setSenderName] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
+  const [sendState, setSendState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const selectedAgents = useMemo(
     () => AGENTS.filter((a) => selectedIds.has(a.id)),
@@ -459,6 +466,41 @@ function SummaryCard({
     }
   };
 
+  const onSend = async () => {
+    if (sendState === "sending") return;
+    setSendState("sending");
+    setSendError(null);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Pearlstone portal — ${senderName.trim() || "anonymous submission"}`,
+          from_name: senderName.trim() || "Pearlstone Portal",
+          email: senderEmail.trim() || "noreply@cameronwolf.info",
+          name: senderName.trim() || "Pearlstone Portal",
+          message: summaryText,
+          botcheck: "",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSendState("sent");
+        setTimeout(() => setSendState("idle"), 4000);
+      } else {
+        setSendState("error");
+        setSendError(data.message || "Send failed");
+      }
+    } catch (err) {
+      setSendState("error");
+      setSendError(err instanceof Error ? err.message : "Network error");
+    }
+  };
+
   const onDownload = () => {
     const blob = new Blob([summaryText], { type: "text/markdown" });
     const url = URL.createObjectURL(blob);
@@ -509,6 +551,68 @@ function SummaryCard({
               <Download size={16} aria-hidden /> Download
             </button>
           </div>
+        </div>
+
+        {/* Send to Cameron — Web3Forms */}
+        <div className="liquid-glass p-5 mt-6">
+          <p className="text-[10px] font-mono text-teal-light tracking-[0.25em] mb-3">
+            SEND TO CAMERON
+          </p>
+          <div className="grid sm:grid-cols-[1fr_1fr_auto] gap-3 items-stretch">
+            <label className="flex flex-col">
+              <span className="text-[10px] font-mono text-dark-muted tracking-[0.2em] mb-1">
+                YOUR NAME
+              </span>
+              <input
+                type="text"
+                value={senderName}
+                onChange={(e) => setSenderName(e.target.value)}
+                placeholder="Bill Pearlstone"
+                disabled={sendState === "sending" || sendState === "sent"}
+                className="focus-glow bg-transparent border border-dark-border rounded-xl px-4 py-2.5 text-sm text-dark-text placeholder:text-dark-muted/60 focus:border-teal-light/50 focus:outline-none transition-colors"
+              />
+            </label>
+            <label className="flex flex-col">
+              <span className="text-[10px] font-mono text-dark-muted tracking-[0.2em] mb-1">
+                YOUR EMAIL
+              </span>
+              <input
+                type="email"
+                value={senderEmail}
+                onChange={(e) => setSenderEmail(e.target.value)}
+                placeholder="bill@pearlstonepartners.com"
+                disabled={sendState === "sending" || sendState === "sent"}
+                className="focus-glow bg-transparent border border-dark-border rounded-xl px-4 py-2.5 text-sm text-dark-text placeholder:text-dark-muted/60 focus:border-teal-light/50 focus:outline-none transition-colors"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={onSend}
+              disabled={sendState === "sending" || sendState === "sent"}
+              className="focus-glow pill-btn pill-btn-primary text-sm self-end disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {sendState === "sending" ? (
+                <>Sending…</>
+              ) : sendState === "sent" ? (
+                <>
+                  <Check size={16} aria-hidden /> Sent
+                </>
+              ) : (
+                <>
+                  <Send size={16} aria-hidden /> Send
+                </>
+              )}
+            </button>
+          </div>
+          <p className="text-xs text-dark-muted mt-3 leading-relaxed">
+            Sends the full summary above (picks + discovery answers) straight to Cameron&apos;s inbox.
+            Name and email are optional but make replies easier.
+          </p>
+          {sendState === "error" && sendError && (
+            <p className="text-xs text-maroon-light font-mono mt-2">
+              Send failed: {sendError}
+            </p>
+          )}
         </div>
 
         <div className="mt-6 grid md:grid-cols-2 gap-4">
