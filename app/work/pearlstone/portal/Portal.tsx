@@ -101,7 +101,7 @@ function DiscoveryWizard({
         </div>
       </div>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={section.id}
           initial={{ opacity: 0, x: 12 }}
