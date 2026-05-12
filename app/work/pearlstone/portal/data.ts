@@ -450,7 +450,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "crm-platform",
         prompt: "What system holds your lead and deal records?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "hubspot", label: "HubSpot" },
           { value: "salesforce", label: "Salesforce" },
@@ -490,7 +490,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "call-platform",
         prompt: "What captures inbound phone calls?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "callrail", label: "CallRail" },
           { value: "callsource", label: "CallSource" },
@@ -502,7 +502,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "call-routing",
         prompt: "Who answers calls today?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "agent", label: "Listing agent" },
           { value: "front-desk", label: "Sales gallery front desk" },
@@ -513,7 +513,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "call-recording",
         prompt: "Are inbound calls recorded?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "yes", label: "Yes, all of them" },
           { value: "some", label: "Some, ad-hoc" },
@@ -551,7 +551,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "email-deliverability",
         prompt: "Any known deliverability issues?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "clean", label: "Clean — no flags" },
           { value: "some-bounces", label: "Some bounce / spam complaints" },
@@ -584,7 +584,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "ad-ownership",
         prompt: "Who runs the ad accounts today?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "internal", label: "In-house team" },
           { value: "agency", label: "Outside agency" },
@@ -595,7 +595,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "ad-spend",
         prompt: "Approximate monthly paid media spend across all listings?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "<10k", label: "Under $10K" },
           { value: "10-25k", label: "$10K – $25K" },
@@ -628,7 +628,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "portals-leads",
         prompt: "Do portal leads route back into your CRM cleanly?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "yes", label: "Yes, with source tagging" },
           { value: "messy", label: "Yes but source data is messy" },
@@ -647,7 +647,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "cms-platform",
         prompt: "What runs the marketing site?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "wordpress", label: "WordPress" },
           { value: "webflow", label: "Webflow" },
@@ -659,7 +659,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "cms-publishing",
         prompt: "Who publishes content today?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "agency", label: "Outside agency" },
           { value: "internal", label: "In-house marketer" },
@@ -670,7 +670,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "cms-cadence",
         prompt: "How often is new content published?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "weekly", label: "Weekly or more" },
           { value: "monthly", label: "Monthly" },
@@ -701,7 +701,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "creative-tours",
         prompt: "Do listings get 3D tours?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "matterport", label: "Yes, Matterport" },
           { value: "video", label: "Video walk-throughs" },
@@ -720,7 +720,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "pr-firm",
         prompt: "Do you work with a PR firm?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "retainer", label: "Yes, on retainer" },
           { value: "project", label: "Project-based" },
@@ -731,7 +731,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "broker-base",
         prompt: "How many Austin luxury brokers are you actively in contact with?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "<25", label: "Under 25" },
           { value: "25-100", label: "25 – 100" },
@@ -742,7 +742,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "broker-incentives",
         prompt: "Do you offer broker bonuses or incentives?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "always", label: "Always" },
           { value: "case-by-case", label: "Case by case" },
@@ -761,7 +761,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "reporting-cadence",
         prompt: "How often do you get a marketing performance report?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "weekly", label: "Weekly" },
           { value: "monthly", label: "Monthly" },
@@ -772,7 +772,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "reporting-access",
         prompt: "Do you have direct admin access to ad accounts + analytics?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "yes", label: "Yes, full admin" },
           { value: "view", label: "View-only" },
@@ -797,7 +797,7 @@ export const DISCOVERY: DiscoverySection[] = [
       {
         id: "timeline",
         prompt: "Realistically, when would you want Phase 1 (visibility) live?",
-        type: "single",
+        type: "multi",
         options: [
           { value: "30d", label: "Within 30 days" },
           { value: "60d", label: "30 – 60 days" },
