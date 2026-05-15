@@ -1,346 +1,182 @@
-"use client";
-
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
-import {
-  Target,
-  Mic,
-  BarChart3,
-  Lightbulb,
-  Settings,
-  Palette,
-  Mail,
-  Linkedin,
-  ArrowUpRight,
-} from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowUpRight, Linkedin, Mail } from "lucide-react";
 import Navbar from "./components/Navbar";
-import PillButton from "./components/PillButton";
 import SectionHeader from "./components/SectionHeader";
-import HeroHeadshot from "./components/HeroHeadshot";
-import ServiceCard from "./components/ServiceCard";
-import SkillsMarquee from "./components/SkillsMarquee";
 import ExperienceTimeline from "./components/ExperienceTimeline";
-import Testimonials from "./components/Testimonials";
+import HeroHeadshot from "./components/HeroHeadshot";
+import SkillsMarquee from "./components/SkillsMarquee";
 import Footer from "./components/Footer";
 
-const capabilities = [
-  {
-    title: "CRM Architecture",
-    description:
-      "Custom object schemas, lifecycle logic, and data models that scale with the business.",
-    items: ["HubSpot Ops Hub", "Custom Objects", "Salesforce", "Data Modeling"],
-    icon: Settings,
-    accent: "maroon" as const,
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.cameronwolf.info"),
+  title: "Cameron Wolf | GTM Engineer and AI Systems Builder",
+  description:
+    "Personal portfolio for Cameron Wolf, a GTM engineer building RevOps architecture, automation, attribution, AI agents, and growth systems.",
+  alternates: {
+    canonical: "https://www.cameronwolf.info",
   },
-  {
-    title: "Marketing Automation",
+  openGraph: {
+    title: "Cameron Wolf | GTM Engineer and AI Systems Builder",
     description:
-      "Workflow engines, lead routing, and nurture sequences that run without manual intervention.",
-    items: ["Workflows", "Lead Scoring", "Nurture Sequences", "Lifecycle Logic"],
-    icon: Target,
-    accent: "teal" as const,
+      "RevOps architecture, automation, attribution, AI agents, and growth systems by Cameron Wolf.",
+    url: "https://www.cameronwolf.info",
+    siteName: "Cameron Wolf",
+    locale: "en_US",
+    type: "profile",
   },
-  {
-    title: "Pipeline Analytics",
+  twitter: {
+    card: "summary_large_image",
+    title: "Cameron Wolf | GTM Engineer and AI Systems Builder",
     description:
-      "Attribution models, revenue forecasting, and SQL-driven reporting that connects spend to outcomes.",
-    items: ["Attribution", "BigQuery", "ClickHouse", "Hex Dashboards"],
-    icon: BarChart3,
-    accent: "maroon" as const,
+      "RevOps architecture, automation, attribution, AI agents, and growth systems by Cameron Wolf.",
   },
-  {
-    title: "API Integrations",
-    description:
-      "Connecting systems through webhooks, Pipedream workflows, and custom API routing.",
-    items: ["Webhooks", "Pipedream", "REST APIs", "System Integrations"],
-    icon: Lightbulb,
-    accent: "teal" as const,
-  },
-  {
-    title: "Enrichment Pipelines",
-    description:
-      "Automated data enrichment, prospecting workflows, and multi-channel outreach orchestration.",
-    items: ["Clay", "SmartLead", "Knock", "SendGrid"],
-    icon: Mic,
-    accent: "maroon" as const,
-  },
-  {
-    title: "AI-Native GTM",
-    description:
-      "LLM-powered content workflows, agentic automation, and AI tools built for GTM teams.",
-    items: ["OpenAI API", "Claude API", "Firecrawl", "Agentic Workflows"],
-    icon: Palette,
-    accent: "teal" as const,
-  },
-];
+};
 
-const growthStories = [
-  {
-    slug: "zappyride",
-    logo: "/logos/jdpower.svg",
-    logoBg: false,
-    title: "From Startup to Acquisition",
-    company: "ZappyRide → J.D. Power",
-    description:
-      "Led brand, content, and growth for an EV marketplace from stealth to exit. Built the narrative that positioned us as the trusted EV authority, culminating in acquisition by industry giant J.D. Power.",
-    metrics: [
-      { value: "100%", label: "YoY Revenue" },
-      { value: "EXIT", label: "Acquired" },
-    ],
-    accent: "maroon",
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://www.cameronwolf.info/#person",
+  name: "Cameron Wolf",
+  url: "https://www.cameronwolf.info",
+  jobTitle: "GTM Engineer and AI Systems Builder",
+  email: "cameron@cameronwolf.info",
+  sameAs: ["https://www.linkedin.com/in/camwolf/", "https://lupine.agency"],
+  worksFor: {
+    "@type": "Organization",
+    name: "Lupine Digital",
+    url: "https://lupine.agency",
   },
+  knowsAbout: [
+    "GTM Engineering",
+    "RevOps",
+    "CRM Architecture",
+    "Marketing Automation",
+    "AI Agents",
+    "Agent Harnesses",
+    "Attribution",
+    "Pipeline Analytics",
+    "HubSpot",
+    "API Integrations",
+  ],
+};
+
+const proof = [
   {
-    slug: "sweet-express",
-    logo: "/logos/sweet-express.png",
-    logoBg: true,
-    title: "Content as Growth Engine",
-    company: "Sweet Express",
-    description:
-      "Built a regional trucking company's entire digital presence from scratch. Launched a recruitment portal, e-commerce store, and social brand that drove 400,000 users in 12 months and a brand presence unmatched in Michigan.",
-    metrics: [
-      { value: "2,000%", label: "Audience" },
-      { value: "400K", label: "Users" },
-      { value: "$0", label: "Ad Spend" },
-    ],
-    accent: "teal",
-  },
-  {
-    slug: "truv",
-    logo: "/logos/truv.svg",
-    logoBg: false,
+    href: "/case-studies/truv",
     title: "GTM Infrastructure from Scratch",
-    company: "Truv · Series B SaaS",
-    description:
-      "Architected the entire GTM data layer for an enterprise compliance SaaS. Built CRM architecture, automation pipelines, enrichment workflows, and AI-powered outreach systems that generate pipeline without manual ops.",
-    metrics: [
-      { value: "CRM", label: "Architecture" },
-      { value: "AI", label: "Automation" },
-      { value: "Series B", label: "Scale" },
-    ],
-    accent: "maroon",
+    label: "Truv · Series B SaaS",
+    detail:
+      "CRM architecture, lifecycle automation, enrichment workflows, and AI-powered outbound infrastructure.",
   },
   {
-    slug: "inspiration-mobility",
-    logo: "/logos/inspiration-mobility.svg",
-    logoBg: false,
-    title: "Marketing Infrastructure Overhaul",
-    company: "Inspiration Mobility",
-    description:
-      "Led complete martech migration and introduced AI-powered content workflows. Transformed slow, manual campaigns into intelligent, autonomous systems.",
-    metrics: [
-      { value: "25%", label: "ROI Lift" },
-      { value: "AI", label: "Powered" },
-      { value: "0", label: "Manual Work" },
-    ],
-    accent: "teal",
+    href: "/case-studies/zappyride",
+    title: "Startup to Acquisition",
+    label: "ZappyRide -> J.D. Power",
+    detail:
+      "Brand, content, and growth systems that helped position an EV marketplace for acquisition.",
+  },
+  {
+    href: "/case-studies/sweet-express",
+    title: "Content as Growth Engine",
+    label: "Sweet Express",
+    detail:
+      "Recruitment portal, social presence, ecommerce, and content systems that reached 400K users.",
   },
 ];
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll();
-  const { scrollYProgress: heroScrollProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const heroY = useSpring(
-    useTransform(heroScrollProgress, [0, 1], [0, -150]),
-    { stiffness: 100, damping: 30, restDelta: 0.001 }
-  );
-
-  const heroOpacity = useTransform(
-    heroScrollProgress,
-    [0, 0.5, 1],
-    [1, 0.8, 0.4]
-  );
-
   return (
-    <div className="min-h-screen" ref={containerRef}>
-      {/* Progress Indicator */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-maroon z-[60]"
-        style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
+    <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
-
       <Navbar />
 
-      {/* ===== HERO (LIGHT) ===== */}
-      <section className="section-light relative min-h-screen px-6 md:px-[71px] pt-32 pb-20 flex items-center overflow-hidden">
-        {/* Parallax background orb */}
-        <motion.div
-          className="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-maroon/5 blur-3xl"
-          style={{ y: heroY }}
-        />
-
-        <div className="max-w-[1400px] mx-auto w-full">
-          <motion.div
-            style={{ y: heroY, opacity: heroOpacity }}
-            className="relative z-10"
-          >
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Left: Copy */}
-              <div>
-                {/* Badge */}
-                <motion.div
-                  className="inline-block px-4 py-2 rounded-full bg-maroon/10 text-maroon-light text-sm font-mono mb-6"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  GTM ENGINEER
-                </motion.div>
-
-                {/* Headline */}
-                <motion.h1
-                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] mb-8 text-light-text"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                >
-                  I BUILD THE
-                  <br />
-                  <span className="text-maroon-light">SYSTEMS</span> THAT
-                  <br />
-                  MAKE GROWTH WORK.
-                </motion.h1>
-
-                {/* Description */}
-                <motion.div
-                  className="max-w-xl space-y-4"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
-                  <p className="text-lg text-light-muted leading-relaxed">
-                    GTM Engineer who architects CRM systems, builds automation
-                    pipelines, wires up APIs, and ships data infrastructure.
-                    From stealth startup to J.D. Power acquisition.
-                  </p>
-                </motion.div>
-
-                {/* CTAs */}
-                <motion.div
-                  className="flex flex-wrap gap-4 mt-10"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                  <PillButton href="#portfolio" variant="primary" showArrow>
-                    See My Work
-                  </PillButton>
-                  <PillButton href="#contact" variant="outline" showArrow>
-                    Get in Touch
-                  </PillButton>
-                </motion.div>
-              </div>
-
-              {/* Right: Headshot */}
-              <div className="hidden md:flex justify-center">
-                <HeroHeadshot />
-              </div>
+      <section className="section-light px-6 md:px-[71px] pt-32 pb-20">
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-[1fr_420px] gap-12 items-center">
+          <div>
+            <div className="inline-block px-4 py-2 rounded-full bg-maroon/10 text-maroon-light text-sm font-mono mb-6">
+              GTM ENGINEER
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== GROWTH PORTFOLIO (DARK) ===== */}
-      <section id="portfolio" className="section-dark py-20 sm:py-28 px-6 md:px-[71px]">
-        <div className="max-w-[1400px] mx-auto">
-          <SectionHeader
-            badge="GROWTH PORTFOLIO"
-            headline="Work That Compounds"
-            theme="dark"
-          />
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {growthStories.map((story, i) => {
-              const accentText =
-                story.accent === "maroon"
-                  ? "text-maroon-light"
-                  : "text-teal-light";
-
-              return (
-                <Link
-                  key={story.company}
-                  href={`/case-studies/${story.slug}`}
-                  className="block"
-                >
-                  <motion.div
-                    className="group card-rounded p-6 sm:p-8 h-full bg-[#1a1a22] border border-[#2a2a35] hover:bg-[#1f1f29] hover:border-[#3a3a48] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all duration-300"
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.6, delay: i * 0.1 }}
-                  >
-                    <div className="flex items-start justify-between mb-5">
-                      <div
-                        className={`h-10 flex items-center ${
-                          story.logoBg
-                            ? "bg-white rounded-xl px-2 py-1"
-                            : ""
-                        }`}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={story.logo}
-                          alt={story.company}
-                          className="h-7 w-auto object-contain"
-                        />
-                      </div>
-                      <div className="w-10 h-10 rounded-full border border-[#2a2a35] flex items-center justify-center group-hover:border-maroon-light/50 transition-colors">
-                        <ArrowUpRight
-                          size={16}
-                          className="text-dark-muted group-hover:text-maroon-light arrow-rotate"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </div>
-
-                    <h3 className={`text-xl sm:text-2xl font-bold mb-1 ${accentText}`}>
-                      {story.title}
-                    </h3>
-                    <p className="text-sm font-mono text-dark-muted mb-4">
-                      {story.company}
-                    </p>
-                    <p className="text-dark-muted leading-relaxed mb-6 text-sm">
-                      {story.description}
-                    </p>
-
-                    <div className="pt-5 border-t border-[#2a2a35] grid grid-cols-3 gap-4 text-center">
-                      {story.metrics.map((m) => (
-                        <div key={m.label}>
-                          <div
-                            className={`text-xl sm:text-2xl font-black tabular-nums ${accentText}`}
-                          >
-                            {m.value}
-                          </div>
-                          <div className="text-xs text-dark-muted">{m.label}</div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-6 flex items-center gap-2 text-sm font-medium text-dark-muted group-hover:text-dark-text transition-colors">
-                      Read Case Study
-                      <ArrowUpRight size={14} className="arrow-rotate" />
-                    </div>
-                  </motion.div>
-                </Link>
-              );
-            })}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[0.95] mb-8 text-light-text">
+              CAMERON WOLF
+              <br />
+              <span className="text-maroon-light">BUILDS GROWTH</span>
+              <br />
+              SYSTEMS.
+            </h1>
+            <p className="text-lg text-light-muted leading-relaxed max-w-2xl mb-8">
+              I build the CRM architecture, automation pipelines, attribution
+              layers, AI workflows, and operational systems that make modern GTM
+              teams faster. Lupine Digital is the agency where that work is
+              packaged for clients.
+            </p>
+            <div id="contact" className="flex flex-wrap gap-4">
+              <a
+                href="mailto:cameron@cameronwolf.info"
+                className="pill-btn pill-btn-primary"
+              >
+                <Mail size={16} />
+                Email Cameron
+              </a>
+              <a
+                href="https://www.linkedin.com/in/camwolf/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill-btn pill-btn-outline"
+              >
+                <Linkedin size={16} />
+                LinkedIn
+              </a>
+            </div>
           </div>
 
-          {/* Testimonials */}
-          <Testimonials />
+          <div className="hidden lg:flex justify-center">
+            <HeroHeadshot />
+          </div>
         </div>
       </section>
 
-      {/* ===== SKILLS MARQUEE ===== */}
+      <section id="work" className="section-dark py-20 sm:py-28 px-6 md:px-[71px]">
+        <div className="max-w-[1400px] mx-auto">
+          <SectionHeader
+            badge="SELECTED WORK"
+            headline="Proof Behind the Systems"
+            theme="dark"
+          />
+          <div className="grid md:grid-cols-3 gap-6">
+            {proof.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="card-rounded p-6 sm:p-8 bg-[#1a1a22] border border-[#2a2a35] hover:bg-[#1f1f29] hover:border-[#3a3a48] transition-all duration-300"
+              >
+                <div className="flex items-start justify-between gap-4 mb-5">
+                  <p className="text-sm font-mono text-dark-muted">
+                    {item.label}
+                  </p>
+                  <ArrowUpRight size={16} className="text-maroon-light" />
+                </div>
+                <h2 className="text-2xl font-bold text-dark-text mb-4">
+                  {item.title}
+                </h2>
+                <p className="text-sm text-dark-muted leading-relaxed">
+                  {item.detail}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <SkillsMarquee />
 
-      {/* ===== EXPERIENCE (LIGHT) ===== */}
-      <section className="section-light py-20 sm:py-28 px-6 md:px-[71px]">
+      <section
+        id="experience"
+        className="section-light py-20 sm:py-28 px-6 md:px-[71px]"
+      >
         <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             badge="EXPERIENCE"
@@ -351,128 +187,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== CAPABILITIES (DARK) ===== */}
-      <section className="section-dark py-20 sm:py-28 px-6 md:px-[71px]">
-        <div className="max-w-[1400px] mx-auto">
-          <SectionHeader
-            badge="CAPABILITIES"
-            headline="What I Build"
-            theme="dark"
-          />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {capabilities.map((cap, i) => (
-              <ServiceCard
-                key={cap.title}
-                title={cap.title}
-                description={cap.description}
-                items={cap.items}
-                icon={cap.icon}
-                index={i}
-                accent={cap.accent}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CONTACT (LIGHT) ===== */}
-      <section
-        id="contact"
-        className="section-light py-20 sm:py-28 px-6 md:px-[71px]"
-      >
-        <div className="max-w-[900px] mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.h2
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-light-text mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              YOUR NEXT GTM
-              <br />
-              HIRE SHOULD
-              <br />
-              SHIP CODE.
-            </motion.h2>
-            <motion.p
-              className="text-lg sm:text-xl text-light-muted mb-12 max-w-2xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              You get a GTM engineer who architects the CRM, builds the
-              automation pipelines, wires up the APIs, and ships the data
-              infrastructure. One hire. Full stack. No translators needed.
-            </motion.p>
-
-            {/* Contact Cards */}
-            <motion.div
-              className="grid sm:grid-cols-2 gap-6 max-w-lg mx-auto mb-10"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <a
-                href="mailto:cameron@cameronwolf.info"
-                className="card-rounded card-light p-6 group text-center hover:border-maroon/30"
-              >
-                <Mail
-                  size={28}
-                  className="mx-auto mb-3 text-maroon group-hover:scale-110 transition-transform"
-                />
-                <p className="text-sm font-bold text-light-text">Email</p>
-                <p className="text-xs text-light-muted mt-1">
-                  cameron@cameronwolf.info
-                </p>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/camwolf/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="card-rounded card-light p-6 group text-center hover:border-teal/30"
-              >
-                <Linkedin
-                  size={28}
-                  className="mx-auto mb-3 text-teal group-hover:scale-110 transition-transform"
-                />
-                <p className="text-sm font-bold text-light-text">LinkedIn</p>
-                <p className="text-xs text-light-muted mt-1">
-                  linkedin.com/in/camwolf
-                </p>
-              </a>
-            </motion.div>
-
-            <PillButton
-              href="mailto:cameron@cameronwolf.info?subject=Let's%20Build%20Together"
-              variant="outline"
-              showArrow
-            >
-              START THE CONVERSATION
-            </PillButton>
-
-            <motion.p
-              className="text-xs text-light-muted mt-8 font-mono tracking-wider"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              STRATEGY + INFRASTRUCTURE UNDER ONE ROOF
-            </motion.p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== FOOTER ===== */}
       <Footer />
-    </div>
+    </main>
   );
 }

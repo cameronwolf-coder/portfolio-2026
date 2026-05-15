@@ -1,7 +1,52 @@
 import Link from "next/link";
 import { Linkedin, Mail, ArrowUpRight } from "lucide-react";
 
-export default function Footer() {
+type FooterVariant = "lupine" | "personal";
+
+const footerConfig = {
+  lupine: {
+    brand: (
+      <>
+        LUPINE<span className="text-maroon-light">DIGITAL</span>
+      </>
+    ),
+    description:
+      "AI implementation and GTM engineering studio building agents, automation, CRM systems, and revenue infrastructure.",
+    nav: [
+      { href: "/", label: "Home" },
+      { href: "/#services", label: "Services" },
+      { href: "/systems", label: "Systems" },
+      { href: "/about/cameron-wolf", label: "Founder" },
+      { href: "/#contact", label: "Contact" },
+    ],
+    copyright: "Lupine Digital",
+  },
+  personal: {
+    brand: (
+      <>
+        CAMERON<span className="text-maroon-light">WOLF</span>
+      </>
+    ),
+    description:
+      "GTM engineer and AI systems builder focused on RevOps, automation, attribution, and agentic growth infrastructure.",
+    nav: [
+      { href: "/", label: "Home" },
+      { href: "/#work", label: "Work" },
+      { href: "/#experience", label: "Experience" },
+      { href: "https://lupine.agency", label: "Agency" },
+      { href: "/#contact", label: "Contact" },
+    ],
+    copyright: "Cameron Wolf",
+  },
+};
+
+export default function Footer({
+  variant = "personal",
+}: {
+  variant?: FooterVariant;
+}) {
+  const config = footerConfig[variant];
+
   return (
     <footer className="bg-dark-bg border-t border-dark-border">
       <div className="max-w-[1400px] mx-auto px-6 md:px-[71px] py-16">
@@ -9,11 +54,10 @@ export default function Footer() {
           {/* Column 1: Branding */}
           <div className="md:col-span-2">
             <h3 className="text-xl font-black text-dark-text mb-3">
-              CAMERON<span className="text-maroon-light">WOLF</span>
+              {config.brand}
             </h3>
             <p className="text-dark-muted text-sm max-w-sm leading-relaxed">
-              GTM Engineer. Builds CRM architecture, automation pipelines, and
-              data infrastructure. Facilitated the acquisition of ZappyRide by J.D. Power.
+              {config.description}
             </p>
           </div>
 
@@ -23,36 +67,15 @@ export default function Footer() {
               Navigate
             </h4>
             <div className="flex flex-col gap-3">
-              <Link
-                href="/"
-                className="text-dark-muted hover:text-dark-text transition-colors text-sm"
-              >
-                Home
-              </Link>
-              <Link
-                href="/systems"
-                className="text-dark-muted hover:text-dark-text transition-colors text-sm"
-              >
-                Systems View
-              </Link>
-              <Link
-                href="/blog"
-                className="text-dark-muted hover:text-dark-text transition-colors text-sm"
-              >
-                Blog
-              </Link>
-              <Link
-                href="/media"
-                className="text-dark-muted hover:text-dark-text transition-colors text-sm"
-              >
-                Media
-              </Link>
-              <Link
-                href="/#contact"
-                className="text-dark-muted hover:text-dark-text transition-colors text-sm"
-              >
-                Contact
-              </Link>
+              {config.nav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-dark-muted hover:text-dark-text transition-colors text-sm"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </div>
 
@@ -86,7 +109,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-dark-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-dark-muted text-xs font-mono" suppressHydrationWarning>
-            &copy; {new Date().getFullYear()} Cameron Wolf. All rights reserved.
+            &copy; {new Date().getFullYear()} {config.copyright}. All rights reserved.
           </p>
           <p className="text-dark-muted text-xs font-mono">
             Built with Next.js 15 &middot; Designed with intent

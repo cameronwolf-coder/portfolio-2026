@@ -6,18 +6,48 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/#portfolio", label: "Work" },
-  { href: "/systems", label: "Systems" },
-  { href: "/blog", label: "Blog" },
-  { href: "/media", label: "Media" },
-  { href: "/#contact", label: "Contact" },
-];
+type NavbarVariant = "lupine" | "personal";
 
-export default function Navbar() {
+const navConfig = {
+  lupine: {
+    brand: (
+      <>
+        LUPINE<span className="text-maroon-light">DIGITAL</span>
+      </>
+    ),
+    links: [
+      { href: "/", label: "Lupine" },
+      { href: "/#services", label: "Services" },
+      { href: "/#portfolio", label: "Work" },
+      { href: "/systems", label: "Systems" },
+      { href: "/about/cameron-wolf", label: "Founder" },
+      { href: "/#contact", label: "Contact" },
+    ],
+  },
+  personal: {
+    brand: (
+      <>
+        CAMERON<span className="text-maroon-light">WOLF</span>
+      </>
+    ),
+    links: [
+      { href: "/", label: "Home" },
+      { href: "/#work", label: "Work" },
+      { href: "/#experience", label: "Experience" },
+      { href: "https://lupine.agency", label: "Agency" },
+      { href: "/#contact", label: "Contact" },
+    ],
+  },
+};
+
+export default function Navbar({
+  variant = "personal",
+}: {
+  variant?: NavbarVariant;
+}) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const config = navConfig[variant];
 
   return (
     <>
@@ -31,7 +61,7 @@ export default function Navbar() {
           <div className="bg-dark-bg/90 backdrop-blur-xl border border-dark-border rounded-[50px] px-6 py-3 flex items-center justify-between">
             {/* Left: Nav Links (Desktop) */}
             <div className="hidden md:flex items-center gap-1">
-              {navLinks.map((link) => {
+              {config.links.map((link) => {
                 const isActive =
                   link.href === "/"
                     ? pathname === "/"
@@ -57,7 +87,7 @@ export default function Navbar() {
               href="/"
               className="text-lg font-black tracking-tight text-dark-text"
             >
-              CAMERON<span className="text-maroon-light">WOLF</span>
+              {config.brand}
             </Link>
 
             {/* Right: CTA (Desktop) */}
@@ -92,7 +122,7 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 bg-dark-bg/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6"
           >
-            {navLinks.map((link) => (
+            {config.links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
