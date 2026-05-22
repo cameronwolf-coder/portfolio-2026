@@ -70,25 +70,25 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "truv",
     company: "Truv · Series B SaaS",
-    role: "Senior Marketing Manager",
+    role: "Senior Marketing Manager / GTM Systems Builder",
     period: "2025 – Present",
     summary:
-      "Engineering the GTM data layer and automation infrastructure for a Series B compliance SaaS targeting enterprise buyers.",
+      "Building the GTM data, automation, and revenue operations layer for a Series B fintech company.",
     icon: Building2,
     accent: "maroon",
     metrics: [
-      { value: "B2B", label: "Enterprise Pipeline" },
-      { value: "ABM", label: "Account-Based Strategy" },
-      { value: "AI", label: "Powered Automation" },
+      { value: "GTM", label: "Systems Layer" },
+      { value: "CRM", label: "Architecture" },
+      { value: "AI", label: "Workflow Automation" },
     ],
     situation:
       "Truv is a Series B verification and compliance SaaS company that needed GTM infrastructure built from scratch. The product is technically complex (income and employment verification for financial services) and the existing marketing stack had no CRM architecture, no automation pipelines, and no data layer connecting activity to pipeline.",
     insight:
-      "The bottleneck wasn't strategy or messaging. It was infrastructure. Without a proper CRM schema, lead routing logic, and attribution model, every campaign was a manual lift and every report was a guess. Build the systems first, and pipeline generation becomes a repeatable, measurable process.",
+      "The bottleneck wasn't strategy or messaging. It was infrastructure. Without clean CRM architecture, routing logic, lifecycle governance, enrichment, and attribution, every campaign becomes a manual lift and every report becomes a debate. Build the system first, and growth becomes easier to measure and repeat.",
     action:
       "Architected the CRM data model with HubSpot custom objects and calculated properties. Built automation pipelines for lead routing, lifecycle management, and enrichment via Clay and Pipedream. Deployed AI-powered outreach tools using OpenAI and Claude APIs. Wired up BigQuery and ClickHouse for attribution and pipeline analytics. Connected SmartLead, Knock, and SendGrid for multi-channel orchestration.",
     result:
-      "Significant pipeline growth with dramatically reduced manual work. Eliminated manual lead routing entirely. Built an auditable attribution layer for revenue forecasting. The GTM infrastructure now compounds: every workflow improves targeting accuracy, every integration reduces operational overhead, and every automation frees hours per week for strategic work.",
+      "Created a more measurable and auditable GTM operating layer. Automated routing and lifecycle workflows, improved visibility into pipeline movement, connected enrichment and outbound systems, and reduced manual operational work across the GTM stack.",
   },
   {
     slug: "inspiration-mobility",
@@ -102,7 +102,7 @@ export const caseStudies: CaseStudy[] = [
     metrics: [
       { value: "25%", label: "Marketing ROI Increase" },
       { value: "30%", label: "Engagement Increase" },
-      { value: "0", label: "Manual Campaigns" },
+      { value: "AI", label: "Assisted Workflows" },
     ],
     situation:
       "Inspiration Mobility is an electric vehicle infrastructure company that was running marketing on legacy tools with manual processes. Campaigns took days to build, analytics were fragmented across disconnected platforms, and the team was spending more time on execution mechanics than strategy. The marketing operation was a bottleneck, not an accelerator.",
@@ -111,7 +111,7 @@ export const caseStudies: CaseStudy[] = [
     action:
       "Led a complete Salesforce Marketing Cloud migration, consolidating fragmented tools into a single platform with unified data, automated workflows, and real-time analytics. Deployed advanced attribution modeling to finally connect marketing spend to revenue outcomes. Introduced AI-powered content workflows that cut production time from days to hours. Led a full rebranding initiative that modernized the company's market presence.",
     result:
-      "25% increase in marketing ROI. 30% increase in engagement across all channels. Eliminated manual campaign workflows entirely. What used to take days now runs autonomously. The infrastructure transformation turned marketing from a cost center into a measurable growth driver.",
+      "25% increase in marketing ROI. 30% increase in engagement across all channels. Reduced manual campaign work and made performance easier to measure. The infrastructure transformation turned marketing from disconnected execution into a more reliable growth system.",
   },
 ];
 

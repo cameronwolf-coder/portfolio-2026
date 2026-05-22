@@ -34,7 +34,7 @@ const navConfig = {
       { href: "/", label: "Home" },
       { href: "/#work", label: "Work" },
       { href: "/#experience", label: "Experience" },
-      { href: "https://lupine.agency", label: "Agency" },
+      { href: "/systems", label: "Systems" },
       { href: "/#contact", label: "Contact" },
     ],
   },

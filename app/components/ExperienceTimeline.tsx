@@ -14,14 +14,14 @@ interface TimelineEntry {
 const experiences: TimelineEntry[] = [
   {
     company: "Truv",
-    role: "Senior Marketing Manager",
+    role: "Senior Marketing Manager / GTM Systems Builder",
     period: "September 2025 - Present",
     description:
-      "Engineering the GTM data layer from scratch. Architected CRM custom objects, built automation pipelines in HubSpot Ops Hub, wired up enrichment workflows through Clay and Pipedream, and deployed AI-powered outreach systems that generate pipeline without manual ops.",
+      "Building the GTM data and automation layer for a Series B fintech company. Work spans HubSpot architecture, lifecycle workflows, lead routing, enrichment, attribution, outbound systems, pipeline analytics, and AI-assisted GTM operations.",
     achievements: [
       "CRM Architecture",
       "Automation Pipelines",
-      "AI-Native GTM",
+      "AI Workflows",
       "Series B SaaS",
     ],
     accent: "teal",
@@ -31,7 +31,7 @@ const experiences: TimelineEntry[] = [
     role: "Marketing Manager",
     period: "May 2023 - June 2024",
     description:
-      "Spearheaded Salesforce Marketing Cloud integration and deployed advanced analytics to achieve a 25% increase in marketing ROI. Led rebranding initiative and cross-department campaign alignment.",
+      "Rebuilt marketing infrastructure for an EV infrastructure company: Salesforce Marketing Cloud migration, campaign automation, attribution improvements, AI-assisted content workflows, and cross-functional campaign operations.",
     achievements: [
       "Salesforce migration",
       "25% ROI lift",
@@ -42,10 +42,10 @@ const experiences: TimelineEntry[] = [
   },
   {
     company: "J.D. Power",
-    role: "Marketing Manager",
+    role: "Director of Marketing",
     period: "April 2021 - May 2023",
     description:
-      "Spearheaded full-stack marketing from inception to acquisition. Built brand, website, and ZappyCast podcast from the ground up, driving 100% YoY revenue increase and positioning the company for acquisition.",
+      "Led marketing through ZappyRide's acquisition by J.D. Power. Built the brand, content engine, and category authority that supported 100% YoY revenue growth and helped establish trust in a complex EV marketplace.",
     achievements: [
       "100% YoY revenue",
       "ZappyCast podcast",
@@ -59,7 +59,7 @@ const experiences: TimelineEntry[] = [
     role: "Marketing Manager",
     period: "February 2019 - April 2021",
     description:
-      "Drove 2,000% audience growth and launched a portal that attracted 400,000 users in year one. Built e-commerce store and managed social media to 15%+ engagement across 25K+ followers.",
+      "Drove 2,000% audience growth and launched a portal that attracted 400,000 users in year one. Built ecommerce, recruitment, and content workflows that turned an offline trucking business into a measurable digital growth engine.",
     achievements: [
       "2,000% audience growth",
       "400K users",

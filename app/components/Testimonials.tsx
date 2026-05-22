@@ -18,7 +18,7 @@ const testimonials = [
   },
   {
     quote:
-      "He turned our marketing from a cost center into a growth engine. The infrastructure he built is still running, and still compounding.",
+      "He turned scattered marketing activity into a working growth system. The infrastructure he built is still running, and still compounding.",
     name: "Former Stakeholder",
     title: "Founder & CEO",
   },

@@ -28,12 +28,12 @@ const footerConfig = {
       </>
     ),
     description:
-      "GTM engineer and AI systems builder focused on RevOps, automation, attribution, and agentic growth infrastructure.",
+      "GTM and operations systems builder focused on CRM architecture, automation, attribution, AI workflows, onboarding, and revenue infrastructure.",
     nav: [
       { href: "/", label: "Home" },
       { href: "/#work", label: "Work" },
       { href: "/#experience", label: "Experience" },
-      { href: "https://lupine.agency", label: "Agency" },
+      { href: "/systems", label: "Systems" },
       { href: "/#contact", label: "Contact" },
     ],
     copyright: "Cameron Wolf",
@@ -112,7 +112,7 @@ export default function Footer({
             &copy; {new Date().getFullYear()} {config.copyright}. All rights reserved.
           </p>
           <p className="text-dark-muted text-xs font-mono">
-            Built with Next.js 15 &middot; Designed with intent
+            Built with Next.js &middot; Designed as proof of work
           </p>
         </div>
       </div>

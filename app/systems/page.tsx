@@ -104,7 +104,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              STATUS: ENGINEERING GTM INFRASTRUCTURE
+              STATUS: BUILDING GTM + OPS INFRASTRUCTURE
             </motion.div>
 
             {/* Identity Statement */}
@@ -115,10 +115,10 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              I ENGINEER THE<br />
-              <span className="text-maroon-light">GTM SYSTEMS</span><br />
-              THAT MAKE GROWTH<br />
-              INEVITABLE.
+              I BUILD THE<br />
+              <span className="text-maroon-light">OPERATING SYSTEMS</span><br />
+              BEHIND MODERN<br />
+              GROWTH.
             </motion.h1>
 
             {/* Narrative */}
@@ -132,7 +132,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                Go-to-market is no longer a department. It is a <strong>technical infrastructure problem</strong>.
+                Growth, onboarding, and customer operations are no longer just management problems. They are <strong>systems problems</strong>.
               </motion.p>
               <motion.p
                 className="text-lg sm:text-xl md:text-2xl leading-relaxed text-dark-muted"
@@ -140,7 +140,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
-                I build the CRM schemas, automation pipelines, API integrations, and data infrastructure that turn GTM from a cost center into an engineering discipline. My focus: systems that generate pipeline without manual intervention.
+                I build the CRM architecture, automation, API integrations, attribution, AI workflows, and onboarding systems that help teams scale without adding more manual work.
               </motion.p>
               <motion.p
                 className="text-lg sm:text-xl md:text-2xl leading-relaxed text-dark-muted"
@@ -148,7 +148,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
-                Most GTM stacks are duct tape. They optimize for campaigns, not systems. I build infrastructure that withstands complexity, encodes routing logic into automation, and eliminates manual ops as a constraint on velocity.
+                Most startup operations are duct tape. Leads, handoffs, onboarding steps, enrichment, reporting, and follow-up all depend on the person who remembers how the process works. I rebuild that into systems.
               </motion.p>
               <motion.p
                 className="text-lg sm:text-xl md:text-2xl leading-relaxed text-dark-muted"
@@ -156,14 +156,14 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                The job isn't running more campaigns. The job is building the machine that routes leads, scores intent, orchestrates outreach, and reports on attribution without anyone touching a spreadsheet.
+                The job is not running more campaigns. The job is building the machine that routes work, scores intent, orchestrates follow-up, measures outcomes, and keeps operating when nobody is babysitting a spreadsheet.
               </motion.p>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Manifesto - Systems Over Campaigns */}
+      {/* Manifesto - Systems Over Manual Ops */}
       <section className="section-light relative py-20 sm:py-32 px-4 sm:px-6 md:px-12 overflow-hidden">
         {/* Parallax Background Shape */}
         <motion.div
@@ -188,7 +188,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                SYSTEMS OVER CAMPAIGNS
+                SYSTEMS OVER MANUAL OPS
               </motion.h2>
               <motion.h3
                 className="font-sans font-bold text-2xl sm:text-3xl text-teal mb-8 sm:mb-12"
@@ -197,7 +197,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                THE PHILOSOPHY OF THE ENGINE
+                THE OPERATING PRINCIPLES
               </motion.h3>
               <motion.p
                 className="text-lg sm:text-xl leading-relaxed text-light-muted max-w-3xl"
@@ -206,7 +206,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                Growth infrastructure must be built on three non-negotiable principles.
+                Operational infrastructure has to be concrete enough to run today and durable enough to survive growth.
               </motion.p>
             </div>
 
@@ -219,9 +219,9 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
               >
-                <h4 className="font-sans font-bold text-xl sm:text-2xl mb-4 text-maroon-light">Determinism</h4>
+                <h4 className="font-sans font-bold text-xl sm:text-2xl mb-4 text-maroon-light">Clarity</h4>
                 <p className="text-sm sm:text-base text-light-muted leading-relaxed">
-                  Eliminating guesswork through SQL-driven attribution, deterministic task routing, and constraint-based lifecycle logic. Every decision point is encoded. Every path is auditable.
+                  Every lifecycle stage, handoff, routing rule, and report needs a clear owner and a clear source of truth. If the process only lives in someone&apos;s head, it is not a system yet.
                 </p>
               </motion.div>
 
@@ -233,9 +233,9 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
               >
-                <h4 className="font-sans font-bold text-xl sm:text-2xl mb-4 text-teal">Velocity</h4>
+                <h4 className="font-sans font-bold text-xl sm:text-2xl mb-4 text-teal">Leverage</h4>
                 <p className="text-sm sm:text-base text-light-muted leading-relaxed">
-                  Engineering the always-on experimentation engine. Velocity is not speed. It is the rate at which the system learns, adapts, and compounds insight into repeatable leverage.
+                  Automation should remove repeat work, not create a black box. The goal is fewer manual updates, faster handoffs, cleaner data, and more time for judgment.
                 </p>
               </motion.div>
 
@@ -247,9 +247,9 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
               >
-                <h4 className="font-sans font-bold text-xl sm:text-2xl mb-4 text-teal-light">Integrity</h4>
+                <h4 className="font-sans font-bold text-xl sm:text-2xl mb-4 text-teal-light">Resilience</h4>
                 <p className="text-sm sm:text-base text-light-muted leading-relaxed">
-                  Ensuring every machine-facing surface (APIs, feeds, schemas, CRM objects) is optimized for the AI-agent economy. Systems degrade when assumptions break. Integrity means building for agents, not humans.
+                  Systems degrade when assumptions break. The work is designing workflows, schemas, dashboards, and documentation that stay useful after the first messy edge case shows up.
                 </p>
               </motion.div>
             </div>
@@ -492,14 +492,14 @@ export default function Home() {
                 <div className="mb-6">
                   <h4 className="font-semibold text-lg mb-2">Outcome</h4>
                   <p className="text-sm sm:text-base text-dark-muted leading-relaxed">
-                    Engineered a zero-touch content and recruitment portal that processed 400,000 users in 12 months at Sweet Express.
+                    Built a content and recruitment portal that reached 400,000 users in 12 months at Sweet Express.
                   </p>
                 </div>
 
                 <div className="mb-6">
                   <h4 className="font-semibold text-lg mb-2">What Was Built</h4>
                   <p className="text-sm sm:text-base text-dark-muted leading-relaxed">
-                    Built an autonomous content distribution system with CMS-driven workflows and feedback loop analytics. Designed the system to scale without manual ops by encoding editorial logic into automation rules.
+                    Built a content distribution system with CMS-driven workflows, recruiting paths, and feedback loop analytics. Designed it to scale by turning repeat publishing and follow-up tasks into defined workflows.
                   </p>
                 </div>
 
@@ -530,7 +530,7 @@ export default function Home() {
                     </li>
                     <li className="flex items-start gap-2 text-dark-muted">
                       <span className="text-teal-light mt-1">→</span>
-                      <span>Automated editorial calendar (no manual scheduling)</span>
+                      <span>Editorial calendar with repeatable publishing workflow</span>
                     </li>
                     <li className="flex items-start gap-2 text-dark-muted">
                       <span className="text-teal-light mt-1">→</span>
@@ -546,7 +546,7 @@ export default function Home() {
                 <div className="card-rounded card-dark p-6 border-l-4 border-teal">
                   <h4 className="font-semibold text-lg mb-2">Outcome</h4>
                   <p className="text-dark-muted tabular-nums">
-                    2,000% audience expansion with zero manual intervention. Marketing converted from cost center to revenue stream.
+                    2,000% audience expansion and 400,000 first-year portal users. Marketing became a measurable business system, not a loose collection of posts.
                   </p>
                 </div>
               </motion.div>
@@ -582,7 +582,7 @@ export default function Home() {
                 <div className="mb-6">
                   <h4 className="font-semibold text-lg mb-2">What Was Built</h4>
                   <p className="text-sm sm:text-base text-dark-muted leading-relaxed">
-                    Spearheaded enterprise CRM transition to enable complex automation at scale. Integrated custom LLMs into the MarCom stack to convert "marketing tasks" into autonomous intelligence loops. Built API-driven orchestration for SEM, nurture, and scoring.
+                    Spearheaded enterprise CRM transition to enable complex automation at scale. Integrated custom LLMs into the MarCom stack to turn repeat marketing tasks into AI-assisted workflows. Built API-driven orchestration for SEM, nurture, and scoring.
                   </p>
                 </div>
 
@@ -809,7 +809,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              I work with organizations that have outgrown spreadsheets and manual ops, and need a GTM engineer to build the infrastructure that scales.
+              I work with teams that have outgrown spreadsheets, founder memory, and manual handoffs, and need someone to build the systems that scale.
             </motion.p>
             <motion.p
               className="text-lg sm:text-xl text-dark-muted mb-12 sm:mb-16 font-medium px-4"
@@ -818,7 +818,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              If you need someone to run campaigns, I'm not your guy. If you need someone to build the system that runs them, let's talk.
+              If you need someone to run campaigns, I&apos;m not your guy. If you need someone to build the system that runs them, let&apos;s talk.
             </motion.p>
 
             {/* CTA Button */}

@@ -14,18 +14,18 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.cameronwolf.info"),
-  title: "Cameron Wolf | GTM Engineer and AI Systems Builder",
+  title: "Cameron Wolf | GTM & Operations Systems Builder",
   description:
-    "Personal portfolio for Cameron Wolf, a GTM engineer building RevOps architecture, automation, attribution, AI agents, and growth systems.",
-  keywords: ["GTM engineer", "AI systems builder", "RevOps", "CRM architecture", "marketing automation", "data pipelines", "API integrations", "HubSpot", "growth infrastructure", "agentic workflows"],
+    "Personal portfolio for Cameron Wolf, a GTM and operations systems builder creating CRM architecture, automation, attribution, AI workflows, onboarding systems, and revenue infrastructure.",
+  keywords: ["GTM engineer", "operations systems builder", "RevOps", "CRM architecture", "marketing automation", "data pipelines", "API integrations", "HubSpot", "growth infrastructure", "customer operations automation"],
   authors: [{ name: "Cameron Wolf" }],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Cameron Wolf | GTM Engineer and AI Systems Builder",
+    title: "Cameron Wolf | GTM & Operations Systems Builder",
     description:
-      "RevOps architecture, automation, attribution, AI agents, and growth systems by Cameron Wolf.",
+      "CRM architecture, automation, attribution, AI workflows, customer operations, and growth systems by Cameron Wolf.",
     url: "https://www.cameronwolf.info",
     siteName: "Cameron Wolf",
     locale: "en_US",
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cameron Wolf | GTM Engineer and AI Systems Builder",
+    title: "Cameron Wolf | GTM & Operations Systems Builder",
     description:
-      "RevOps architecture, automation, attribution, AI agents, and growth systems by Cameron Wolf.",
+      "CRM architecture, automation, attribution, AI workflows, customer operations, and growth systems by Cameron Wolf.",
   },
   robots: {
     index: true,

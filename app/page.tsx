@@ -10,16 +10,16 @@ import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.cameronwolf.info"),
-  title: "Cameron Wolf | GTM Engineer and AI Systems Builder",
+  title: "Cameron Wolf | GTM & Operations Systems Builder",
   description:
-    "Personal portfolio for Cameron Wolf, a GTM engineer building RevOps architecture, automation, attribution, AI agents, and growth systems.",
+    "Personal portfolio for Cameron Wolf, a GTM and operations systems builder creating CRM architecture, automation, attribution, AI workflows, onboarding systems, and revenue infrastructure.",
   alternates: {
     canonical: "https://www.cameronwolf.info",
   },
   openGraph: {
-    title: "Cameron Wolf | GTM Engineer and AI Systems Builder",
+    title: "Cameron Wolf | GTM & Operations Systems Builder",
     description:
-      "RevOps architecture, automation, attribution, AI agents, and growth systems by Cameron Wolf.",
+      "CRM architecture, automation, attribution, AI workflows, customer operations, and growth systems by Cameron Wolf.",
     url: "https://www.cameronwolf.info",
     siteName: "Cameron Wolf",
     locale: "en_US",
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cameron Wolf | GTM Engineer and AI Systems Builder",
+    title: "Cameron Wolf | GTM & Operations Systems Builder",
     description:
-      "RevOps architecture, automation, attribution, AI agents, and growth systems by Cameron Wolf.",
+      "CRM architecture, automation, attribution, AI workflows, customer operations, and growth systems by Cameron Wolf.",
   },
 };
 
@@ -39,7 +39,7 @@ const personJsonLd = {
   "@id": "https://www.cameronwolf.info/#person",
   name: "Cameron Wolf",
   url: "https://www.cameronwolf.info",
-  jobTitle: "GTM Engineer and AI Systems Builder",
+  jobTitle: "GTM and Operations Systems Builder",
   email: "cameron@cameronwolf.info",
   sameAs: ["https://www.linkedin.com/in/camwolf/", "https://lupine.agency"],
   worksFor: {
@@ -52,12 +52,12 @@ const personJsonLd = {
     "RevOps",
     "CRM Architecture",
     "Marketing Automation",
-    "AI Agents",
-    "Agent Harnesses",
+    "AI Workflows",
+    "Customer Operations",
     "Attribution",
     "Pipeline Analytics",
     "HubSpot",
-    "API Integrations",
+    "Onboarding Systems",
   ],
 };
 
@@ -67,21 +67,21 @@ const proof = [
     title: "GTM Infrastructure from Scratch",
     label: "Truv · Series B SaaS",
     detail:
-      "CRM architecture, lifecycle automation, enrichment workflows, and AI-powered outbound infrastructure.",
+      "CRM architecture, lifecycle automation, enrichment workflows, attribution, and AI-assisted GTM operations.",
   },
   {
     href: "/case-studies/zappyride",
     title: "Startup to Acquisition",
     label: "ZappyRide -> J.D. Power",
     detail:
-      "Brand, content, and growth systems that helped position an EV marketplace for acquisition.",
+      "Brand, content, and GTM systems that helped turn an EV marketplace into an acquisition-ready category authority.",
   },
   {
     href: "/case-studies/sweet-express",
-    title: "Content as Growth Engine",
+    title: "Digital Operating System",
     label: "Sweet Express",
     detail:
-      "Recruitment portal, social presence, ecommerce, and content systems that reached 400K users.",
+      "Recruitment portal, social presence, ecommerce, and content workflows that brought a traditional business online.",
   },
 ];
 
@@ -98,20 +98,19 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-[1fr_420px] gap-12 items-center">
           <div>
             <div className="inline-block px-4 py-2 rounded-full bg-maroon/10 text-maroon-light text-sm font-mono mb-6">
-              GTM ENGINEER
+              GTM + OPS SYSTEMS BUILDER
             </div>
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[0.95] mb-8 text-light-text">
               CAMERON WOLF
               <br />
-              <span className="text-maroon-light">BUILDS GROWTH</span>
+              <span className="text-maroon-light">BUILDS OPERATING</span>
               <br />
               SYSTEMS.
             </h1>
             <p className="text-lg text-light-muted leading-relaxed max-w-2xl mb-8">
-              I build the CRM architecture, automation pipelines, attribution
-              layers, AI workflows, and operational systems that make modern GTM
-              teams faster. Lupine Digital is the agency where that work is
-              packaged for clients.
+              I build the CRM architecture, automation, attribution, AI workflows,
+              onboarding systems, and revenue operations infrastructure that
+              help startups scale without adding more manual work.
             </p>
             <div id="contact" className="flex flex-wrap gap-4">
               <a
