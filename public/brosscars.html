@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- Keep this page out of search results — team-only -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<!-- Team-only: keep out of search results -->
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
 <meta name="googlebot" content="noindex, nofollow" />
-<title>The Brosscars — Bros 2026 Spring B1</title>
+<title>Bros Wrapped — 2026 Spring B1</title>
 <style>
   :root{
     --bg:#0a0e14; --panel:#121826; --panel2:#1a2233; --line:#26304a;
@@ -14,34 +14,88 @@
     --ice:#5ec8f2; --red:#e2574c; --green:#54c98a; --bros:#7c5cff;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:radial-gradient(1200px 600px at 50% -10%,#16203a 0%,var(--bg) 60%);color:var(--ink);
-    -webkit-font-smoothing:antialiased;line-height:1.5}
+  html,body{margin:0;height:100%}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+
+  /* ================= WRAPPED STORY ================= */
+  #wrapped{position:fixed;inset:0;z-index:50;overflow:hidden;touch-action:none}
+  #wrapped.done{display:none}
+  .bars{position:absolute;top:0;left:0;right:0;display:flex;gap:4px;padding:12px 12px calc(8px + env(safe-area-inset-top));z-index:5}
+  .bar{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.25);overflow:hidden}
+  .bar>i{display:block;height:100%;width:0;background:#fff;border-radius:3px}
+  .bar.done>i{width:100%}
+  .bar.active>i{animation:fill linear forwards}
+  @keyframes fill{from{width:0}to{width:100%}}
+  .bar.paused>i{animation-play-state:paused}
+
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;padding:64px 26px;background-size:cover}
+  .slide.on{display:flex}
+  .slide .k{font-size:13px;letter-spacing:.34em;text-transform:uppercase;font-weight:800;opacity:0;margin-bottom:14px}
+  .slide h2{font-size:clamp(30px,8vw,58px);font-weight:900;letter-spacing:-.02em;margin:0;line-height:1.05;max-width:780px;opacity:0}
+  .slide .big{font-size:clamp(82px,26vw,200px);font-weight:900;line-height:.92;letter-spacing:-.04em;opacity:0;margin:4px 0}
+  .slide p{font-size:clamp(16px,4.4vw,22px);color:#eef2fa;max-width:620px;margin:18px 0 0;opacity:0}
+  .slide .sm{font-size:14px;color:rgba(255,255,255,.7);margin-top:26px;opacity:0}
+  /* entrance animations triggered on .on */
+  .slide.on .k{animation:up .6s .15s forwards}
+  .slide.on h2{animation:up .7s .35s forwards}
+  .slide.on .big{animation:pop .8s .25s cubic-bezier(.2,1.3,.4,1) forwards}
+  .slide.on p{animation:up .7s .9s forwards}
+  .slide.on .sm{animation:up .7s 1.4s forwards}
+  @keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  @keyframes pop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
+
+  /* slide palettes */
+  .s-intro{background:radial-gradient(120% 100% at 50% 0%,#2a1f5e,#0a0e14)}
+  .s-blue{background:radial-gradient(120% 100% at 50% 10%,#0e3a5e,#0a0e14)}
+  .s-good{background:radial-gradient(120% 100% at 50% 10%,#15543a,#0a0e14)}
+  .s-bad{background:radial-gradient(120% 100% at 50% 10%,#5e1f1f,#0a0e14)}
+  .s-gold{background:radial-gradient(120% 100% at 50% 10%,#5e4a12,#0a0e14)}
+  .s-purple{background:radial-gradient(120% 100% at 50% 10%,#3a1f5e,#0a0e14)}
+  .s-pink{background:radial-gradient(120% 100% at 50% 10%,#5e1f4a,#0a0e14)}
+  .grad-gold{background:linear-gradient(180deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .grad-ice{background:linear-gradient(180deg,#8fe1ff,#3aa0d8);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .grad-red{background:linear-gradient(180deg,#ff8b82,#d8473c);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .grad-grn{background:linear-gradient(180deg,#86e6b3,#3aa86a);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .grad-pur{background:linear-gradient(180deg,#b9a4ff,#7c5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hint{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;
+    font-size:12px;color:rgba(255,255,255,.4);z-index:5}
+  .skip{position:absolute;bottom:calc(16px + env(safe-area-inset-bottom));right:16px;font-size:12px;
+    color:rgba(255,255,255,.55);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+    padding:7px 13px;border-radius:999px;cursor:pointer;z-index:6;opacity:0;transition:.3s}
+  .skip.show{opacity:1}
+  .cta{margin-top:30px;opacity:0;background:#fff;color:#12131a;border:none;font-weight:800;font-size:16px;
+    padding:14px 26px;border-radius:999px;cursor:pointer}
+  .slide.on .cta{animation:up .7s 1s forwards}
+  .confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+  .confetti i{position:absolute;top:-10px;width:9px;height:14px;opacity:.9;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+
+  /* ================= DASHBOARD ================= */
   .wrap{max-width:1080px;margin:0 auto;padding:28px 18px 80px}
-  header{text-align:center;padding:24px 0 8px}
+  header{text-align:center;padding:18px 0 8px}
   .eyebrow{letter-spacing:.32em;text-transform:uppercase;font-size:12px;color:var(--ice);font-weight:700}
   h1{font-size:clamp(38px,8vw,72px);margin:6px 0 2px;font-weight:900;letter-spacing:-.02em;
-    background:linear-gradient(180deg,var(--gold) 0%,var(--gold2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    background:linear-gradient(180deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
   .sub{color:var(--muted);font-size:15px}
   .record-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 6px}
   .pill{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px}
-  .pill b{color:var(--gold)}
-  .pill .red{color:var(--red)} .pill .grn{color:var(--green)}
+  .pill b{color:var(--gold)} .pill .red{color:var(--red)} .pill .grn{color:var(--green)}
+  .replay{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px 16px;font-size:14px;cursor:pointer}
+  .replay:hover{border-color:var(--gold2);color:var(--ink)}
   nav{display:flex;gap:6px;justify-content:center;margin:26px 0 24px;flex-wrap:wrap}
-  nav button{background:var(--panel);color:var(--ink);border:1px solid var(--line);padding:10px 18px;border-radius:10px;
-    font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
+  nav button{background:var(--panel);color:var(--ink);border:1px solid var(--line);padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
   nav button:hover{border-color:var(--gold2)}
   nav button.active{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#1a1405;border-color:var(--gold)}
   .view{display:none;animation:fade .25s ease} .view.active{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  /* AWARDS */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
   .card{perspective:1200px;height:210px;cursor:pointer}
   .inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
   .card.flipped .inner{transform:rotateY(180deg)}
-  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;border:1px solid var(--line);
-    padding:18px;display:flex;flex-direction:column;background:linear-gradient(160deg,var(--panel2),var(--panel))}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;border:1px solid var(--line);padding:18px;display:flex;flex-direction:column;background:linear-gradient(160deg,var(--panel2),var(--panel))}
   .front{justify-content:space-between}
   .emoji{font-size:30px}
   .award-name{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-top:6px}
@@ -52,7 +106,6 @@
   .back p{margin:0;font-size:14.5px;color:#dfe6f3}
   .back .who{color:var(--gold);font-weight:800;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
 
-  /* TABLES */
   table{width:100%;border-collapse:collapse;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
   th,td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
   th:first-child,td:first-child{text-align:left}
@@ -63,36 +116,47 @@
   tbody tr:hover{background:#161f33}
   tr.bros{background:rgba(124,92,255,.12)} tr.bros td:first-child{color:var(--bros);font-weight:800}
   .lead td{color:var(--gold);font-weight:700}
+  .win{color:var(--green);font-weight:700} .loss{color:var(--red);font-weight:700}
+  .gl-note{color:var(--muted);font-size:12.5px;text-align:left;white-space:normal;max-width:340px}
   .tnote{color:var(--muted);font-size:13px;margin:14px 2px 0;text-align:center}
   .scroll{overflow-x:auto;border-radius:14px}
+  .epitaph{max-width:720px;margin:34px auto 0;text-align:center;font-style:italic;color:#cfd8e8;font-size:16px;border-left:3px solid var(--gold);border-right:3px solid var(--gold);padding:6px 18px}
   footer{text-align:center;color:var(--muted);font-size:12px;margin-top:48px;line-height:1.7}
-  .epitaph{max-width:720px;margin:34px auto 0;text-align:center;font-style:italic;color:#cfd8e8;font-size:16px;
-    border-left:3px solid var(--gold);border-right:3px solid var(--gold);padding:6px 18px}
+  @media(prefers-reduced-motion:reduce){*{animation-duration:.001s !important}}
 </style>
 </head>
 <body>
-<div class="wrap">
+
+<!-- ===================== WRAPPED STORY ===================== -->
+<div id="wrapped">
+  <div class="bars" id="bars"></div>
+  <div id="slides"></div>
+  <div class="skip" id="skipBtn">Skip intro ▸</div>
+  <div class="hint" id="hint">press &amp; hold to pause</div>
+</div>
+
+<!-- ===================== DASHBOARD ===================== -->
+<div class="wrap" id="dash" style="display:none">
   <header>
     <div class="eyebrow">★ Season-Ending Awards ★</div>
     <h1>The Brosscars</h1>
     <div class="sub">Bros &middot; 2026 Spring B1 League</div>
-
     <div class="record-bar">
       <span class="pill">Record <b>5&ndash;7&ndash;1</b></span>
       <span class="pill">Finish <b>8th</b> of 10</span>
-      <span class="pill">Points <b>11</b></span>
       <span class="pill">GF <span class="grn">43</span> / GA <span class="red">46</span></span>
       <span class="pill">Final streak <b>W1</b></span>
+      <button class="replay" id="replay">↺ Replay Wrapped</button>
     </div>
   </header>
 
   <nav>
-    <button data-v="awards" class="active">🏆 The Awards</button>
+    <button data-v="awards" class="active">🏆 Awards</button>
+    <button data-v="games">🗓️ Game Log</button>
     <button data-v="stats">📊 Player Stats</button>
     <button data-v="standings">🧊 Standings</button>
   </nav>
 
-  <!-- AWARDS -->
   <section id="awards" class="view active">
     <div class="grid" id="cards"></div>
     <p class="epitaph">Cameron Wolf scored a goal a game and never took a penalty, Chris Beard took everyone&rsquo;s
@@ -100,151 +164,240 @@
     they were more fun than their record.</p>
   </section>
 
-  <!-- STATS -->
+  <section id="games" class="view">
+    <div class="scroll">
+      <table id="gameTable">
+        <thead><tr><th>Date</th><th>Opp</th><th>H/A</th><th>Result</th><th>Score</th><th style="text-align:left">Story</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="tnote">Final scores only — this league doesn&rsquo;t expose period-by-period timing, so no "blew a 3rd-period lead" detail is invented. The 1&ndash;0 forfeit is the math-confirmed 13th game (closed the season on a default win).</p>
+  </section>
+
   <section id="stats" class="view">
     <div class="scroll">
       <table id="statTable">
         <thead><tr>
-          <th data-k="name" data-t="s">Player</th>
-          <th data-k="gp">GP</th><th data-k="g">G</th><th data-k="a">A</th>
-          <th data-k="pts" class="sorted">PTS</th><th data-k="ppg">PTS/GP</th>
-          <th data-k="pim">PIM</th><th data-k="pimg">PIM/GP</th>
-        </tr></thead>
-        <tbody></tbody>
+          <th data-k="name" data-t="s">Player</th><th data-k="gp">GP</th><th data-k="g">G</th><th data-k="a">A</th>
+          <th data-k="pts" class="sorted">PTS</th><th data-k="ppg">PTS/GP</th><th data-k="pim">PIM</th><th data-k="pimg">PIM/GP</th>
+        </tr></thead><tbody></tbody>
       </table>
     </div>
-    <p class="tnote">Tap any column to sort. Goalies below. &nbsp;|&nbsp; PTS/GP &amp; PIM/GP are the per-game weights.</p>
+    <p class="tnote">Tap any column to sort. Goalies below.</p>
     <div class="scroll" style="margin-top:14px">
       <table id="goalieTable">
-        <thead><tr><th>Goalie</th><th>GP</th><th>SV%</th><th>GAA</th><th>SO</th><th>W&ndash;L</th></tr></thead>
-        <tbody></tbody>
+        <thead><tr><th>Goalie</th><th>GP</th><th>SV%</th><th>GAA</th><th>SO</th><th>W&ndash;L</th></tr></thead><tbody></tbody>
       </table>
     </div>
   </section>
 
-  <!-- STANDINGS -->
   <section id="standings" class="view">
     <div class="scroll">
       <table id="standTable">
-        <thead><tr><th>#</th><th>Team</th><th>GP</th><th>W</th><th>L</th><th>PTS</th><th>PCT</th><th>GF</th><th>GA</th><th>STRK</th></tr></thead>
-        <tbody></tbody>
+        <thead><tr><th>#</th><th>Team</th><th>GP</th><th>W</th><th>L</th><th>PTS</th><th>PCT</th><th>GF</th><th>GA</th><th>STRK</th></tr></thead><tbody></tbody>
       </table>
     </div>
-    <p class="tnote">Bros highlighted. The Eh Team ran the table up top; the Texas Butchers (&minus;36) anchored the basement.</p>
+    <p class="tnote">Bros highlighted.</p>
   </section>
 
-  <footer>
-    🔒 Private team page &middot; not indexed by search engines<br>
-    Stats: My Stats Online &middot; 2026 Spring B1 &middot; built for the Bros locker room
-  </footer>
+  <footer>🔒 Private team page &middot; not indexed by search engines<br>
+    Stats: My Stats Online &middot; 2026 Spring B1 &middot; built for the Bros locker room</footer>
 </div>
 
 <script>
-const AWARDS = [
-  {e:"🥇",n:"Team MVP — The Engine",w:"Cameron Wolf",s:"19 pts · 10 G · 0 PIM · 9 GP",
-   b:"19 points in 9 games with a hat trick and zero penalty minutes. Carried this team and didn't even leave a fingerprint on the box score. Absurd."},
-  {e:"🎯",n:"Sniper of the Year — The Trigger",w:"Gunnar Edlund",s:"7 goals in 8 GP · 2 PPG",
-   b:"Pure finisher. If the puck hit his stick in the slot, it was already 1–0. Seven goals in eight nights."},
-  {e:"🅰️",n:"The Quarterback — Most Assists",w:"Lucas Despins",s:"11 assists · 17 pts",
-   b:"Team-leading 11 helpers plus 6 of his own. Half the Bros' highlight reel ran through his stick before it hit twine."},
-  {e:"🧱",n:"The Wall — Goalie of the Year",w:"Jonathan Foster",s:".885 SV% · 1 SO · 296 SA",
-   b:"Started 9 of 10, faced a brutal 296 shots, and still stole the team's only shutout. A beach umbrella in a hurricane."},
-  {e:"🚨",n:"Sin-Bin MVP — Frequent Flyer",w:"Chris Beard",s:"22 PIM in 9 GP",
-   b:"Roughly a QUARTER of the entire team's penalty minutes, generated by one man. The refs knew his number by midseason. We salute the chaos."},
-  {e:"🧼",n:"Mr. Clean — Zero Box Time",w:"Jared Carswell",s:"9 GP · 0 PIM",
-   b:"Nine games, zero penalties, never handed the other team a power play. (Wolf was spotless too, but he's busy holding four other trophies.)"},
-  {e:"🦾",n:"Iron Men — Never Missed a Shift",w:"Oeunpuu & N. Leggett",s:"12 of 12 games",
-   b:"The only skaters to dress for all 12 games on the sheet. Bumps, bruises, blowouts — they showed up every single night."},
-  {e:"☕",n:"Cup of Coffee — Perfect Record",w:"Chris Border",s:"1 GP · 1 G · 1.00 G/GP",
-   b:"Walked in, scored, walked out. A flawless one-goal-per-game and an undefeated vibe. Never tarnished."},
-  {e:"⚡",n:"Shorty Club — PK Daredevils",w:"Wolf & Despins",s:"1 SHG each",
-   b:"Down a man? These two went hunting the wrong way. A shorthanded goal apiece."},
-  {e:"🐺",n:"The Big Three — Carried the Offense",w:"Wolf · Edlund · Despins",s:"23 of 43 team goals",
-   b:"Three sticks accounted for 53% of all Bros goals. Depth scoring was, generously, a stretch goal."},
-  {e:"🪑",n:"Captain's Grind — Thankless Minutes",w:"Jay Wood (C)",s:"7 GP · wore the C",
-   b:"The all-time franchise games leader ate the hard matchups so the kids could score. Leadership doesn't always hit the scoresheet."},
-  {e:"🚌",n:"Road Warriors — Better Away",w:"The Bros",s:"3–3–1 road · 2–4 home",
-   b:"This team was tougher in someone else's barn than its own. Pack a bag, win a game."}
+/* ===================== WRAPPED SLIDES ===================== */
+const SLIDES = [
+  {cls:"s-intro",dur:4200,html:`<div class="k grad-gold">Bros · 2026 Spring B1</div>
+    <h2>Your season,<br><span class="grad-gold">wrapped.</span></h2>
+    <p>13 games. One wild ride. Let&rsquo;s rewind it.</p>`},
+  {cls:"s-blue",dur:5200,count:{to:13},html:`<div class="k grad-ice">You laced up for</div>
+    <div class="big grad-ice"><span data-count="13">0</span></div>
+    <h2>games</h2><p>Finished <b>8th of 10</b> &mdash; record <b>5&ndash;7&ndash;1</b>, 11 points.</p>`},
+  {cls:"s-blue",dur:5400,count:{to:43},html:`<div class="k grad-ice">You lit the lamp</div>
+    <div class="big grad-ice"><span data-count="43">0</span></div>
+    <h2>times</h2><p>&hellip;and let in <b>46</b>. A &minus;3 goal differential &mdash; you were a coin-flip team that lost the close ones.</p>`},
+  {cls:"s-good",dur:5000,html:`<div class="k grad-grn">You came out swinging</div>
+    <h2><span class="grad-grn">2&ndash;0</span> to start</h2>
+    <p>Outscored the first two foes <b>10&ndash;3</b>. 4&ndash;1 over Pinthouse, then a 6&ndash;2 road win at the Butchers.</p>`},
+  {cls:"s-bad",dur:5600,html:`<div class="k grad-red">Then&hellip; the wheels came off</div>
+    <div class="big grad-red">6</div><h2>straight losses</h2>
+    <p>From April 16 to May 20 you got outscored <b>10&ndash;27</b>. Two shutouts. Two blowouts. Rough month.</p>`},
+  {cls:"s-bad",dur:6400,html:`<div class="k grad-red">Here&rsquo;s the thing&hellip;</div>
+    <h2>You lost <span class="grad-red">all 3</span> games Cameron Wolf missed</h2>
+    <p>May 6&ndash;20, no Wolf in the lineup &mdash; outscored <b>5&ndash;18</b>. Turns out he was kind of important.</p>`},
+  {cls:"s-good",dur:5600,html:`<div class="k grad-grn">But you ROARED back</div>
+    <h2>7&ndash;1, then 8&ndash;3</h2>
+    <p>Back-to-back blowout wins, outscoring them <b>15&ndash;4</b>. The offense finally remembered the net.</p>`},
+  {cls:"s-gold",dur:5200,html:`<div class="k grad-gold">One night, one man went off</div>
+    <div class="big grad-gold">5</div><h2>goals &mdash; Gunnar Edlund</h2>
+    <p>May 27 at Burt&rsquo;s Reynolds. Five goals, two on the power play, a hat trick and then some.</p>`},
+  {cls:"s-purple",dur:6000,count:{to:19,sel:"#mvpnum"},html:`<div class="k grad-pur">Your MVP carried the load</div>
+    <h2 style="margin-bottom:6px">Cameron Wolf</h2>
+    <div class="big grad-pur"><span id="mvpnum" data-count="19">0</span></div>
+    <p>points in 9 games &mdash; <b>10 goals</b>, a hat trick, and <b>0 penalty minutes</b> all season. Clean and lethal.</p>`},
+  {cls:"s-pink",dur:5600,count:{to:22,sel:"#pimnum"},html:`<div class="k grad-red">Meanwhile, in the sin bin&hellip;</div>
+    <div class="big grad-red"><span id="pimnum" data-count="22">0</span></div>
+    <h2>PIM &mdash; Chris Beard</h2>
+    <p>Roughly a <b>quarter of the whole team&rsquo;s penalty minutes</b> from one guy. A legend of chaos.</p>`},
+  {cls:"s-blue",dur:5600,count:{to:296,sel:"#sanum",ms:1600},html:`<div class="k grad-ice">Your goalie faced a barrage</div>
+    <div class="big grad-ice"><span id="sanum" data-count="296">0</span></div>
+    <h2>shots &mdash; Jonathan Foster</h2>
+    <p>Started 9 of 10, stole the team&rsquo;s only shutout. A beach umbrella in a hurricane.</p>`},
+  {cls:"s-gold",dur:6000,html:`<div class="k grad-gold">The season&rsquo;s final plot twist</div>
+    <h2>You ended on a win&hellip;<br>that you never played</h2>
+    <p>The on-ice finale was a 4&ndash;5 heartbreaker. But the schedule closed on a <b>1&ndash;0 forfeit</b> &mdash;
+    your &ldquo;W1&rdquo; streak was a no-show. We&rsquo;ll take it.</p>`},
+  {cls:"s-intro",dur:99999,last:true,html:`<div class="confetti" id="conf"></div>
+    <div class="k grad-gold">That&rsquo;s a wrap, Bros</div>
+    <h2>See you next season 🏒</h2>
+    <p>Now dig into every award, every game, and every stat.</p>
+    <button class="cta" id="enterDash">Explore the full season →</button>`}
 ];
 
-const SK = [
-  ["Cameron Wolf",9,10,9,19,0],["Lucas Despins",11,6,11,17,18],["Gunnar Edlund",8,7,4,11,2],
-  ["Noah Leggett",12,3,4,7,2],["Bill Knauss",10,4,2,6,4],["Kettil Oeunpuu",12,2,3,5,8],
-  ["Chris Beard",9,1,3,4,22],["Jason Kiehler",8,1,3,4,2],["Stuart Boswell",5,2,0,2,4],
-  ["Nick Leggett",9,1,1,2,8],["Andrew Mahaleris",7,1,0,1,2],["Jared Carswell",9,0,1,1,0],
-  ["Sam Roberts",7,1,0,1,0],["Alex Nobel",8,0,1,1,12],["Jay Wood (C)",7,0,1,1,4],
-  ["Andrew Feigenbaum",6,0,0,0,0],["Neal Duncan",3,1,0,1,0],["Robert DesRosier",3,0,0,0,0],
-  ["Chris Border",1,1,0,1,0]
-].map(r=>({name:r[0],gp:r[1],g:r[2],a:r[3],pts:r[4],pim:r[5],
+/* ===================== AWARDS / TABLES DATA ===================== */
+const AWARDS=[
+ {e:"🥇",n:"Team MVP — The Engine",w:"Cameron Wolf",s:"19 pts · 10 G · 0 PIM",b:"19 points in 9 games with a hat trick and zero penalty minutes. Carried this team and didn't even leave a fingerprint on the box score."},
+ {e:"🎯",n:"Sniper — The Trigger",w:"Gunnar Edlund",s:"7 G in 8 GP · 5 in one night",b:"Pure finisher. Seven goals in eight games — five of them in a single night at Burt's Reynolds."},
+ {e:"🅰️",n:"The Quarterback — Assists",w:"Lucas Despins",s:"11 assists · 17 pts",b:"Team-leading 11 helpers plus 6 of his own. Half the highlight reel ran through his stick first."},
+ {e:"🧱",n:"The Wall — Goalie",w:"Jonathan Foster",s:".885 SV% · 1 SO · 296 SA",b:"Started 9 of 10, faced 296 shots, stole the only shutout. Carried the crease all spring."},
+ {e:"🚨",n:"Sin-Bin MVP",w:"Chris Beard",s:"22 PIM in 9 GP",b:"About a quarter of the whole team's penalty minutes from one man — and 16 of them in the finale alone."},
+ {e:"🧼",n:"Mr. Clean",w:"Jared Carswell",s:"9 GP · 0 PIM",b:"Nine games, zero penalties, never gave the other team a power play. (Wolf was spotless too, but he's holding other trophies.)"},
+ {e:"🦾",n:"Iron Men",w:"Oeunpuu & N. Leggett",s:"12 of 12 games",b:"The only skaters to dress for every game on the sheet. Showed up every single night."},
+ {e:"☕",n:"Cup of Coffee",w:"Chris Border",s:"1 GP · 1 G",b:"Played one game, scored a goal, walked out. A flawless undefeated cameo."},
+ {e:"🚑",n:"Most Valuable Absence",w:"Cameron Wolf",s:"Bros 0–3 without him",b:"The cruelest stat of the season: the three games Wolf sat, the Bros lost all three and were outscored 5–18."},
+ {e:"🐺",n:"The Big Three",w:"Wolf · Edlund · Despins",s:"23 of 43 team goals",b:"Three sticks accounted for 53% of all Bros goals. Depth scoring was, generously, a stretch goal."},
+ {e:"🪑",n:"Captain's Grind",w:"Jay Wood (C)",s:"7 GP · wore the C",b:"The all-time franchise games leader ate the hard matchups so the kids could score."},
+ {e:"🎁",n:"Free Lunch — Best Forfeit",w:"The Bros",s:"1–0 default W",b:"Lost the on-ice finale 4–5, then got handed a 1–0 forfeit to end the year on a 'win.' Hockey's a funny game."}
+];
+const SK=[["Cameron Wolf",9,10,9,19,0],["Lucas Despins",11,6,11,17,18],["Gunnar Edlund",8,7,4,11,2],
+ ["Noah Leggett",12,3,4,7,2],["Bill Knauss",10,4,2,6,4],["Kettil Oeunpuu",12,2,3,5,8],
+ ["Chris Beard",9,1,3,4,22],["Jason Kiehler",8,1,3,4,2],["Stuart Boswell",5,2,0,2,4],
+ ["Nick Leggett",9,1,1,2,8],["Andrew Mahaleris",7,1,0,1,2],["Jared Carswell",9,0,1,1,0],
+ ["Sam Roberts",7,1,0,1,0],["Alex Nobel",8,0,1,1,12],["Jay Wood (C)",7,0,1,1,4],
+ ["Andrew Feigenbaum",6,0,0,0,0],["Neal Duncan",3,1,0,1,0],["Robert DesRosier",3,0,0,0,0],
+ ["Chris Border",1,1,0,1,0]].map(r=>({name:r[0],gp:r[1],g:r[2],a:r[3],pts:r[4],pim:r[5],
   ppg:+(r[4]/r[1]).toFixed(2),pimg:+(r[5]/r[1]).toFixed(2)}));
-
-const GK = [
-  ["Jonathan Foster",9,".885","3.78",1,"3–6"],
-  ["Chris Luscombe",1,".914","3.00",0,"0–1"]
+const GK=[["Jonathan Foster",9,".885","3.78",1,"3–6"],["Chris Luscombe",1,".914","3.00",0,"0–1"]];
+const ST=[[1,"The Eh Team",13,9,3,19,".731",64,39,"L1"],[2,"P. Terriers",13,9,4,18,".692",53,41,"W2"],
+ [3,"Burt's Reynolds",13,8,5,16,".615",52,40,"L2"],[4,"Rats",13,7,5,15,".577",36,29,"L2"],
+ [5,"Pinthouse Pirates",13,7,6,14,".538",42,45,"W5"],[6,"Jabronis",12,6,5,13,".542",41,45,"W1"],
+ [7,"Mean Eyed Cats",12,6,5,13,".542",55,48,"W1"],[8,"Bros",13,5,7,11,".423",43,46,"W1"],
+ [9,"Lavaca 50",12,4,8,8,".333",42,59,"L1"],[10,"Texas Butchers",12,2,10,4,".167",40,76,"L7"]];
+const GAMES=[ // date,opp,ha,br,op,note
+ ["4/2","PHP","H",4,1,"Season opener W — Wolf, Despins & Mahaleris tally"],
+ ["4/9","TXB","A",6,2,"🎩 Wolf hat trick (3G,2A); Chris Border scores in his only game"],
+ ["4/16","JAB","A",3,5,"Skid begins — Wolf shorthanded goal in the loss"],
+ ["4/22","RAT","H",2,3,"1-goal loss; Despins sits 14 PIM"],
+ ["4/29","PT","A",0,1,"Shut out; lost by one — one of the year's three 1-goal heartbreakers"],
+ ["5/6","MEC","H",3,8,"Wolf OUT; blown open 3–8"],
+ ["5/14","L50","H",0,4,"Wolf OUT; shut out again"],
+ ["5/20","TET","A",2,6,"Wolf OUT; skid reaches six"],
+ ["5/27","BUR","A",7,1,"🚀 Edlund FIVE goals; Despins 6 pts — slump snapped"],
+ ["6/3","TXB","H",8,3,"Depth night — 6+ scorers (Wolf & Kiehler each 2)"],
+ ["6/10","TET","A",3,7,"Wolf 2G in a losing effort"],
+ ["6/17","PT","H",4,5,"Finale heartbreaker; Knauss 1G2A; Beard 16 PIM"],
+ ["—","forfeit","—",1,0,"Opponent no-show — 1–0 default win closed the season (the 'W1' streak)"]
 ];
 
-const ST = [
-  [1,"The Eh Team",13,9,3,19,".731",64,39,"L1"],[2,"P. Terriers",13,9,4,18,".692",53,41,"W2"],
-  [3,"Burt's Reynolds",13,8,5,16,".615",52,40,"L2"],[4,"Rats",13,7,5,15,".577",36,29,"L2"],
-  [5,"Pinthouse Pirates",13,7,6,14,".538",42,45,"W5"],[6,"Jabronis",12,6,5,13,".542",41,45,"W1"],
-  [7,"Mean Eyed Cats",12,6,5,13,".542",55,48,"W1"],[8,"Bros",13,5,7,11,".423",43,46,"W1"],
-  [9,"Lavaca 50",12,4,8,8,".333",42,59,"L1"],[10,"Texas Butchers",12,2,10,4,".167",40,76,"L7"]
-];
-
-// build award cards
-const cw=document.getElementById('cards');
-AWARDS.forEach(a=>{
-  const c=document.createElement('div');c.className='card';
-  c.innerHTML=`<div class="inner">
-    <div class="face front"><div class="emoji">${a.e}</div>
-      <div class="award-name">${a.n}</div><div class="winner">${a.w}</div>
-      <div class="stat">${a.s}</div><div class="tap">tap to read ▾</div></div>
-    <div class="face back"><p><span class="who">${a.w}</span>${a.b}</p></div></div>`;
-  c.onclick=()=>c.classList.toggle('flipped');
-  cw.appendChild(c);
+/* ===================== STORY ENGINE ===================== */
+const slidesEl=document.getElementById('slides'), barsEl=document.getElementById('bars');
+SLIDES.forEach((s,i)=>{
+  const d=document.createElement('div'); d.className='slide '+s.cls; d.innerHTML=s.html; slidesEl.appendChild(d);
+  const b=document.createElement('div'); b.className='bar'; b.innerHTML='<i></i>'; barsEl.appendChild(b);
 });
+const slideDivs=[...slidesEl.children], barDivs=[...barsEl.children];
+let idx=-1, timer=null, paused=false;
 
-// player stat table + sorting
-const tb=document.querySelector('#statTable tbody');
-let sortK='pts',sortAsc=false;
-function renderStats(){
-  const rows=[...SK].sort((x,y)=>{
-    const A=x[sortK],B=y[sortK];
-    const c=(typeof A==='string')?A.localeCompare(B):A-B;
-    return sortAsc?c:-c;
-  });
-  tb.innerHTML=rows.map((p,i)=>`<tr class="${i===0&&sortK!=='name'?'lead':''}">
-    <td>${p.name}</td><td>${p.gp}</td><td>${p.g}</td><td>${p.a}</td>
-    <td>${p.pts}</td><td>${p.ppg.toFixed(2)}</td><td>${p.pim}</td><td>${p.pimg.toFixed(2)}</td></tr>`).join('');
-  document.querySelectorAll('#statTable th').forEach(th=>{
-    th.classList.toggle('sorted',th.dataset.k===sortK);
-    th.classList.toggle('asc',th.dataset.k===sortK&&sortAsc);
-  });
+function runCounter(el,to,ms){
+  const start=performance.now();
+  function step(t){
+    const p=Math.min(1,(t-start)/ms); el.textContent=Math.round(to*(1-Math.pow(1-p,3)));
+    if(p<1) requestAnimationFrame(step);
+  } requestAnimationFrame(step);
 }
-document.querySelectorAll('#statTable th').forEach(th=>{
-  th.onclick=()=>{const k=th.dataset.k;
-    if(k===sortK){sortAsc=!sortAsc}else{sortK=k;sortAsc=(th.dataset.t==='s')}
-    renderStats();};
-});
+function show(i){
+  if(i>=SLIDES.length){ enter(); return; }
+  idx=i; const s=SLIDES[i];
+  slideDivs.forEach((d,j)=>d.classList.toggle('on',j===i));
+  barDivs.forEach((b,j)=>{ b.classList.remove('active','paused');
+    b.classList.toggle('done',j<i); b.querySelector('i').style.animation='none'; });
+  // restart progress bar
+  const bar=barDivs[i]; void bar.offsetWidth;
+  if(!s.last){ bar.classList.add('active'); bar.querySelector('i').style.animation=`fill ${s.dur}ms linear forwards`; }
+  // counters
+  if(s.count){ const el=slideDivs[i].querySelector(s.count.sel||'[data-count]');
+    if(el) setTimeout(()=>runCounter(el,s.count.to,s.count.ms||1200),300); }
+  if(s.last){ confetti(); document.getElementById('hint').style.display='none';
+    document.getElementById('enterDash').onclick=enter; return; }
+  clearTimeout(timer); timer=setTimeout(()=>show(i+1), s.dur);
+}
+function enter(){
+  clearTimeout(timer);
+  document.getElementById('wrapped').classList.add('done');
+  document.getElementById('dash').style.display='block';
+  window.scrollTo(0,0);
+}
+// pause on hold
+const W=document.getElementById('wrapped');
+function pause(){ if(paused||idx<0||SLIDES[idx].last) return; paused=true; clearTimeout(timer);
+  barDivs[idx].classList.add('paused'); }
+function resume(){ if(!paused) return; paused=false;
+  barDivs[idx].classList.remove('paused');
+  const i=barDivs[idx].querySelector('i'), st=getComputedStyle(i).width, full=barDivs[idx].clientWidth;
+  const frac=parseFloat(st)/full, remain=SLIDES[idx].dur*(1-frac);
+  timer=setTimeout(()=>show(idx+1), remain); }
+W.addEventListener('pointerdown',pause); W.addEventListener('pointerup',resume);
+W.addEventListener('pointercancel',resume); W.addEventListener('pointerleave',resume);
+// skip
+const skip=document.getElementById('skipBtn'); skip.onclick=enter;
+setTimeout(()=>skip.classList.add('show'),2500);
+function confetti(){ const c=document.getElementById('conf'); if(!c) return;
+  const cols=['#f5c451','#5ec8f2','#7c5cff','#54c98a','#e2574c','#fff'];
+  for(let k=0;k<70;k++){ const i=document.createElement('i');
+    i.style.left=Math.random()*100+'%'; i.style.background=cols[k%cols.length];
+    i.style.animationDuration=(2.5+Math.random()*2.5)+'s'; i.style.animationDelay=(Math.random()*1.2)+'s';
+    c.appendChild(i);} }
+
+/* ===================== DASHBOARD WIRING ===================== */
+const cw=document.getElementById('cards');
+AWARDS.forEach(a=>{ const c=document.createElement('div'); c.className='card';
+  c.innerHTML=`<div class="inner"><div class="face front"><div class="emoji">${a.e}</div>
+    <div class="award-name">${a.n}</div><div class="winner">${a.w}</div>
+    <div class="stat">${a.s}</div><div class="tap">tap to read ▾</div></div>
+    <div class="face back"><p><span class="who">${a.w}</span>${a.b}</p></div></div>`;
+  c.onclick=()=>c.classList.toggle('flipped'); cw.appendChild(c); });
+
+document.querySelector('#gameTable tbody').innerHTML=GAMES.map(g=>{
+  const win=g[3]>g[4], res=win?'W':'L', ha=g[2]==='H'?'vs':(g[2]==='A'?'@':'');
+  return `<tr><td>${g[0]}</td><td>${ha} ${g[1]}</td><td>${g[2]}</td>
+    <td class="${win?'win':'loss'}">${res}</td><td>${g[3]}–${g[4]}</td><td class="gl-note">${g[5]}</td></tr>`;
+}).join('');
+
+const tb=document.querySelector('#statTable tbody'); let sortK='pts',sortAsc=false;
+function renderStats(){
+  const rows=[...SK].sort((x,y)=>{const A=x[sortK],B=y[sortK];
+    const c=(typeof A==='string')?A.localeCompare(B):A-B; return sortAsc?c:-c;});
+  tb.innerHTML=rows.map((p,i)=>`<tr class="${i===0&&sortK!=='name'?'lead':''}"><td>${p.name}</td><td>${p.gp}</td>
+    <td>${p.g}</td><td>${p.a}</td><td>${p.pts}</td><td>${p.ppg.toFixed(2)}</td><td>${p.pim}</td><td>${p.pimg.toFixed(2)}</td></tr>`).join('');
+  document.querySelectorAll('#statTable th').forEach(th=>{th.classList.toggle('sorted',th.dataset.k===sortK);
+    th.classList.toggle('asc',th.dataset.k===sortK&&sortAsc);});
+}
+document.querySelectorAll('#statTable th').forEach(th=>{th.onclick=()=>{const k=th.dataset.k;
+  if(k===sortK){sortAsc=!sortAsc}else{sortK=k;sortAsc=(th.dataset.t==='s')} renderStats();};});
 renderStats();
+document.querySelector('#goalieTable tbody').innerHTML=GK.map(g=>`<tr><td>${g[0]}</td><td>${g[1]}</td><td>${g[2]}</td><td>${g[3]}</td><td>${g[4]}</td><td>${g[5]}</td></tr>`).join('');
+document.querySelector('#standTable tbody').innerHTML=ST.map(t=>`<tr class="${t[1]==='Bros'?'bros':''}">
+  <td>${t[0]}</td><td>${t[1]}</td><td>${t[2]}</td><td>${t[3]}</td><td>${t[4]}</td><td>${t[5]}</td><td>${t[6]}</td><td>${t[7]}</td><td>${t[8]}</td><td>${t[9]}</td></tr>`).join('');
+document.querySelectorAll('nav button').forEach(b=>{b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); document.getElementById(b.dataset.v).classList.add('active');};});
+document.getElementById('replay').onclick=()=>{
+  document.getElementById('dash').style.display='none';
+  document.getElementById('wrapped').classList.remove('done');
+  document.getElementById('hint').style.display=''; show(0);};
 
-// goalies
-document.querySelector('#goalieTable tbody').innerHTML=GK.map(g=>
-  `<tr><td>${g[0]}</td><td>${g[1]}</td><td>${g[2]}</td><td>${g[3]}</td><td>${g[4]}</td><td>${g[5]}</td></tr>`).join('');
-
-// standings
-document.querySelector('#standTable tbody').innerHTML=ST.map(t=>
-  `<tr class="${t[1]==='Bros'?'bros':''}"><td>${t[0]}</td><td>${t[1]}</td><td>${t[2]}</td><td>${t[3]}</td>
-   <td>${t[4]}</td><td>${t[5]}</td><td>${t[6]}</td><td>${t[7]}</td><td>${t[8]}</td><td>${t[9]}</td></tr>`).join('');
-
-// nav
-document.querySelectorAll('nav button').forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');document.getElementById(b.dataset.v).classList.add('active');
-  };
-});
+show(0); // start the story
 </script>
 </body>
 </html>
