@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Keep this page out of search results — team-only -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<meta name="googlebot" content="noindex, nofollow" />
+<title>The Brosscars — Bros 2026 Spring B1</title>
+<style>
+  :root{
+    --bg:#0a0e14; --panel:#121826; --panel2:#1a2233; --line:#26304a;
+    --ink:#e8edf6; --muted:#8b97ad; --gold:#f5c451; --gold2:#caa233;
+    --ice:#5ec8f2; --red:#e2574c; --green:#54c98a; --bros:#7c5cff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%,#16203a 0%,var(--bg) 60%);color:var(--ink);
+    -webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 18px 80px}
+  header{text-align:center;padding:24px 0 8px}
+  .eyebrow{letter-spacing:.32em;text-transform:uppercase;font-size:12px;color:var(--ice);font-weight:700}
+  h1{font-size:clamp(38px,8vw,72px);margin:6px 0 2px;font-weight:900;letter-spacing:-.02em;
+    background:linear-gradient(180deg,var(--gold) 0%,var(--gold2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);font-size:15px}
+  .record-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 6px}
+  .pill{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px}
+  .pill b{color:var(--gold)}
+  .pill .red{color:var(--red)} .pill .grn{color:var(--green)}
+  nav{display:flex;gap:6px;justify-content:center;margin:26px 0 24px;flex-wrap:wrap}
+  nav button{background:var(--panel);color:var(--ink);border:1px solid var(--line);padding:10px 18px;border-radius:10px;
+    font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
+  nav button:hover{border-color:var(--gold2)}
+  nav button.active{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#1a1405;border-color:var(--gold)}
+  .view{display:none;animation:fade .25s ease} .view.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* AWARDS */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+  .card{perspective:1200px;height:210px;cursor:pointer}
+  .inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+  .card.flipped .inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;border:1px solid var(--line);
+    padding:18px;display:flex;flex-direction:column;background:linear-gradient(160deg,var(--panel2),var(--panel))}
+  .front{justify-content:space-between}
+  .emoji{font-size:30px}
+  .award-name{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-top:6px}
+  .winner{font-size:22px;font-weight:800;margin-top:2px}
+  .stat{color:var(--ice);font-size:13px;margin-top:auto;font-weight:600}
+  .tap{color:var(--muted);font-size:11px;margin-top:8px}
+  .back{transform:rotateY(180deg);justify-content:center;background:linear-gradient(160deg,#1d2640,#141b2c)}
+  .back p{margin:0;font-size:14.5px;color:#dfe6f3}
+  .back .who{color:var(--gold);font-weight:800;display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+
+  /* TABLES */
+  table{width:100%;border-collapse:collapse;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:var(--panel2);color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;user-select:none}
+  thead th:hover{color:var(--gold)}
+  thead th.sorted::after{content:" ↓";color:var(--gold)}
+  thead th.sorted.asc::after{content:" ↑"}
+  tbody tr:hover{background:#161f33}
+  tr.bros{background:rgba(124,92,255,.12)} tr.bros td:first-child{color:var(--bros);font-weight:800}
+  .lead td{color:var(--gold);font-weight:700}
+  .tnote{color:var(--muted);font-size:13px;margin:14px 2px 0;text-align:center}
+  .scroll{overflow-x:auto;border-radius:14px}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:48px;line-height:1.7}
+  .epitaph{max-width:720px;margin:34px auto 0;text-align:center;font-style:italic;color:#cfd8e8;font-size:16px;
+    border-left:3px solid var(--gold);border-right:3px solid var(--gold);padding:6px 18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">★ Season-Ending Awards ★</div>
+    <h1>The Brosscars</h1>
+    <div class="sub">Bros &middot; 2026 Spring B1 League</div>
+
+    <div class="record-bar">
+      <span class="pill">Record <b>5&ndash;7&ndash;1</b></span>
+      <span class="pill">Finish <b>8th</b> of 10</span>
+      <span class="pill">Points <b>11</b></span>
+      <span class="pill">GF <span class="grn">43</span> / GA <span class="red">46</span></span>
+      <span class="pill">Final streak <b>W1</b></span>
+    </div>
+  </header>
+
+  <nav>
+    <button data-v="awards" class="active">🏆 The Awards</button>
+    <button data-v="stats">📊 Player Stats</button>
+    <button data-v="standings">🧊 Standings</button>
+  </nav>
+
+  <!-- AWARDS -->
+  <section id="awards" class="view active">
+    <div class="grid" id="cards"></div>
+    <p class="epitaph">Cameron Wolf scored a goal a game and never took a penalty, Chris Beard took everyone&rsquo;s
+    penalties, Jonathan Foster faced 300 shots alone, and the Bros went 3&ndash;3&ndash;1 on the road to land 8th &mdash;
+    they were more fun than their record.</p>
+  </section>
+
+  <!-- STATS -->
+  <section id="stats" class="view">
+    <div class="scroll">
+      <table id="statTable">
+        <thead><tr>
+          <th data-k="name" data-t="s">Player</th>
+          <th data-k="gp">GP</th><th data-k="g">G</th><th data-k="a">A</th>
+          <th data-k="pts" class="sorted">PTS</th><th data-k="ppg">PTS/GP</th>
+          <th data-k="pim">PIM</th><th data-k="pimg">PIM/GP</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="tnote">Tap any column to sort. Goalies below. &nbsp;|&nbsp; PTS/GP &amp; PIM/GP are the per-game weights.</p>
+    <div class="scroll" style="margin-top:14px">
+      <table id="goalieTable">
+        <thead><tr><th>Goalie</th><th>GP</th><th>SV%</th><th>GAA</th><th>SO</th><th>W&ndash;L</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- STANDINGS -->
+  <section id="standings" class="view">
+    <div class="scroll">
+      <table id="standTable">
+        <thead><tr><th>#</th><th>Team</th><th>GP</th><th>W</th><th>L</th><th>PTS</th><th>PCT</th><th>GF</th><th>GA</th><th>STRK</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="tnote">Bros highlighted. The Eh Team ran the table up top; the Texas Butchers (&minus;36) anchored the basement.</p>
+  </section>
+
+  <footer>
+    🔒 Private team page &middot; not indexed by search engines<br>
+    Stats: My Stats Online &middot; 2026 Spring B1 &middot; built for the Bros locker room
+  </footer>
+</div>
+
+<script>
+const AWARDS = [
+  {e:"🥇",n:"Team MVP — The Engine",w:"Cameron Wolf",s:"19 pts · 10 G · 0 PIM · 9 GP",
+   b:"19 points in 9 games with a hat trick and zero penalty minutes. Carried this team and didn't even leave a fingerprint on the box score. Absurd."},
+  {e:"🎯",n:"Sniper of the Year — The Trigger",w:"Gunnar Edlund",s:"7 goals in 8 GP · 2 PPG",
+   b:"Pure finisher. If the puck hit his stick in the slot, it was already 1–0. Seven goals in eight nights."},
+  {e:"🅰️",n:"The Quarterback — Most Assists",w:"Lucas Despins",s:"11 assists · 17 pts",
+   b:"Team-leading 11 helpers plus 6 of his own. Half the Bros' highlight reel ran through his stick before it hit twine."},
+  {e:"🧱",n:"The Wall — Goalie of the Year",w:"Jonathan Foster",s:".885 SV% · 1 SO · 296 SA",
+   b:"Started 9 of 10, faced a brutal 296 shots, and still stole the team's only shutout. A beach umbrella in a hurricane."},
+  {e:"🚨",n:"Sin-Bin MVP — Frequent Flyer",w:"Chris Beard",s:"22 PIM in 9 GP",
+   b:"Roughly a QUARTER of the entire team's penalty minutes, generated by one man. The refs knew his number by midseason. We salute the chaos."},
+  {e:"🧼",n:"Mr. Clean — Zero Box Time",w:"Jared Carswell",s:"9 GP · 0 PIM",
+   b:"Nine games, zero penalties, never handed the other team a power play. (Wolf was spotless too, but he's busy holding four other trophies.)"},
+  {e:"🦾",n:"Iron Men — Never Missed a Shift",w:"Oeunpuu & N. Leggett",s:"12 of 12 games",
+   b:"The only skaters to dress for all 12 games on the sheet. Bumps, bruises, blowouts — they showed up every single night."},
+  {e:"☕",n:"Cup of Coffee — Perfect Record",w:"Chris Border",s:"1 GP · 1 G · 1.00 G/GP",
+   b:"Walked in, scored, walked out. A flawless one-goal-per-game and an undefeated vibe. Never tarnished."},
+  {e:"⚡",n:"Shorty Club — PK Daredevils",w:"Wolf & Despins",s:"1 SHG each",
+   b:"Down a man? These two went hunting the wrong way. A shorthanded goal apiece."},
+  {e:"🐺",n:"The Big Three — Carried the Offense",w:"Wolf · Edlund · Despins",s:"23 of 43 team goals",
+   b:"Three sticks accounted for 53% of all Bros goals. Depth scoring was, generously, a stretch goal."},
+  {e:"🪑",n:"Captain's Grind — Thankless Minutes",w:"Jay Wood (C)",s:"7 GP · wore the C",
+   b:"The all-time franchise games leader ate the hard matchups so the kids could score. Leadership doesn't always hit the scoresheet."},
+  {e:"🚌",n:"Road Warriors — Better Away",w:"The Bros",s:"3–3–1 road · 2–4 home",
+   b:"This team was tougher in someone else's barn than its own. Pack a bag, win a game."}
+];
+
+const SK = [
+  ["Cameron Wolf",9,10,9,19,0],["Lucas Despins",11,6,11,17,18],["Gunnar Edlund",8,7,4,11,2],
+  ["Noah Leggett",12,3,4,7,2],["Bill Knauss",10,4,2,6,4],["Kettil Oeunpuu",12,2,3,5,8],
+  ["Chris Beard",9,1,3,4,22],["Jason Kiehler",8,1,3,4,2],["Stuart Boswell",5,2,0,2,4],
+  ["Nick Leggett",9,1,1,2,8],["Andrew Mahaleris",7,1,0,1,2],["Jared Carswell",9,0,1,1,0],
+  ["Sam Roberts",7,1,0,1,0],["Alex Nobel",8,0,1,1,12],["Jay Wood (C)",7,0,1,1,4],
+  ["Andrew Feigenbaum",6,0,0,0,0],["Neal Duncan",3,1,0,1,0],["Robert DesRosier",3,0,0,0,0],
+  ["Chris Border",1,1,0,1,0]
+].map(r=>({name:r[0],gp:r[1],g:r[2],a:r[3],pts:r[4],pim:r[5],
+  ppg:+(r[4]/r[1]).toFixed(2),pimg:+(r[5]/r[1]).toFixed(2)}));
+
+const GK = [
+  ["Jonathan Foster",9,".885","3.78",1,"3–6"],
+  ["Chris Luscombe",1,".914","3.00",0,"0–1"]
+];
+
+const ST = [
+  [1,"The Eh Team",13,9,3,19,".731",64,39,"L1"],[2,"P. Terriers",13,9,4,18,".692",53,41,"W2"],
+  [3,"Burt's Reynolds",13,8,5,16,".615",52,40,"L2"],[4,"Rats",13,7,5,15,".577",36,29,"L2"],
+  [5,"Pinthouse Pirates",13,7,6,14,".538",42,45,"W5"],[6,"Jabronis",12,6,5,13,".542",41,45,"W1"],
+  [7,"Mean Eyed Cats",12,6,5,13,".542",55,48,"W1"],[8,"Bros",13,5,7,11,".423",43,46,"W1"],
+  [9,"Lavaca 50",12,4,8,8,".333",42,59,"L1"],[10,"Texas Butchers",12,2,10,4,".167",40,76,"L7"]
+];
+
+// build award cards
+const cw=document.getElementById('cards');
+AWARDS.forEach(a=>{
+  const c=document.createElement('div');c.className='card';
+  c.innerHTML=`<div class="inner">
+    <div class="face front"><div class="emoji">${a.e}</div>
+      <div class="award-name">${a.n}</div><div class="winner">${a.w}</div>
+      <div class="stat">${a.s}</div><div class="tap">tap to read ▾</div></div>
+    <div class="face back"><p><span class="who">${a.w}</span>${a.b}</p></div></div>`;
+  c.onclick=()=>c.classList.toggle('flipped');
+  cw.appendChild(c);
+});
+
+// player stat table + sorting
+const tb=document.querySelector('#statTable tbody');
+let sortK='pts',sortAsc=false;
+function renderStats(){
+  const rows=[...SK].sort((x,y)=>{
+    const A=x[sortK],B=y[sortK];
+    const c=(typeof A==='string')?A.localeCompare(B):A-B;
+    return sortAsc?c:-c;
+  });
+  tb.innerHTML=rows.map((p,i)=>`<tr class="${i===0&&sortK!=='name'?'lead':''}">
+    <td>${p.name}</td><td>${p.gp}</td><td>${p.g}</td><td>${p.a}</td>
+    <td>${p.pts}</td><td>${p.ppg.toFixed(2)}</td><td>${p.pim}</td><td>${p.pimg.toFixed(2)}</td></tr>`).join('');
+  document.querySelectorAll('#statTable th').forEach(th=>{
+    th.classList.toggle('sorted',th.dataset.k===sortK);
+    th.classList.toggle('asc',th.dataset.k===sortK&&sortAsc);
+  });
+}
+document.querySelectorAll('#statTable th').forEach(th=>{
+  th.onclick=()=>{const k=th.dataset.k;
+    if(k===sortK){sortAsc=!sortAsc}else{sortK=k;sortAsc=(th.dataset.t==='s')}
+    renderStats();};
+});
+renderStats();
+
+// goalies
+document.querySelector('#goalieTable tbody').innerHTML=GK.map(g=>
+  `<tr><td>${g[0]}</td><td>${g[1]}</td><td>${g[2]}</td><td>${g[3]}</td><td>${g[4]}</td><td>${g[5]}</td></tr>`).join('');
+
+// standings
+document.querySelector('#standTable tbody').innerHTML=ST.map(t=>
+  `<tr class="${t[1]==='Bros'?'bros':''}"><td>${t[0]}</td><td>${t[1]}</td><td>${t[2]}</td><td>${t[3]}</td>
+   <td>${t[4]}</td><td>${t[5]}</td><td>${t[6]}</td><td>${t[7]}</td><td>${t[8]}</td><td>${t[9]}</td></tr>`).join('');
+
+// nav
+document.querySelectorAll('nav button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');document.getElementById(b.dataset.v).classList.add('active');
+  };
+});
+</script>
+</body>
+</html>
