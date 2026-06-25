@@ -172,7 +172,7 @@
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
-<div id="yt" style="position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;opacity:0" aria-hidden="true"></div>
+<audio id="bgm" src="/bros-wrapped.mp3" loop preload="auto"></audio>
 
 <!-- ===================== START GATE ===================== -->
 <div id="gate">
@@ -448,24 +448,15 @@ document.getElementById('replay').onclick=()=>{
   document.getElementById('wrapped').classList.remove('done');
   document.getElementById('hint').style.display=''; show(0);};
 
-/* ===================== BACKGROUND MUSIC (YouTube, starts @0:30) ===================== */
-let ytPlayer=null, ytReady=false, wantPlay=false, muted=false;
-(function(){const t=document.createElement('script'); t.src='https://www.youtube.com/iframe_api'; document.head.appendChild(t);})();
-window.onYouTubeIframeAPIReady=function(){
-  ytPlayer=new YT.Player('yt',{videoId:'SOb1k2MqlLs',
-    playerVars:{start:30,autoplay:0,controls:0,disablekb:1,playsinline:1,rel:0,modestbranding:1},
-    events:{onReady:()=>{ytReady=true; if(wantPlay) startAudio();},
-      onStateChange:e=>{ if(e.data===YT.PlayerState.ENDED){ try{ytPlayer.seekTo(30,true);ytPlayer.playVideo();}catch(_){} } }}});
-};
-function startAudio(){ if(!ytReady){wantPlay=true;return;} try{ytPlayer.seekTo(30,true); ytPlayer.unMute(); ytPlayer.setVolume(70); ytPlayer.playVideo();}catch(e){} }
-
+/* ===================== BACKGROUND MUSIC (local file — already trimmed to start @0:30) ===================== */
+let muted=false; const bgm=document.getElementById('bgm');
+function startAudio(){ try{ bgm.currentTime=0; bgm.volume=0.7; bgm.play(); }catch(e){} }
 const gate=document.getElementById('gate'), soundBtn=document.getElementById('soundBtn');
 document.getElementById('playBtn').onclick=()=>{ gate.classList.add('hidden'); startAudio(); show(0); };
 // keep sound toggle from triggering the press-to-pause handler
 ['pointerdown','pointerup','click'].forEach(ev=>soundBtn.addEventListener(ev,e=>e.stopPropagation()));
-soundBtn.addEventListener('click',()=>{ if(!ytPlayer)return; muted=!muted;
-  if(muted){ try{ytPlayer.mute();}catch(_){} } else { try{ytPlayer.unMute(); if(ytReady&&ytPlayer.getPlayerState()!==1)ytPlayer.playVideo();}catch(_){} }
-  soundBtn.textContent=muted?'🔇':'🔊'; });
+soundBtn.addEventListener('click',()=>{ muted=!muted; bgm.muted=muted;
+  if(!muted&&bgm.paused) bgm.play().catch(()=>{}); soundBtn.textContent=muted?'🔇':'🔊'; });
 </script>
 </body>
 </html>
