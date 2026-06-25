@@ -6,7 +6,7 @@
 <!-- Team-only: keep out of search results -->
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
 <meta name="googlebot" content="noindex, nofollow" />
-<title>Bros Wrapped — 2026 Spring B1</title>
+<title>Bros Wrapped: 2026 Spring B1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -69,8 +69,16 @@
     background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);display:inline-flex;gap:7px;align-items:center;
     font-variant-numeric:tabular-nums;backdrop-filter:blur(6px)}
   .chip .res{font-weight:700} .chip .w{color:#86e6b3} .chip .l{color:#ff9a90} .chip .opp{color:rgba(255,255,255,.55)}
+  .sponsors{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:18px;opacity:0}
+  .slide.on .sponsors{animation:pop .85s .3s cubic-bezier(.18,1.25,.4,1) forwards}
+  .sponsors .lk{background:#fff;border-radius:18px;padding:16px 22px;box-shadow:var(--shadow);display:grid;place-items:center}
+  .sponsors img{display:block;width:auto} .sponsors .ojo img{height:56px} .sponsors .bsz img{height:78px}
+  .presented{display:flex;align-items:center;justify-content:center;gap:12px;margin:16px 0 2px;flex-wrap:wrap}
+  .presented span.lbl{font-family:var(--disp);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .presented .lk{background:#fff;border-radius:10px;padding:6px 10px;display:grid;place-items:center}
+  .presented .ojo img{height:22px;display:block} .presented .bsz img{height:28px;display:block}
 
-  /* slide moods — deep, cinematic, single tinted glow each */
+  /* slide moods:deep, cinematic, single tinted glow each */
   .s-intro{background:radial-gradient(110% 90% at 50% 0%,#241a4a 0%,#0b0d12 62%)}
   .s-ice  {background:radial-gradient(110% 90% at 50% 8%,#0c3a52 0%,#0b0d12 62%)}
   .s-good {background:radial-gradient(110% 90% at 50% 8%,#103f30 0%,#0b0d12 62%)}
@@ -203,12 +211,18 @@
     <div class="eyebrow">★ Season-Ending Awards ★</div>
     <h1>The Brosscars</h1>
     <div class="sub">Bros &middot; 2026 Spring B1 League</div>
+    <div class="presented">
+      <span class="lbl">presented by</span>
+      <span class="lk ojo"><img src="/ojos-locos.png" alt="Ojos Locos Sports Cantina"></span>
+      <span class="lk bsz"><img src="/big-sips.svg" alt="Big Sipz"></span>
+    </div>
     <div class="record-bar">
       <span class="pill">Record <b>5&ndash;7&ndash;1</b></span>
       <span class="pill">Finish <b>8th</b> of 10</span>
       <span class="pill">GF <span class="grn">43</span> / GA <span class="red">46</span></span>
       <span class="pill">Final streak <b>W1</b></span>
       <button class="replay" id="replay">↺ Replay Wrapped</button>
+      <button class="replay" id="musicBtn">🔊 Pause music</button>
     </div>
   </header>
 
@@ -234,7 +248,7 @@
         <tbody></tbody>
       </table>
     </div>
-    <p class="tnote">Final scores only &mdash; this league doesn&rsquo;t expose period-by-period timing, so nothing about "blowing a 3rd-period lead" is invented here. The 1&ndash;0 forfeit is the math-confirmed 13th game that closed the season.</p>
+    <p class="tnote">Final scores only. This league doesn&rsquo;t expose period-by-period timing, so nothing about "blowing a 3rd-period lead" is invented here. The 1&ndash;0 forfeit is the math-confirmed 13th game that closed the season.</p>
   </section>
 
   <section id="stats" class="view">
@@ -273,16 +287,19 @@ const SLIDES = [
   {cls:"s-intro",dur:5400,html:`<div class="k grad-gold">Bros · 2026 Spring B1</div>
     <h2>Your season,<br><span class="grad-gold">wrapped.</span></h2>
     <p>Thirteen games of questionable decisions. Let's relive them.</p>`},
+  {cls:"s-intro",dur:5400,html:`<div class="k grad-gold">This recap is brought to you by</div>
+    <div class="sponsors"><span class="lk ojo"><img src="/ojos-locos.png" alt="Ojos Locos Sports Cantina"></span><span class="lk bsz"><img src="/big-sips.svg" alt="Big Sipz"></span></div>
+    <p>Cold cervezas, bigger sips, and questionable line changes.</p>`},
   {cls:"s-ice",dur:6800,count:{to:13},html:`<div class="k grad-ice">You suited up for</div>
     <div class="big grad-ice"><span data-count="13">0</span></div>
     <h2>games</h2><p>Landed <b>8th of 10</b> at <b>5&ndash;7&ndash;1</b>. Middle of the pack, with feeling.</p>`},
   {cls:"s-ice",dur:7000,count:{to:43},html:`<div class="k grad-ice">You scored</div>
     <div class="big grad-ice"><span data-count="43">0</span></div>
-    <h2>goals</h2><p>&hellip;and surrendered <b>46</b>. A &minus;3 differential &mdash; you were one save a night from respectable.</p>`},
+    <h2>goals</h2><p>&hellip;and surrendered <b>46</b>. A &minus;3 differential. One save a night from respectable.</p>`},
   {cls:"s-good",dur:7200,scores:[['W','4–1','vs PHP'],['W','6–2','@ TXB']],
     html:`<div class="k grad-grn">You opened hot</div>
     <h2><span class="grad-grn">2&ndash;0</span> out of the gate</h2>
-    <p>Outscored the first two opponents <b>10&ndash;3</b>. Everyone felt good. It did not last.</p>`},
+    <p>Outscored the first two opponents <b>10&ndash;3</b> and everyone felt good. It didn't last.</p>`},
   {cls:"s-bad",dur:8200,scores:[['L','3–5','@ JAB'],['L','2–3','vs RAT'],['L','0–1','@ PT'],['L','3–8','vs MEC'],['L','0–4','vs L50'],['L','2–6','@ TET']],
     html:`<div class="k grad-red">Then reality showed up</div>
     <div class="big grad-red">6</div><h2>losses in a row</h2>
@@ -290,65 +307,73 @@ const SLIDES = [
   {cls:"s-bad",dur:7800,scores:[['L','3–8','vs MEC'],['L','0–4','vs L50'],['L','2–6','@ TET']],
     html:`<div class="k grad-red">A suspicious coincidence</div>
     <h2>0&ndash;3 in the games one guy missed</h2>
-    <p>The three nights Cameron Wolf sat, the Bros lost all three &mdash; outscored <b>5&ndash;18</b>.
+    <p>The three nights Cameron Wolf sat, the Bros lost all three and got outscored <b>5&ndash;18</b>.
     Read into that whatever keeps the room calm.</p>`},
   {cls:"s-good",dur:7200,scores:[['W','7–1','@ BUR'],['W','8–3','vs TXB']],
     html:`<div class="k grad-grn">Then you remembered how to play</div>
     <h2>7&ndash;1, then 8&ndash;3</h2>
-    <p>Back-to-back routs, outscoring them <b>15&ndash;4</b>. The whole bench chipped in &mdash; finally.</p>`},
+    <p>Back-to-back routs, <b>15&ndash;4</b> combined. The whole bench scored.</p>`},
   {cls:"s-gold",dur:7200,count:{to:5,sel:"#edl"},scores:[['W','7–1','@ BUR']],
     html:`<div class="k grad-gold">The single best night, by anyone</div>
     <div class="big grad-gold"><span id="edl" data-count="5">0</span></div>
-    <h2>goals &mdash; Gunnar Edlund</h2>
-    <p>One game. Five goals, two on the power play. Quietly the most productive Bro per minute all year.</p>`},
+    <h2>goals: Gunnar Edlund</h2>
+    <p>One game. Five goals, two on the power play. The best per-minute scorer on the team.</p>`},
   {cls:"s-good",dur:7000,scores:[['W','8–3','vs TXB']],
     html:`<div class="k grad-grn">For one night, an actual team</div>
     <h2>6 different Bros scored</h2>
-    <p>The 8&ndash;3 win on June 3 saw the lamp lit by half a dozen guys. Not one name and four passengers &mdash; depth.</p>`},
+    <p>Six different guys scored in the 8&ndash;3 win on June 3. A whole team, for once.</p>`},
   {cls:"s-ice",dur:7000,html:`<div class="k grad-ice">The setup man did setup-man things</div>
     <h2>Lucas Despins: 11 assists</h2>
     <p>Most on the team. Half the goals you cheered started on his stick. He also led the team in penalty minutes by a forward, so, balance.</p>`},
   {cls:"s-gold",dur:7400,count:{to:19,sel:"#mvp"},html:`<div class="k grad-gold">Fine. Credit where it's due.</div>
     <div class="big grad-gold"><span id="mvp" data-count="19">0</span></div>
-    <h2>points &mdash; Cameron Wolf</h2>
+    <h2>points: Cameron Wolf</h2>
     <p>Team-high points and goals, zero penalty minutes. There, we said it. He does not need to hear it again.</p>`},
   {cls:"s-bad",dur:7000,count:{to:22,sel:"#pim"},html:`<div class="k grad-red">Meanwhile, in the box</div>
     <div class="big grad-red"><span id="pim" data-count="22">0</span></div>
-    <h2>PIM &mdash; Chris Beard</h2>
+    <h2>PIM: Chris Beard</h2>
     <p>About a quarter of the entire team's penalty minutes, one man, including 16 in the finale. An icon of the sin bin.</p>`},
   {cls:"s-ice",dur:7400,count:{to:296,sel:"#sa",ms:1900},html:`<div class="k grad-ice">Spare a thought for the goalie</div>
     <div class="big grad-ice"><span id="sa" data-count="296">0</span></div>
-    <h2>shots &mdash; Jonathan Foster</h2>
+    <h2>shots: Jonathan Foster</h2>
     <p>Nine starts, one shutout, a defense that gave him no cover. The hardest-working Bro, full stop.</p>`},
+  {cls:"s-bad",dur:7200,scores:[['L','2–6','@ TET'],['L','3–7','@ TET']],
+    html:`<div class="k grad-red">The team you dreaded</div>
+    <h2>The Eh Team owned you</h2>
+    <p>Two meetings, outscored <b>5&ndash;13</b>. They also won the whole division, so at least you lost to the best.</p>`},
+  {cls:"s-good",dur:7200,scores:[['W','6–2','@ TXB'],['W','8–3','vs TXB']],
+    html:`<div class="k grad-grn">The team you loved to see</div>
+    <h2>You feasted on the Butchers</h2>
+    <p>Beat the Texas Butchers twice, outscoring them <b>14&ndash;5</b>. They finished dead last. Bullying, but earned.</p>`},
   {cls:"s-gold",dur:7600,scores:[['L','4–5','vs PT'],['W','1–0','forfeit']],
     html:`<div class="k grad-gold">The season's final plot twist</div>
     <h2>You ended on a win you never played</h2>
-    <p>The on-ice finale was a 4&ndash;5 gut-punch. But the schedule closed on a <b>1&ndash;0 forfeit</b> &mdash;
-    the "W1" streak was a no-show. We'll take the point and the bragging rights.</p>`},
+    <p>The on-ice finale was a 4&ndash;5 gut-punch. But the schedule closed on a <b>1&ndash;0 forfeit</b>.
+    The "W1" streak was a no-show, and we'll take the point.</p>`},
   {cls:"s-rival",dur:7800,html:`<div class="k grad-red">One last item of business</div>
     <h2 style="line-height:1.1">Fuck Burt&rsquo;s Reynolds.</h2>
     <p style="font-size:clamp(20px,5vw,30px);font-family:var(--disp);font-weight:600;color:#ffb3ab">And a double fuck Clay.</p>`},
   {cls:"s-intro",dur:99999,last:true,html:`<div class="confetti" id="conf"></div>
     <div class="k grad-gold">That's a wrap, Bros</div>
     <h2>See you next season 🏒</h2>
-    <p>Now dig into every award, every game, and every stat.</p>
+    <p>Now dig into the whole season below.</p>
     <button class="cta" id="enterDash">Explore the full season →</button>`}
 ];
 
 /* ===================== DATA ===================== */
 const AWARDS=[
- {e:"🥇",n:"Team MVP — The Engine",w:"Cameron Wolf",s:"19 pts · 10 G · 0 PIM",b:"Led the team in goals and points without taking a single penalty. He's aware of this. He will find a way to mention it."},
- {e:"🎯",n:"Sniper — The Trigger",w:"Gunnar Edlund",s:"7 G in 8 GP · 5 in one night",b:"The best single night any Bro had all season: five goals in one game. Most goals per minute on the roster, and nobody noticed."},
- {e:"🅰️",n:"The Quarterback — Assists",w:"Lucas Despins",s:"11 assists · 17 pts",b:"Team-leading 11 helpers. Half the goals you celebrated started on his stick — when he wasn't in the box."},
- {e:"🧱",n:"The Wall — Hardest Working",w:"Jonathan Foster",s:".885 SV% · 1 SO · 296 SA",b:"Nine starts, 296 shots, one shutout, zero help. The single most thankless job on the team and he showed up for all of it."},
- {e:"🚨",n:"Sin-Bin MVP",w:"Chris Beard",s:"22 PIM in 9 GP",b:"Roughly a quarter of the whole team's penalty minutes from one man — 16 of them in the finale alone. Never change."},
+ {e:"🥇",n:"Team MVP: The Engine",w:"Cameron Wolf",s:"19 pts · 10 G · 0 PIM",b:"Led the team in goals and points without taking a single penalty. He's aware of this. He will find a way to mention it."},
+ {e:"🎯",n:"Sniper: The Trigger",w:"Gunnar Edlund",s:"7 G in 8 GP · 5 in one night",b:"The best single night any Bro had all season: five goals in one game. Most goals per minute on the roster, and nobody noticed."},
+ {e:"🅰️",n:"The Quarterback: Assists",w:"Lucas Despins",s:"11 assists · 17 pts",b:"Team-leading 11 helpers. Half the goals you celebrated started on his stick, the nights he stayed out of the box."},
+ {e:"🧱",n:"The Wall: Hardest Working",w:"Jonathan Foster",s:".885 SV% · 1 SO · 296 SA",b:"Nine starts, 296 shots, one shutout, zero help. The single most thankless job on the team and he showed up for all of it."},
+ {e:"🚨",n:"Sin-Bin MVP",w:"Chris Beard",s:"22 PIM in 9 GP",b:"Roughly a quarter of the whole team's penalty minutes from one man, 16 of them in the finale alone. Never change."},
  {e:"🧼",n:"Mr. Clean",w:"Jared Carswell",s:"9 GP · 0 PIM",b:"Nine games, zero penalties, never put the team down a man. The quiet opposite of Beard."},
- {e:"🦾",n:"Iron Men",w:"Oeunpuu & N. Leggett",s:"12 of 12 games",b:"The only skaters to dress every game. No nights off, no excuses, plenty of bruises."},
+ {e:"🦾",n:"Iron Men",w:"Oeunpuu & N. Leggett",s:"12 of 12 games",b:"The only skaters to dress every game. No nights off, plenty of bruises."},
  {e:"☕",n:"Cup of Coffee",w:"Chris Border",s:"1 GP · 1 G",b:"Played exactly one game, scored exactly one goal, retired undefeated. A perfect 1.000."},
- {e:"🚑",n:"Most Conspicuous Absence",w:"Cameron Wolf",s:"Bros 0–3 without him",b:"The team lost all three games he missed, outscored 5–18. Could mean he's irreplaceable. Could mean the schedule was cruel that month. The debate continues."},
+ {e:"🚑",n:"Most Conspicuous Absence",w:"Cameron Wolf",s:"Bros 0–3 without him",b:"The team lost all three games he missed and got outscored 5–18. Make of that whatever keeps the peace in the locker room."},
  {e:"🐺",n:"The Carry Job",w:"Wolf · Edlund · Despins",s:"23 of 43 team goals",b:"Three sticks produced 53% of all Bros goals. The other fifteen skaters split the rest. Depth scoring: aspirational."},
  {e:"🪑",n:"Captain's Grind",w:"Jay Wood (C)",s:"7 GP · wore the C",b:"The franchise games leader took the hard matchups and the thankless minutes so the scorers could pad stats."},
- {e:"🎁",n:"Free Lunch — Best Forfeit",w:"The Bros",s:"1–0 default W",b:"Lost the on-ice finale 4–5, then got handed a 1–0 forfeit to end the year on a 'win.' We're not proud. We're not giving it back either."}
+ {e:"🎁",n:"Free Lunch: Best Forfeit",w:"The Bros",s:"1–0 default W",b:"Lost the on-ice finale 4–5, then got handed a 1–0 forfeit to end the year on a 'win.' We're not proud. We're not giving it back either."}
 ];
 const SK=[["Cameron Wolf",9,10,9,19,0],["Lucas Despins",11,6,11,17,18],["Gunnar Edlund",8,7,4,11,2],
  ["Noah Leggett",12,3,4,7,2],["Bill Knauss",10,4,2,6,4],["Kettil Oeunpuu",12,2,3,5,8],
@@ -365,19 +390,19 @@ const ST=[[1,"The Eh Team",13,9,3,19,".731",64,39,"L1"],[2,"P. Terriers",13,9,4,
  [7,"Mean Eyed Cats",12,6,5,13,".542",55,48,"W1"],[8,"Bros",13,5,7,11,".423",43,46,"W1"],
  [9,"Lavaca 50",12,4,8,8,".333",42,59,"L1"],[10,"Texas Butchers",12,2,10,4,".167",40,76,"L7"]];
 const GAMES=[
- ["4/2","PHP","H",4,1,"Season opener W — Wolf, Despins & Mahaleris tally"],
+ ["4/2","PHP","H",4,1,"Season opener W: Wolf, Despins & Mahaleris tally"],
  ["4/9","TXB","A",6,2,"🎩 Wolf hat trick (3G,2A); Chris Border scores in his only game"],
- ["4/16","JAB","A",3,5,"Skid begins — Wolf shorthanded goal in the loss"],
+ ["4/16","JAB","A",3,5,"Skid begins: Wolf shorthanded goal in the loss"],
  ["4/22","RAT","H",2,3,"1-goal loss; Despins sits 14 PIM"],
- ["4/29","PT","A",0,1,"Shut out; lost by one — one of three 1-goal heartbreakers"],
+ ["4/29","PT","A",0,1,"Shut out; lost by one: one of three 1-goal heartbreakers"],
  ["5/6","MEC","H",3,8,"Wolf OUT; blown open 3–8"],
  ["5/14","L50","H",0,4,"Wolf OUT; shut out again"],
  ["5/20","TET","A",2,6,"Wolf OUT; skid reaches six"],
- ["5/27","BUR","A",7,1,"🚀 Edlund FIVE goals; Despins 6 pts — slump snapped on Burt's ice"],
- ["6/3","TXB","H",8,3,"Depth night — 6 different scorers (Wolf & Kiehler each 2)"],
+ ["5/27","BUR","A",7,1,"🚀 Edlund FIVE goals; Despins 6 pts: slump snapped on Burt's ice"],
+ ["6/3","TXB","H",8,3,"Depth night: 6 different scorers (Wolf & Kiehler each 2)"],
  ["6/10","TET","A",3,7,"Wolf 2G in a losing effort"],
  ["6/17","PT","H",4,5,"Finale heartbreaker; Knauss 1G2A; Beard 16 PIM"],
- ["—","forfeit","—",1,0,"Opponent no-show — 1–0 default win closed the season (the 'W1' streak)"]
+ ["—","forfeit","—",1,0,"Opponent no-show: 1–0 default win closed the season (the 'W1' streak)"]
 ];
 
 /* ===================== STORY ENGINE ===================== */
@@ -465,7 +490,7 @@ document.getElementById('replay').onclick=()=>{
   document.getElementById('wrapped').classList.remove('done');
   document.getElementById('hint').style.display=''; show(0);};
 
-/* ===================== BACKGROUND MUSIC (local file — already trimmed to start @0:30) ===================== */
+/* ===================== BACKGROUND MUSIC (local file:already trimmed to start @0:30) ===================== */
 let muted=false; const bgm=document.getElementById('bgm');
 function startAudio(){ try{ bgm.currentTime=0; bgm.volume=0.7; bgm.play(); }catch(e){} }
 const gate=document.getElementById('gate'), soundBtn=document.getElementById('soundBtn');
@@ -474,6 +499,12 @@ document.getElementById('playBtn').onclick=()=>{ gate.classList.add('hidden'); s
 ['pointerdown','pointerup','click'].forEach(ev=>soundBtn.addEventListener(ev,e=>e.stopPropagation()));
 soundBtn.addEventListener('click',()=>{ muted=!muted; bgm.muted=muted;
   if(!muted&&bgm.paused) bgm.play().catch(()=>{}); soundBtn.textContent=muted?'🔇':'🔊'; });
+// dashboard / awards-screen music control (stop & restart)
+const musicBtn=document.getElementById('musicBtn');
+if(musicBtn) musicBtn.onclick=()=>{
+  if(bgm.paused){ bgm.muted=false; muted=false; bgm.play().catch(()=>{}); musicBtn.textContent='🔊 Pause music'; }
+  else { bgm.pause(); musicBtn.textContent='▶ Play music'; }
+};
 </script>
 </body>
 </html>
