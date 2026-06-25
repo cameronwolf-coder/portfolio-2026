@@ -63,6 +63,12 @@
   .slide.on .sm{animation:up .7s 1.35s cubic-bezier(.2,.9,.3,1) forwards}
   @keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
   @keyframes pop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+  .scores{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px;max-width:30ch;opacity:0}
+  .slide.on .scores{animation:up .7s 1.15s cubic-bezier(.2,.9,.3,1) forwards}
+  .chip{font-family:var(--disp);font-size:13px;font-weight:500;padding:7px 11px;border-radius:10px;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);display:inline-flex;gap:7px;align-items:center;
+    font-variant-numeric:tabular-nums;backdrop-filter:blur(6px)}
+  .chip .res{font-weight:700} .chip .w{color:#86e6b3} .chip .l{color:#ff9a90} .chip .opp{color:rgba(255,255,255,.55)}
 
   /* slide moods — deep, cinematic, single tinted glow each */
   .s-intro{background:radial-gradient(110% 90% at 50% 0%,#241a4a 0%,#0b0d12 62%)}
@@ -264,55 +270,62 @@
 <script>
 /* ===================== WRAPPED SLIDES ===================== */
 const SLIDES = [
-  {cls:"s-intro",dur:4200,html:`<div class="k grad-gold">Bros · 2026 Spring B1</div>
+  {cls:"s-intro",dur:5400,html:`<div class="k grad-gold">Bros · 2026 Spring B1</div>
     <h2>Your season,<br><span class="grad-gold">wrapped.</span></h2>
     <p>Thirteen games of questionable decisions. Let's relive them.</p>`},
-  {cls:"s-ice",dur:5000,count:{to:13},html:`<div class="k grad-ice">You suited up for</div>
+  {cls:"s-ice",dur:6800,count:{to:13},html:`<div class="k grad-ice">You suited up for</div>
     <div class="big grad-ice"><span data-count="13">0</span></div>
     <h2>games</h2><p>Landed <b>8th of 10</b> at <b>5&ndash;7&ndash;1</b>. Middle of the pack, with feeling.</p>`},
-  {cls:"s-ice",dur:5400,count:{to:43},html:`<div class="k grad-ice">You scored</div>
+  {cls:"s-ice",dur:7000,count:{to:43},html:`<div class="k grad-ice">You scored</div>
     <div class="big grad-ice"><span data-count="43">0</span></div>
     <h2>goals</h2><p>&hellip;and surrendered <b>46</b>. A &minus;3 differential &mdash; you were one save a night from respectable.</p>`},
-  {cls:"s-good",dur:5000,html:`<div class="k grad-grn">You opened hot</div>
+  {cls:"s-good",dur:7200,scores:[['W','4–1','vs PHP'],['W','6–2','@ TXB']],
+    html:`<div class="k grad-grn">You opened hot</div>
     <h2><span class="grad-grn">2&ndash;0</span> out of the gate</h2>
     <p>Outscored the first two opponents <b>10&ndash;3</b>. Everyone felt good. It did not last.</p>`},
-  {cls:"s-bad",dur:5600,html:`<div class="k grad-red">Then reality showed up</div>
+  {cls:"s-bad",dur:8200,scores:[['L','3–5','@ JAB'],['L','2–3','vs RAT'],['L','0–1','@ PT'],['L','3–8','vs MEC'],['L','0–4','vs L50'],['L','2–6','@ TET']],
+    html:`<div class="k grad-red">Then reality showed up</div>
     <div class="big grad-red">6</div><h2>losses in a row</h2>
-    <p>April 16 to May 20: outscored <b>10&ndash;27</b>, with two shutouts mixed in. Nobody talks about this stretch.</p>`},
-  {cls:"s-bad",dur:6200,html:`<div class="k grad-red">A suspicious coincidence</div>
+    <p>April 16 to May 20: outscored <b>10&ndash;27</b>, two shutouts mixed in.</p>`},
+  {cls:"s-bad",dur:7800,scores:[['L','3–8','vs MEC'],['L','0–4','vs L50'],['L','2–6','@ TET']],
+    html:`<div class="k grad-red">A suspicious coincidence</div>
     <h2>0&ndash;3 in the games one guy missed</h2>
     <p>The three nights Cameron Wolf sat, the Bros lost all three &mdash; outscored <b>5&ndash;18</b>.
     Read into that whatever keeps the room calm.</p>`},
-  {cls:"s-good",dur:5200,html:`<div class="k grad-grn">Then you remembered how to play</div>
+  {cls:"s-good",dur:7200,scores:[['W','7–1','@ BUR'],['W','8–3','vs TXB']],
+    html:`<div class="k grad-grn">Then you remembered how to play</div>
     <h2>7&ndash;1, then 8&ndash;3</h2>
     <p>Back-to-back routs, outscoring them <b>15&ndash;4</b>. The whole bench chipped in &mdash; finally.</p>`},
-  {cls:"s-gold",dur:5400,count:{to:5,sel:"#edl"},html:`<div class="k grad-gold">The single best night, by anyone</div>
+  {cls:"s-gold",dur:7200,count:{to:5,sel:"#edl"},scores:[['W','7–1','@ BUR']],
+    html:`<div class="k grad-gold">The single best night, by anyone</div>
     <div class="big grad-gold"><span id="edl" data-count="5">0</span></div>
     <h2>goals &mdash; Gunnar Edlund</h2>
     <p>One game. Five goals, two on the power play. Quietly the most productive Bro per minute all year.</p>`},
-  {cls:"s-good",dur:5200,html:`<div class="k grad-grn">For one night, an actual team</div>
+  {cls:"s-good",dur:7000,scores:[['W','8–3','vs TXB']],
+    html:`<div class="k grad-grn">For one night, an actual team</div>
     <h2>6 different Bros scored</h2>
     <p>The 8&ndash;3 win on June 3 saw the lamp lit by half a dozen guys. Not one name and four passengers &mdash; depth.</p>`},
-  {cls:"s-ice",dur:5400,html:`<div class="k grad-ice">The setup man did setup-man things</div>
+  {cls:"s-ice",dur:7000,html:`<div class="k grad-ice">The setup man did setup-man things</div>
     <h2>Lucas Despins: 11 assists</h2>
     <p>Most on the team. Half the goals you cheered started on his stick. He also led the team in penalty minutes by a forward, so, balance.</p>`},
-  {cls:"s-gold",dur:5600,count:{to:19,sel:"#mvp"},html:`<div class="k grad-gold">Fine. Credit where it's due.</div>
+  {cls:"s-gold",dur:7400,count:{to:19,sel:"#mvp"},html:`<div class="k grad-gold">Fine. Credit where it's due.</div>
     <div class="big grad-gold"><span id="mvp" data-count="19">0</span></div>
     <h2>points &mdash; Cameron Wolf</h2>
     <p>Team-high points and goals, zero penalty minutes. There, we said it. He does not need to hear it again.</p>`},
-  {cls:"s-bad",dur:5400,count:{to:22,sel:"#pim"},html:`<div class="k grad-red">Meanwhile, in the box</div>
+  {cls:"s-bad",dur:7000,count:{to:22,sel:"#pim"},html:`<div class="k grad-red">Meanwhile, in the box</div>
     <div class="big grad-red"><span id="pim" data-count="22">0</span></div>
     <h2>PIM &mdash; Chris Beard</h2>
     <p>About a quarter of the entire team's penalty minutes, one man, including 16 in the finale. An icon of the sin bin.</p>`},
-  {cls:"s-ice",dur:5400,count:{to:296,sel:"#sa",ms:1700},html:`<div class="k grad-ice">Spare a thought for the goalie</div>
+  {cls:"s-ice",dur:7400,count:{to:296,sel:"#sa",ms:1900},html:`<div class="k grad-ice">Spare a thought for the goalie</div>
     <div class="big grad-ice"><span id="sa" data-count="296">0</span></div>
     <h2>shots &mdash; Jonathan Foster</h2>
     <p>Nine starts, one shutout, a defense that gave him no cover. The hardest-working Bro, full stop.</p>`},
-  {cls:"s-gold",dur:6000,html:`<div class="k grad-gold">The season's final plot twist</div>
+  {cls:"s-gold",dur:7600,scores:[['L','4–5','vs PT'],['W','1–0','forfeit']],
+    html:`<div class="k grad-gold">The season's final plot twist</div>
     <h2>You ended on a win you never played</h2>
     <p>The on-ice finale was a 4&ndash;5 gut-punch. But the schedule closed on a <b>1&ndash;0 forfeit</b> &mdash;
     the "W1" streak was a no-show. We'll take the point and the bragging rights.</p>`},
-  {cls:"s-rival",dur:6500,html:`<div class="k grad-red">One last item of business</div>
+  {cls:"s-rival",dur:7800,html:`<div class="k grad-red">One last item of business</div>
     <h2 style="line-height:1.1">Fuck Burt&rsquo;s Reynolds.</h2>
     <p style="font-size:clamp(20px,5vw,30px);font-family:var(--disp);font-weight:600;color:#ffb3ab">And a double fuck Clay.</p>`},
   {cls:"s-intro",dur:99999,last:true,html:`<div class="confetti" id="conf"></div>
@@ -370,7 +383,11 @@ const GAMES=[
 /* ===================== STORY ENGINE ===================== */
 const slidesEl=document.getElementById('slides'), barsEl=document.getElementById('bars');
 SLIDES.forEach((s)=>{
-  const d=document.createElement('section'); d.className='slide '+s.cls; d.innerHTML=s.html; slidesEl.appendChild(d);
+  const d=document.createElement('section'); d.className='slide '+s.cls;
+  let h=s.html;
+  if(s.scores){ h+='<div class="scores">'+s.scores.map(g=>
+    `<span class="chip"><span class="res ${g[0]==='W'?'w':'l'}">${g[0]}</span> ${g[1]} <span class="opp">${g[2]}</span></span>`).join('')+'</div>'; }
+  d.innerHTML=h; slidesEl.appendChild(d);
   const b=document.createElement('div'); b.className='bar'; b.innerHTML='<i></i>'; barsEl.appendChild(b);
 });
 const slideDivs=[...slidesEl.children], barDivs=[...barsEl.children];
