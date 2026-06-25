@@ -91,6 +91,23 @@
   .confetti i{position:absolute;top:-12px;width:8px;height:13px;border-radius:1px;opacity:.95;animation:fall linear forwards}
   @keyframes fall{to{transform:translateY(112vh) rotate(620deg)}}
 
+  /* start gate + sound */
+  #gate{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;padding:44px 28px;background:radial-gradient(110% 90% at 50% 0%,#241a4a 0%,#0b0d12 62%)}
+  #gate.hidden{display:none}
+  #gate .gt-k{font-family:var(--disp);letter-spacing:.3em;text-transform:uppercase;font-size:12px;color:var(--ice);font-weight:500;margin-bottom:14px}
+  #gate h2{font-family:var(--disp);font-size:clamp(40px,11vw,84px);font-weight:700;letter-spacing:-.04em;margin:0 0 10px;
+    background:linear-gradient(168deg,#f2cf7a,#c9933a);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #gate p{color:var(--muted);max-width:30ch;margin:0 0 32px;text-wrap:pretty}
+  .playbtn{font-family:var(--disp);background:linear-gradient(180deg,#fff,#e7e9f0);color:#11131a;border:none;font-weight:600;
+    font-size:17px;padding:16px 32px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+    box-shadow:0 14px 40px -12px rgba(255,255,255,.45);transition:transform .15s}
+  .playbtn:hover{transform:translateY(-2px) scale(1.02)} .playbtn:active{transform:scale(.97)}
+  .sound{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom));left:18px;z-index:7;width:42px;height:42px;
+    border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+    color:#fff;cursor:pointer;font-size:17px;backdrop-filter:blur(8px);transition:.18s}
+  .sound:hover{background:rgba(255,255,255,.15)} .sound:active{transform:scale(.93)}
+
   /* ================= DASHBOARD ================= */
   .wrap{max-width:1120px;margin:0 auto;padding:30px 20px 96px}
   header{text-align:center;padding:20px 0 8px}
@@ -155,12 +172,22 @@
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
+<div id="yt" style="position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;opacity:0" aria-hidden="true"></div>
+
+<!-- ===================== START GATE ===================== -->
+<div id="gate">
+  <div class="gt-k">Bros · 2026 Spring B1</div>
+  <h2>Bros Wrapped</h2>
+  <p>Best with the sound on. Tap to start your season recap.</p>
+  <button class="playbtn" id="playBtn">▶&nbsp;&nbsp;Play with music</button>
+</div>
 
 <!-- ===================== WRAPPED STORY ===================== -->
 <main id="wrapped">
   <div class="bars" id="bars"></div>
   <div id="slides"></div>
   <button class="skip" id="skipBtn">Skip intro ▸</button>
+  <button class="sound" id="soundBtn" aria-label="Mute or unmute music">🔊</button>
   <div class="hint" id="hint">press &amp; hold to pause</div>
 </main>
 
@@ -421,7 +448,24 @@ document.getElementById('replay').onclick=()=>{
   document.getElementById('wrapped').classList.remove('done');
   document.getElementById('hint').style.display=''; show(0);};
 
-show(0);
+/* ===================== BACKGROUND MUSIC (YouTube, starts @0:30) ===================== */
+let ytPlayer=null, ytReady=false, wantPlay=false, muted=false;
+(function(){const t=document.createElement('script'); t.src='https://www.youtube.com/iframe_api'; document.head.appendChild(t);})();
+window.onYouTubeIframeAPIReady=function(){
+  ytPlayer=new YT.Player('yt',{videoId:'SOb1k2MqlLs',
+    playerVars:{start:30,autoplay:0,controls:0,disablekb:1,playsinline:1,rel:0,modestbranding:1},
+    events:{onReady:()=>{ytReady=true; if(wantPlay) startAudio();},
+      onStateChange:e=>{ if(e.data===YT.PlayerState.ENDED){ try{ytPlayer.seekTo(30,true);ytPlayer.playVideo();}catch(_){} } }}});
+};
+function startAudio(){ if(!ytReady){wantPlay=true;return;} try{ytPlayer.seekTo(30,true); ytPlayer.unMute(); ytPlayer.setVolume(70); ytPlayer.playVideo();}catch(e){} }
+
+const gate=document.getElementById('gate'), soundBtn=document.getElementById('soundBtn');
+document.getElementById('playBtn').onclick=()=>{ gate.classList.add('hidden'); startAudio(); show(0); };
+// keep sound toggle from triggering the press-to-pause handler
+['pointerdown','pointerup','click'].forEach(ev=>soundBtn.addEventListener(ev,e=>e.stopPropagation()));
+soundBtn.addEventListener('click',()=>{ if(!ytPlayer)return; muted=!muted;
+  if(muted){ try{ytPlayer.mute();}catch(_){} } else { try{ytPlayer.unMute(); if(ytReady&&ytPlayer.getPlayerState()!==1)ytPlayer.playVideo();}catch(_){} }
+  soundBtn.textContent=muted?'🔇':'🔊'; });
 </script>
 </body>
 </html>
