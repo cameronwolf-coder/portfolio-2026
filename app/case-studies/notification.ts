@@ -1,6 +1,9 @@
 import { z } from "zod";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+export const WEB3FORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ??
+  "39f0cbc5-d930-406e-b056-8f127918c336";
 const notificationResponseSchema = z.object({
   success: z.literal(true),
 });

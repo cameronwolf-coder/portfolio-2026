@@ -7,7 +7,7 @@ const submission = {
 };
 
 describe("submitCaseStudyNotification", () => {
-  it("posts the normalized request from the server boundary", async () => {
+  it("posts the normalized request from the browser boundary", async () => {
     const fetcher = vi.fn(async (_input: string | URL, init?: RequestInit) => {
       expect(init?.method).toBe("POST");
       expect(init?.body).toBeInstanceOf(FormData);
