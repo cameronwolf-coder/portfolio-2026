@@ -2,18 +2,12 @@
 
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { z } from "zod";
 import { grantCaseStudyAccess } from "../actions";
 
 type CaseStudyGateFormProps = {
   readonly slug: string;
   readonly accent: "maroon" | "teal";
 };
-
-const WEB3FORMS_ACCESS_KEY = "39f0cbc5-d930-406e-b056-8f127918c336";
-const notificationResponseSchema = z.object({
-  success: z.literal(true),
-});
 
 const initialGateState = {
   status: "idle" as const,
@@ -56,43 +50,6 @@ export function CaseStudyGateForm({
     const email = emailInput.value.trim().toLowerCase();
     const formData = new FormData(form);
     formData.set("email", email);
-
-    const notification = new FormData();
-    notification.set("access_key", WEB3FORMS_ACCESS_KEY);
-    notification.set("email", email);
-    notification.set("case_study", slug);
-    notification.set(
-      "message",
-      `${email} requested the ${slug} case study on cameronwolf.info.`,
-    );
-    notification.set("botcheck", String(formData.get("botcheck") ?? ""));
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: notification,
-        signal: AbortSignal.timeout(10_000),
-      });
-      const responseBody: unknown = await response.json();
-      if (!response.ok || !notificationResponseSchema.safeParse(responseBody).success) {
-        setState({
-          status: "error",
-          message: "The notification did not send. Try again in a moment.",
-        });
-        setPending(false);
-        return;
-      }
-    } catch (error) {
-      if (!(error instanceof Error)) {
-        throw error;
-      }
-      setState({
-        status: "error",
-        message: "The notification did not send. Try again in a moment.",
-      });
-      setPending(false);
-      return;
-    }
 
     const result = await grantCaseStudyAccess(formData);
     setState(result);

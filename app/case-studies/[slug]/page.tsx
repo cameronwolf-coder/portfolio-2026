@@ -70,7 +70,7 @@ export default async function CaseStudyPage({
       <div className="section-dark px-6 md:px-[71px] pt-28 pb-0">
         <div className="max-w-[900px] mx-auto">
           <Link
-            href="/#portfolio"
+            href="/#proof"
             className="inline-flex items-center gap-2 text-sm text-dark-muted hover:text-dark-text transition-colors"
           >
             <ArrowLeft size={16} />
