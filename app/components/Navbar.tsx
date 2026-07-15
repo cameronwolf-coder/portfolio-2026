@@ -8,7 +8,7 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/#portfolio", label: "Work" },
+  { href: "/#proof", label: "Work" },
   { href: "/systems", label: "Systems" },
   { href: "/blog", label: "Blog" },
   { href: "/media", label: "Media" },
@@ -73,6 +73,7 @@ export default function Navbar() {
 
             {/* Mobile: Hamburger */}
             <button
+              type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
               className="md:hidden text-dark-text p-2"
               aria-label="Toggle menu"

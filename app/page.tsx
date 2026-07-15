@@ -1,478 +1,232 @@
-"use client";
-
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
-import {
-  Target,
-  Mic,
-  BarChart3,
-  Lightbulb,
-  Settings,
-  Palette,
-  Mail,
-  Linkedin,
-  ArrowUpRight,
-} from "lucide-react";
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import Navbar from "./components/Navbar";
-import PillButton from "./components/PillButton";
-import SectionHeader from "./components/SectionHeader";
-import HeroHeadshot from "./components/HeroHeadshot";
-import ServiceCard from "./components/ServiceCard";
-import SkillsMarquee from "./components/SkillsMarquee";
-import ExperienceTimeline from "./components/ExperienceTimeline";
-import Testimonials from "./components/Testimonials";
-import Footer from "./components/Footer";
+import {
+  documentationSteps,
+  portfolioProjects,
+  principles,
+  proof,
+  technicalProof,
+} from "./home-content";
+import styles from "./page.module.css";
 
-const capabilities = [
-  {
-    title: "CRM Architecture",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.cameronwolf.info"),
+  title: "GTM Engineering Portfolio | Cameron Wolf",
+  description:
+    "A business-first GTM engineering portfolio covering CRM architecture, automation, lead routing, attribution, AI workflows, and revenue systems built by Cameron Wolf.",
+  alternates: { canonical: "https://www.cameronwolf.info" },
+  openGraph: {
+    title: "GTM Engineering Portfolio | Cameron Wolf",
     description:
-      "Custom object schemas, lifecycle logic, and data models that scale with the business.",
-    items: ["HubSpot Ops Hub", "Custom Objects", "Salesforce", "Data Modeling"],
-    icon: Settings,
-    accent: "maroon" as const,
+      "Revenue systems, real constraints, and end-to-end GTM engineering work by Cameron Wolf.",
+    url: "https://www.cameronwolf.info",
+    siteName: "Cameron Wolf",
+    locale: "en_US",
+    type: "profile",
   },
-  {
-    title: "Marketing Automation",
+  twitter: {
+    card: "summary_large_image",
+    title: "GTM Engineering Portfolio | Cameron Wolf",
     description:
-      "Workflow engines, lead routing, and nurture sequences that run without manual intervention.",
-    items: ["Workflows", "Lead Scoring", "Nurture Sequences", "Lifecycle Logic"],
-    icon: Target,
-    accent: "teal" as const,
+      "Revenue systems, real constraints, and end-to-end GTM engineering work by Cameron Wolf.",
   },
-  {
-    title: "Pipeline Analytics",
-    description:
-      "Attribution models, revenue forecasting, and SQL-driven reporting that connects spend to outcomes.",
-    items: ["Attribution", "BigQuery", "ClickHouse", "Hex Dashboards"],
-    icon: BarChart3,
-    accent: "maroon" as const,
-  },
-  {
-    title: "API Integrations",
-    description:
-      "Connecting systems through webhooks, Pipedream workflows, and custom API routing.",
-    items: ["Webhooks", "Pipedream", "REST APIs", "System Integrations"],
-    icon: Lightbulb,
-    accent: "teal" as const,
-  },
-  {
-    title: "Enrichment Pipelines",
-    description:
-      "Automated data enrichment, prospecting workflows, and multi-channel outreach orchestration.",
-    items: ["Clay", "SmartLead", "Knock", "SendGrid"],
-    icon: Mic,
-    accent: "maroon" as const,
-  },
-  {
-    title: "AI-Native GTM",
-    description:
-      "LLM-powered content workflows, agentic automation, and AI tools built for GTM teams.",
-    items: ["OpenAI API", "Claude API", "Firecrawl", "Agentic Workflows"],
-    icon: Palette,
-    accent: "teal" as const,
-  },
-];
+};
 
-const growthStories = [
-  {
-    slug: "zappyride",
-    logo: "/logos/jdpower.svg",
-    logoBg: false,
-    title: "From Startup to Acquisition",
-    company: "ZappyRide → J.D. Power",
-    description:
-      "Led brand, content, and growth for an EV marketplace from stealth to exit. Built the narrative that positioned us as the trusted EV authority, culminating in acquisition by industry giant J.D. Power.",
-    metrics: [
-      { value: "100%", label: "YoY Revenue" },
-      { value: "EXIT", label: "Acquired" },
-    ],
-    accent: "maroon",
-  },
-  {
-    slug: "sweet-express",
-    logo: "/logos/sweet-express.png",
-    logoBg: true,
-    title: "Content as Growth Engine",
-    company: "Sweet Express",
-    description:
-      "Built a regional trucking company's entire digital presence from scratch. Launched a recruitment portal, e-commerce store, and social brand that drove 400,000 users in 12 months and a brand presence unmatched in Michigan.",
-    metrics: [
-      { value: "2,000%", label: "Audience" },
-      { value: "400K", label: "Users" },
-      { value: "$0", label: "Ad Spend" },
-    ],
-    accent: "teal",
-  },
-  {
-    slug: "truv",
-    logo: "/logos/truv.svg",
-    logoBg: false,
-    title: "GTM Infrastructure from Scratch",
-    company: "Truv · Series B SaaS",
-    description:
-      "Architected the entire GTM data layer for an enterprise compliance SaaS. Built CRM architecture, automation pipelines, enrichment workflows, and AI-powered outreach systems that generate pipeline without manual ops.",
-    metrics: [
-      { value: "CRM", label: "Architecture" },
-      { value: "AI", label: "Automation" },
-      { value: "Series B", label: "Scale" },
-    ],
-    accent: "maroon",
-  },
-  {
-    slug: "inspiration-mobility",
-    logo: "/logos/inspiration-mobility.svg",
-    logoBg: false,
-    title: "Marketing Infrastructure Overhaul",
-    company: "Inspiration Mobility",
-    description:
-      "Led complete martech migration and introduced AI-powered content workflows. Transformed slow, manual campaigns into intelligent, autonomous systems.",
-    metrics: [
-      { value: "25%", label: "ROI Lift" },
-      { value: "AI", label: "Powered" },
-      { value: "0", label: "Manual Work" },
-    ],
-    accent: "teal",
-  },
-];
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://www.cameronwolf.info/#person",
+  name: "Cameron Wolf",
+  url: "https://www.cameronwolf.info",
+  jobTitle: "GTM Engineer",
+  email: "cameron@cameronwolf.info",
+  sameAs: ["https://www.linkedin.com/in/camwolf/", "https://lupine.agency"],
+  knowsAbout: [
+    "GTM Engineering",
+    "CRM Architecture",
+    "Revenue Operations",
+    "Marketing Automation",
+    "AI Workflows",
+    "Attribution",
+    "Pipeline Analytics",
+  ],
+} as const;
+
+const personJsonLdHtml = JSON.stringify(personJsonLd).replace(/</g, "\\u003c");
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll();
-  const { scrollYProgress: heroScrollProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const heroY = useSpring(
-    useTransform(heroScrollProgress, [0, 1], [0, -150]),
-    { stiffness: 100, damping: 30, restDelta: 0.001 }
-  );
-
-  const heroOpacity = useTransform(
-    heroScrollProgress,
-    [0, 0.5, 1],
-    [1, 0.8, 0.4]
-  );
-
   return (
-    <div className="min-h-screen" ref={containerRef}>
-      {/* Progress Indicator */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-maroon z-[60]"
-        style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
-      />
+    <div className={styles.page}>
+      <script type="application/ld+json">{personJsonLdHtml}</script>
+      <a className={styles.skipLink} href="#main-content">
+        Skip to content
+      </a>
 
-      <Navbar />
+      <header className={styles.siteHeader}>
+        <Link className={styles.wordmark} href="/" aria-label="Cameron Wolf, home">
+          CW
+        </Link>
+        <nav className={styles.nav} aria-label="Primary navigation">
+          <a href="#systems">Systems</a>
+          <a href="#proof">Proof</a>
+          <a href="#method">Method</a>
+        </nav>
+        <a className={styles.headerContact} href="mailto:cameron@cameronwolf.info">
+          Email Cameron
+        </a>
+      </header>
 
-      {/* ===== HERO (LIGHT) ===== */}
-      <section className="section-light relative min-h-screen px-6 md:px-[71px] pt-32 pb-20 flex items-center overflow-hidden">
-        {/* Parallax background orb */}
-        <motion.div
-          className="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-maroon/5 blur-3xl"
-          style={{ y: heroY }}
-        />
+      <main id="main-content">
+        <section className={styles.hero} aria-labelledby="hero-title">
+          <h1 id="hero-title" className={styles.nameplate}>
+            <span>CAMERON</span><span aria-hidden="true">.</span><span>WOLF</span>
+          </h1>
 
-        <div className="max-w-[1400px] mx-auto w-full">
-          <motion.div
-            style={{ y: heroY, opacity: heroOpacity }}
-            className="relative z-10"
-          >
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Left: Copy */}
-              <div>
-                {/* Badge */}
-                <motion.div
-                  className="inline-block px-4 py-2 rounded-full bg-maroon/10 text-maroon-light text-sm font-mono mb-6"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  GTM ENGINEER
-                </motion.div>
-
-                {/* Headline */}
-                <motion.h1
-                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] mb-8 text-light-text"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                >
-                  I BUILD THE
-                  <br />
-                  <span className="text-maroon-light">SYSTEMS</span> THAT
-                  <br />
-                  MAKE GROWTH WORK.
-                </motion.h1>
-
-                {/* Description */}
-                <motion.div
-                  className="max-w-xl space-y-4"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
-                  <p className="text-lg text-light-muted leading-relaxed">
-                    GTM Engineer who architects CRM systems, builds automation
-                    pipelines, wires up APIs, and ships data infrastructure.
-                    From stealth startup to J.D. Power acquisition.
-                  </p>
-                </motion.div>
-
-                {/* CTAs */}
-                <motion.div
-                  className="flex flex-wrap gap-4 mt-10"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                  <PillButton href="#portfolio" variant="primary" showArrow>
-                    See My Work
-                  </PillButton>
-                  <PillButton href="#contact" variant="outline" showArrow>
-                    Get in Touch
-                  </PillButton>
-                </motion.div>
-              </div>
-
-              {/* Right: Headshot */}
-              <div className="hidden md:flex justify-center">
-                <HeroHeadshot />
-              </div>
+          <div className={styles.heroMedia}>
+            <Image
+              className={styles.heroImage}
+              src="/headshot.jpg"
+              alt="Cameron Wolf, GTM engineer and systems builder"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 96vw"
+            />
+            <div className={styles.heroCaption}>
+              <span>Cameron Wolf</span>
+              <span>GTM engineer · systems builder</span>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== GROWTH PORTFOLIO (DARK) ===== */}
-      <section id="portfolio" className="section-dark py-20 sm:py-28 px-6 md:px-[71px]">
-        <div className="max-w-[1400px] mx-auto">
-          <SectionHeader
-            badge="GROWTH PORTFOLIO"
-            headline="Work That Compounds"
-            theme="dark"
-          />
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {growthStories.map((story, i) => {
-              const accentText =
-                story.accent === "maroon"
-                  ? "text-maroon-light"
-                  : "text-teal-light";
-
-              return (
-                <Link
-                  key={story.company}
-                  href={`/case-studies/${story.slug}`}
-                  className="block"
-                >
-                  <motion.div
-                    className="group card-rounded p-6 sm:p-8 h-full bg-[#1a1a22] border border-[#2a2a35] hover:bg-[#1f1f29] hover:border-[#3a3a48] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all duration-300"
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.6, delay: i * 0.1 }}
-                  >
-                    <div className="flex items-start justify-between mb-5">
-                      <div
-                        className={`h-10 flex items-center ${
-                          story.logoBg
-                            ? "bg-white rounded-xl px-2 py-1"
-                            : ""
-                        }`}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={story.logo}
-                          alt={story.company}
-                          className="h-7 w-auto object-contain"
-                        />
-                      </div>
-                      <div className="w-10 h-10 rounded-full border border-[#2a2a35] flex items-center justify-center group-hover:border-maroon-light/50 transition-colors">
-                        <ArrowUpRight
-                          size={16}
-                          className="text-dark-muted group-hover:text-maroon-light arrow-rotate"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </div>
-
-                    <h3 className={`text-xl sm:text-2xl font-bold mb-1 ${accentText}`}>
-                      {story.title}
-                    </h3>
-                    <p className="text-sm font-mono text-dark-muted mb-4">
-                      {story.company}
-                    </p>
-                    <p className="text-dark-muted leading-relaxed mb-6 text-sm">
-                      {story.description}
-                    </p>
-
-                    <div className="pt-5 border-t border-[#2a2a35] grid grid-cols-3 gap-4 text-center">
-                      {story.metrics.map((m) => (
-                        <div key={m.label}>
-                          <div
-                            className={`text-xl sm:text-2xl font-black tabular-nums ${accentText}`}
-                          >
-                            {m.value}
-                          </div>
-                          <div className="text-xs text-dark-muted">{m.label}</div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-6 flex items-center gap-2 text-sm font-medium text-dark-muted group-hover:text-dark-text transition-colors">
-                      Read Case Study
-                      <ArrowUpRight size={14} className="arrow-rotate" />
-                    </div>
-                  </motion.div>
-                </Link>
-              );
-            })}
           </div>
 
-          {/* Testimonials */}
-          <Testimonials />
-        </div>
-      </section>
+          <div className={styles.heroStatement}>
+            <p>I build the systems between a good idea and measurable revenue.</p>
+            <div>
+              <span>CRM architecture</span>
+              <span>Automation</span>
+              <span>Attribution</span>
+              <span>Applied AI</span>
+            </div>
+          </div>
+        </section>
 
-      {/* ===== SKILLS MARQUEE ===== */}
-      <SkillsMarquee />
-
-      {/* ===== EXPERIENCE (LIGHT) ===== */}
-      <section className="section-light py-20 sm:py-28 px-6 md:px-[71px]">
-        <div className="max-w-[1400px] mx-auto">
-          <SectionHeader
-            badge="EXPERIENCE"
-            headline="Career Timeline"
-            align="center"
-          />
-          <ExperienceTimeline />
-        </div>
-      </section>
-
-      {/* ===== CAPABILITIES (DARK) ===== */}
-      <section className="section-dark py-20 sm:py-28 px-6 md:px-[71px]">
-        <div className="max-w-[1400px] mx-auto">
-          <SectionHeader
-            badge="CAPABILITIES"
-            headline="What I Build"
-            theme="dark"
-          />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {capabilities.map((cap, i) => (
-              <ServiceCard
-                key={cap.title}
-                title={cap.title}
-                description={cap.description}
-                items={cap.items}
-                icon={cap.icon}
-                index={i}
-                accent={cap.accent}
-              />
+        <section className={`${styles.manifesto} ${styles.reveal}`} aria-labelledby="principles-title">
+          <div className={styles.manifestoIntro}>
+            <p>What the work has to prove</p>
+            <h2 id="principles-title">A portfolio should explain the business, not decorate the tools.</h2>
+          </div>
+          <div className={styles.principleCloud}>
+            {principles.map((principle) => (
+              <article key={principle.number} className={styles.principle}>
+                <span>{principle.number}</span>
+                <h3>{principle.title}</h3>
+                <p>{principle.body}</p>
+              </article>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ===== CONTACT (LIGHT) ===== */}
-      <section
-        id="contact"
-        className="section-light py-20 sm:py-28 px-6 md:px-[71px]"
-      >
-        <div className="max-w-[900px] mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.h2
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-light-text mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              YOUR NEXT GTM
-              <br />
-              HIRE SHOULD
-              <br />
-              SHIP CODE.
-            </motion.h2>
-            <motion.p
-              className="text-lg sm:text-xl text-light-muted mb-12 max-w-2xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              You get a GTM engineer who architects the CRM, builds the
-              automation pipelines, wires up the APIs, and ships the data
-              infrastructure. One hire. Full stack. No translators needed.
-            </motion.p>
+        <section id="systems" className={styles.chapter} aria-labelledby="systems-title">
+          <div className={styles.chapterHeading}>
+            <h2 id="systems-title">SYSTEMS</h2>
+          </div>
+          <div className={`${styles.chapterIntro} ${styles.reveal}`}>
+            <p>5 builds worth keeping</p>
+            <h3>Revenue infrastructure that survives real inputs, real handoffs, and a bad Tuesday.</h3>
+          </div>
+          <div className={styles.projectRail} tabIndex={0} aria-label="Portfolio systems, scroll horizontally for more">
+            {portfolioProjects.map((project) => (
+              <article key={project.number} className={styles.projectCard}>
+                <div className={styles.projectMeta}>
+                  <span>{project.number}</span>
+                  <span>GTM system</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.system}</p>
+                <p className={styles.projectOutcome}>{project.outcome}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-            {/* Contact Cards */}
-            <motion.div
-              className="grid sm:grid-cols-2 gap-6 max-w-lg mx-auto mb-10"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <a
-                href="mailto:cameron@cameronwolf.info"
-                className="card-rounded card-light p-6 group text-center hover:border-maroon/30"
-              >
-                <Mail
-                  size={28}
-                  className="mx-auto mb-3 text-maroon group-hover:scale-110 transition-transform"
-                />
-                <p className="text-sm font-bold text-light-text">Email</p>
-                <p className="text-xs text-light-muted mt-1">
-                  cameron@cameronwolf.info
-                </p>
+        <section id="proof" className={styles.chapter} aria-labelledby="proof-title">
+          <div className={styles.chapterHeading}>
+            <h2 id="proof-title">PROOF</h2>
+          </div>
+          <div className={`${styles.chapterIntro} ${styles.reveal}`}>
+            <p>Selected work</p>
+            <h3>Built under pressure. Measured in customers, pipeline, and an acquisition.</h3>
+          </div>
+          <div className={styles.proofGrid}>
+            {proof.map((item) => (
+              <Link key={item.href} href={item.href} className={`${styles.proofCard} ${styles.reveal}`}>
+                <span className={styles.proofLogo}>
+                  <Image src={item.logo} alt={`${item.company} logo`} width={160} height={64} />
+                </span>
+                <span className={styles.proofCompany}>{item.company}</span>
+                <h3>{item.result}</h3>
+                <p>{item.detail}</p>
+                <span className={styles.readLink}>Read the case study <span aria-hidden="true">↗</span></span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section id="method" className={styles.chapter} aria-labelledby="method-title">
+          <div className={styles.chapterHeading}>
+            <h2 id="method-title">METHOD</h2>
+          </div>
+          <div className={`${styles.chapterIntro} ${styles.reveal}`}>
+            <p>How I document a build</p>
+            <h3>Start with the bottleneck. Show the decisions. End with what changed.</h3>
+          </div>
+          <div className={styles.methodGrid}>
+            <ol className={styles.documentationList}>
+              {documentationSteps.map(([title, detail], index) => (
+                <li key={title} className={styles.reveal}>
+                  <span>0{index + 1}</span>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <aside className={`${styles.technicalRoom} ${styles.reveal}`} aria-labelledby="technical-title">
+              <p>Technical proof, kept in proportion</p>
+              <h3 id="technical-title">Enough depth to ship. Enough judgment to keep it simple.</h3>
+              <dl className={styles.technicalList}>
+                {technicalProof.map(([title, tools]) => (
+                  <div key={title}>
+                    <dt>{title}</dt>
+                    <dd>{tools}</dd>
+                  </div>
+                ))}
+              </dl>
+            </aside>
+          </div>
+        </section>
+
+        <section id="contact" className={styles.contact}>
+          <div className={styles.contactCopy}>
+            <p>Available for the right build</p>
+            <h2>Your next GTM hire should leave working systems behind.</h2>
+          </div>
+          <div className={styles.contactDetails}>
+            <p>I architect the CRM, wire the APIs, build the automation, and connect the work to revenue.</p>
+            <div className={styles.contactLinks}>
+              <a href="mailto:cameron@cameronwolf.info">Email Cameron</a>
+              <a href="https://www.linkedin.com/in/camwolf/" target="_blank" rel="noopener noreferrer">
+                LinkedIn <span aria-hidden="true">↗</span>
               </a>
-              <a
-                href="https://www.linkedin.com/in/camwolf/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="card-rounded card-light p-6 group text-center hover:border-teal/30"
-              >
-                <Linkedin
-                  size={28}
-                  className="mx-auto mb-3 text-teal group-hover:scale-110 transition-transform"
-                />
-                <p className="text-sm font-bold text-light-text">LinkedIn</p>
-                <p className="text-xs text-light-muted mt-1">
-                  linkedin.com/in/camwolf
-                </p>
-              </a>
-            </motion.div>
+            </div>
+          </div>
+        </section>
+      </main>
 
-            <PillButton
-              href="mailto:cameron@cameronwolf.info?subject=Let's%20Build%20Together"
-              variant="outline"
-              showArrow
-            >
-              START THE CONVERSATION
-            </PillButton>
-
-            <motion.p
-              className="text-xs text-light-muted mt-8 font-mono tracking-wider"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              STRATEGY + INFRASTRUCTURE UNDER ONE ROOF
-            </motion.p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== FOOTER ===== */}
-      <Footer />
+      <footer className={styles.footer}>
+        <span>© {new Date().getFullYear()} Cameron Wolf</span>
+        <span>GTM engineering · systems · proof</span>
+      </footer>
     </div>
   );
 }

@@ -190,7 +190,7 @@ export default function PearlstonePage() {
       <nav className={`${SECTION_PAD} pt-24 pb-0`} aria-label="Back navigation">
         <div className={`${CONTAINER_MAX} mx-auto`}>
           <Link
-            href="/#portfolio"
+            href="/#proof"
             className="focus-glow inline-flex items-center gap-2 text-sm text-dark-muted hover:text-dark-text transition-colors"
           >
             <ArrowLeft size={16} aria-hidden />
