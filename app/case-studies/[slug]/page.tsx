@@ -1,8 +1,14 @@
-import { Metadata } from "next";
-import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { caseStudies, getCaseStudy, getAllSlugs } from "../data";
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { caseStudies, getAllSlugs, getCaseStudy } from "../data";
+import {
+  CASE_STUDY_ACCESS_COOKIE,
+  hasCaseStudyAccess,
+} from "../gate";
+import { CaseStudyGateForm } from "./CaseStudyGateForm";
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -35,6 +41,11 @@ export default async function CaseStudyPage({
   const { slug } = await params;
   const cs = getCaseStudy(slug);
   if (!cs) notFound();
+
+  const cookieStore = await cookies();
+  const accessGranted = hasCaseStudyAccess(
+    cookieStore.get(CASE_STUDY_ACCESS_COOKIE)?.value,
+  );
 
   const currentIndex = caseStudies.findIndex((c) => c.slug === slug);
   const nextStudy = caseStudies[(currentIndex + 1) % caseStudies.length];
@@ -91,9 +102,7 @@ export default async function CaseStudyPage({
       {/* Metrics bar */}
       <section className="section-dark px-6 md:px-[71px] pb-16">
         <div className="max-w-[900px] mx-auto">
-          <div
-            className={`card-rounded card-dark p-6 sm:p-8 grid grid-cols-${cs.metrics.length} gap-6 text-center`}
-          >
+          <div className="card-rounded card-dark grid grid-cols-3 gap-6 p-6 text-center sm:p-8">
             {cs.metrics.map((m) => (
               <div key={m.label}>
                 <div
@@ -108,31 +117,36 @@ export default async function CaseStudyPage({
         </div>
       </section>
 
-      {/* SIAR sections */}
-      <section className="section-dark px-6 md:px-[71px] pb-20">
-        <div className="max-w-[900px] mx-auto space-y-16">
-          {sections.map((s, i) => (
-            <div key={s.label}>
-              <div className="flex items-center gap-4 mb-6">
-                <span
-                  className={`text-xs font-mono ${accentText} tracking-widest`}
-                >
-                  0{i + 1}
-                </span>
-                <div className={`h-px flex-1 ${accentBorder} border-t`} />
+      {accessGranted ? (
+        <section className="section-dark px-6 pb-20 md:px-[71px]">
+          <div className="mx-auto max-w-[900px] space-y-16">
+            {sections.map((section, index) => (
+              <div key={section.label}>
+                <div className="mb-6 flex items-center gap-4">
+                  <span
+                    className={`text-xs font-mono ${accentText} tracking-widest`}
+                  >
+                    0{index + 1}
+                  </span>
+                  <div className={`h-px flex-1 ${accentBorder} border-t`} />
+                </div>
+                <h2 className="mb-4 text-2xl font-black tracking-tight text-dark-text sm:text-3xl">
+                  {section.label}
+                </h2>
+                <p className="text-base leading-relaxed text-dark-muted sm:text-lg">
+                  {section.body}
+                </p>
               </div>
-              <h2
-                className={`text-2xl sm:text-3xl font-black tracking-tight text-dark-text mb-4`}
-              >
-                {s.label}
-              </h2>
-              <p className="text-dark-muted leading-relaxed text-base sm:text-lg">
-                {s.body}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      ) : (
+        <section className="section-dark px-6 pb-20 md:px-[71px]">
+          <div className="mx-auto max-w-[900px]">
+            <CaseStudyGateForm slug={slug} accent={cs.accent} />
+          </div>
+        </section>
+      )}
 
       {/* Footer CTAs */}
       <section className="section-dark px-6 md:px-[71px] pb-20">
@@ -140,7 +154,7 @@ export default async function CaseStudyPage({
           <div className="border-t border-dark-border pt-12 flex flex-col sm:flex-row items-center justify-between gap-6">
             <Link
               href={`/case-studies/${nextStudy.slug}`}
-              className="group inline-flex items-center gap-3 text-dark-muted hover:text-dark-text transition-colors"
+              className="group inline-flex flex-wrap items-center justify-center gap-3 text-center text-dark-muted transition-colors hover:text-dark-text sm:justify-start sm:text-left"
             >
               <span className="text-sm font-mono">Next Case Study</span>
               <span className={`font-bold ${accentText}`}>
