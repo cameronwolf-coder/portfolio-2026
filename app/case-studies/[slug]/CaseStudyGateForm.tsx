@@ -3,6 +3,10 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { grantCaseStudyAccess } from "../actions";
+import {
+  submitCaseStudyNotification,
+  WEB3FORMS_ACCESS_KEY,
+} from "../notification";
 
 type CaseStudyGateFormProps = {
   readonly slug: string;
@@ -50,6 +54,19 @@ export function CaseStudyGateForm({
     const email = emailInput.value.trim().toLowerCase();
     const formData = new FormData(form);
     formData.set("email", email);
+
+    const notified = await submitCaseStudyNotification(
+      { email, slug },
+      WEB3FORMS_ACCESS_KEY,
+    );
+    if (!notified) {
+      setState({
+        status: "error",
+        message: "The notification did not send. Try again in a moment.",
+      });
+      setPending(false);
+      return;
+    }
 
     const result = await grantCaseStudyAccess(formData);
     setState(result);

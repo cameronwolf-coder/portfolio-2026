@@ -7,7 +7,6 @@ import {
   CASE_STUDY_ACCESS_VALUE,
   parseGateSubmission,
 } from "./gate";
-import { submitCaseStudyNotification } from "./notification";
 
 export type GateActionResult = {
   readonly status: "error";
@@ -20,21 +19,6 @@ export async function grantCaseStudyAccess(
   const submissionResult = parseGateSubmission(formData);
   if (!submissionResult.ok) {
     return { status: "error", message: submissionResult.message };
-  }
-
-  const accessKey =
-    process.env.WEB3FORMS_ACCESS_KEY ??
-    "39f0cbc5-d930-406e-b056-8f127918c336";
-
-  const notified = await submitCaseStudyNotification(
-    submissionResult.submission,
-    accessKey,
-  );
-  if (!notified) {
-    return {
-      status: "error",
-      message: "The notification did not send. Try again in a moment.",
-    };
   }
 
   const { slug } = submissionResult.submission;
